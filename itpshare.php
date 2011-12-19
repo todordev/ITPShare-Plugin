@@ -170,8 +170,10 @@ class plgContentITPShare extends JPlugin {
         
         $doc   = JFactory::getDocument();
         /* @var $doc JDocumentHtml */
-        
-        $doc->addStyleSheet(JURI::root() . "plugins/content/itpshare/style.css");
+
+        if($this->params->get("loadCss")) {
+            $doc->addStyleSheet(JURI::root() . "plugins/content/itpshare/style.css");
+        }
         
         $url = JURI::getInstance();
         $domain= $url->getScheme() ."://" . $url->getHost();
@@ -278,30 +280,109 @@ class plgContentITPShare extends JPlugin {
     }
     
     private function getGooglePlusOne($params, $url, $title){
-        $type = "";
         $language = "";
-        if($params->get("plusType")) {
-            $type = 'size="' . $params->get("plusType") . '"';
-        }
         
         if($params->get("plusLocale")) {
-            $language = " {lang: '" . $params->get("plusLocale") . "'}";
+            $language = " {lang: '" . $params->get("plusLocale") . "'};";
         }
-            
+        
         $html = "";
         if($params->get("plusButton")) {
-            $html = '
-            <div class="itp-share-gone">
-            <!-- Place this tag in your head or just before your close body tag -->
-            <script type="text/javascript" src="http://apis.google.com/js/plusone.js">' . $language . '</script>
-            <!-- Place this tag where you want the +1 button to render -->
-            <g:plusone ' . $type . ' href="' . $url . '"></g:plusone>
-            </div>
-            ';
+            $html .= '<div class="itp-share-gone">';
+            
+            switch($params->get("plusRenderer")) {
+                
+                case 1:
+                    $html .= $this->genGooglePlus($params, $url, $language);
+                    break;
+                    
+                default:
+                    $html .= $this->genGooglePlusHTML5($params, $url, $language);
+                    break;
+            }
+            
+          
+            $html .= '</div>';
         }
         
         return $html;
     }
+    
+    /**
+     * 
+     * Render the Google plus one in standart syntax
+     * 
+     * @param array $params
+     * @param string $url
+     * @param string $language
+     */
+    private function genGooglePlus($params, $url, $language) {
+        
+        $annotation = "";
+        if($params->get("plusAnnotation")) {
+            $annotation = ' annotation="' . $params->get("plusAnnotation") . '"';
+        }
+        
+        $html = '<g:plusone size="' . $params->get("plusType") . '" ' . $annotation . ' href="' . $url . '"></g:plusone>';
+
+        
+        // Load the JavaScript asynchroning
+		if($params->get("loadGooglePlusJsLib")) {
+  
+$html .= '<script type="text/javascript">';
+if($language) {
+   $html .= ' window.___gcfg = '.$language;
+}
+
+$html .= '
+  (function() {
+    var po = document.createElement("script"); po.type = "text/javascript"; po.async = true;
+    po.src = "https://apis.google.com/js/plusone.js";
+    var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>';
+				}
+				
+        return $html;
+    }
+    
+    /**
+     * 
+     * Render the Google plus one in HTML5 syntax
+     * 
+     * @param array $params
+     * @param string $url
+     * @param string $language
+     */
+    private function genGooglePlusHTML5($params, $url, $language) {
+        
+        $annotation = "";
+        if($params->get("plusAnnotation")) {
+            $annotation = ' data-annotation="' . $params->get("plusAnnotation") . '"';
+        }
+        
+        $html = '<div class="g-plusone" data-size="' . $params->get("plusType") . '" ' . $annotation . ' data-href="' . $url . '"></div>';
+
+        // Load the JavaScript asynchroning
+		if($params->get("loadGooglePlusJsLib")) {
+      
+            $html .= '<script type="text/javascript">';
+            if($language) {
+               $html .= ' window.___gcfg = '.$language;
+            }
+            
+            $html .= '
+              (function() {
+                var po = document.createElement("script"); po.type = "text/javascript"; po.async = true;
+                po.src = "https://apis.google.com/js/plusone.js";
+                var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s);
+              })();
+            </script>';
+		}
+    				
+        return $html;
+    }
+    
     
     private function getFacebookLike($params, $url, $title){
         

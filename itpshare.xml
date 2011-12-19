@@ -311,12 +311,23 @@
 		           <option value="0">Hide</option>
 		           <option value="1">Show</option>
 		        </field>
-		        <field name="plusType" type="list" default="medium" label="Plus One Button Style" description="Choose a Plus One button style." >
+		        <field name="plusRenderer" type="list" default="0" label="Google Plus Renderer" description="Select the way of rendering." >
+                   <option value="0">HTML5</option>
+                   <option value="1">Standart</option>
+                </field>
+		        <field name="plusType" type="list" default="medium" label="Plus One Button Style" description="Select a Plus One button style." >
 		           <option value="small">Small (15px)</option>
 		           <option value="">Standard (24px)</option>
 		           <option value="medium">Medium (20px)</option>
 		           <option value="tall">Tall (60px)</option>
 		        </field>
+		        
+		        <field name="plusAnnotation" type="list" default="" label="Plus One Annotation" description="Select a Plus One button annotation." >
+                   <option value="">Bubble</option>
+                   <option value="inline">Inline</option>
+                   <option value="none">None</option>
+                </field>
+                
 		        <field name="plusLocale" type="list" default="en" label="Plus One Language" description="Choose a Plus One language." >
 		            <option value="ar">Arabic</option>
 		            <option value="bn">Bengali</option>
@@ -396,18 +407,30 @@
 	                    <option value="1">JYES</option>
 	                </field>
 	                <field name="spacer13" type="spacer" class="text" label="############# TUMBLR ADVANCED SETTINGS #############" />
-	                <field name="loadTumblrJsLib" type="radio" default="1" label="Load JS library" description="Pass loading the Tumblr JavaScript library 'share.js'. Thus avoiding repeated loading library, if you are using other Tumblr widgets. Accelerating the speed of the site and avoid conflicts between the Tumblr widgets.">
+	                <field name="loadTumblrJsLib" type="radio" default="1" label="Load Tumblr JS library" description="Pass loading the Tumblr JavaScript library 'share.js'. Thus avoiding repeated loading library, if you are using other Tumblr widgets. Accelerating the speed of the site and avoid conflicts between the Tumblr widgets.">
                         <option value="0">JNO</option>
                         <option value="1">JYES</option>
                     </field>
                     
                     <field name="spacer14" type="spacer" class="text" label="############# DIGG ADVANCED SETTINGS #############" />
-                    <field name="loadDiggJsLib" type="radio" default="1" label="Load JS library" description="Pass loading the Digg JavaScript library 'buttons.js'. Thus avoiding repeated loading library, if you are using other Digg widgets. Accelerating the speed of the site and avoid conflicts between the Digg widgets.">
+                    <field name="loadDiggJsLib" type="radio" default="1" label="Load Digg JS library" description="Pass loading the Digg JavaScript library 'buttons.js'. Thus avoiding repeated loading library, if you are using other Digg widgets. Accelerating the speed of the site and avoid conflicts between the Digg widgets.">
                         <option value="0">JNO</option>
                         <option value="1">JYES</option>
                     </field>
                     
-	                <field name="spacer14" type="spacer" class="text" label="############# EXTRA BUTTONS #############" />
+                    <field name="spacer15" type="spacer" class="text" label="############# GOOGLE PLUS ADVANCED SETTINGS #############" />
+                    <field name="loadGooglePlusJsLib" type="radio" default="1" label="Load Google JS library" description="Pass loading the Google Plus JavaScript library 'buttons.js'. Thus avoiding repeated loading library, if you are using other Google Plus widgets. Accelerating the speed of the site and avoid conflicts between the Google Plus widgets.">
+                        <option value="0">JNO</option>
+                        <option value="1">JYES</option>
+                    </field>
+                    
+                    <field name="spacer16" type="spacer" class="text" label="############# ITPShare SETTINGS #############" />
+                    <field name="loadCss" type="radio" default="1" label="Load style.css" description="The style.css is a file that conations button position and some styles of the ReTweetMe button. You can disable the file loading if you have your own styles.">
+                        <option value="0">JNO</option>
+                        <option value="1">JYES</option>
+                    </field>
+                    
+	                <field name="spacer17" type="spacer" class="text" label="############# EXTRA BUTTONS #############" />
 	                <field name="ebuttons1" type="textarea" default="" label="A Button code 1" description="Insert an extra button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
 			        <field name="ebuttons2" type="textarea" default="" label="A Button code 2" description="Insert an extra button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
 			        <field name="ebuttons3" type="textarea" default="" label="A Button code 3" description="Insert an extra button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />

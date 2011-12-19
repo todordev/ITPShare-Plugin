@@ -24,10 +24,17 @@ v1.8
  * Added advance option for JS loading
  * Added "Media and Topic" option
  
+* Improved Google Plus One button
+ * Added HTML5 syntax 
+ * Added annotation
+ * Added asynchronized loading scripts
+  
 * Added Tumblr button
+* Added Reddit button
 
 * Removed ShareMe Button. It doesn't work anymore.
-* Removed Google Buzz. The service is depricated by Google.
+* Removed Google Buzz. The service is being discontinued by Google.
+* Removed Yahoo Buzz. The service has been discontinued by Yahoo.
 
 v1.7
 -----
