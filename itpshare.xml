@@ -289,22 +289,41 @@
                    <option value="compact">Compact</option>
                    <option value="normal">Normal</option>
                 </field>
-                <field name="spacer10" type="spacer" class="text" label="############# YAHOO BUZZ SETTINGS #############" />
-                <field name="yahooBuzzButton" type="radio" default="0" label="YahooBuzz Button" description="Show or hide YahooBuzz button." >
+                <field name="spacer10" type="spacer" class="text" label="############# REDDIT BUZZ SETTINGS #############" />
+                <field name="redditButton" type="radio" default="0" label="Reddit Button" description="Show or hide Reddit button." >
                    <option value="0">Hide</option>
                    <option value="1">Show</option>
                 </field>
-                <field name="yahooBuzzType" type="list" default="small-votes" label="YahooBuzz Button Style" description="Choose a YahooBuzz button style." >
-                   <option value="square">Square</option>
-                   <option value="text-votes">Icon with text + Votes</option>
-                   <option value="small-votes">Small + Votes</option>
-                   <option value="medium-votes">Medium + Votes</option>
-                   <option value="large-votes">Large + Votes</option>
-                   <option value="logo">Icon with No Text</option>
-                   <option value="text">Icon with text</option>
-                   <option value="small">Small</option>
-                   <option value="medium">Medium</option>
-                   <option value="large">Large</option>
+                <field name="redditType" type="list" default="0" label="Reddit Button Style" description="Choose a Reddit button style." >
+                   <option value="0">Button 1</option>
+                   <option value="1">Button 2</option>
+                   <option value="2">Button 3</option>
+                   <option value="3">Button 4</option>
+                   <option value="4">Button 5</option>
+                   <option value="5">Button 6</option>
+                   <option value="6">Button 7</option>
+                   <option value="7">Button 8</option>
+                   <option value="8">Button 9</option>
+                   <option value="9">Button 10</option>
+                   <option value="10">Button 11</option>
+                   <option value="11">Button 12</option>
+                   <option value="12">Button 13</option>
+                   <option value="13">Button 14</option>
+                   <option value="14">Button 15</option>
+                   <option value="15">Button 16</option>
+                   <option value="16">Button 17</option>
+                   <option value="17">Button 18</option>
+                   <option value="18">Button 19</option>
+                   <option value="19">Button 20</option>
+                   <option value="20">Button 21</option>
+                   <option value="21">Button 22</option>
+                   <option value="22">Button 23</option>
+                </field>
+                <field name="redditBgColor" type="text" default="" label="Reddit Background Colour" description="The color definition of the button background. Example: FFFFFF " />
+                <field name="redditBorderColor" type="text" default="" label="Reddit Border Colour" description="It is the color definition of the button border. Example: FFFFFF " />
+                <field name="redditNewTab" type="radio" default="1" label="Open in new tab" description="Continue to the sharing in a new tab." >
+                   <option value="0">No</option>
+                   <option value="1">Yes</option>
                 </field>
                 <field name="spacer11" type="spacer" class="text" label="############# GOOGLE PLUS ONE SETTINGS #############" />
 		        <field name="plusButton" type="radio" default="0" label="Google Plus One" description="Show or hide Plus One button." >

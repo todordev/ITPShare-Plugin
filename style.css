@@ -44,3 +44,12 @@
     float:left;
     margin-top:10px;
 }
+
+.itp-share-reddit{
+    float:left;
+    margin-top:10px;
+}
+.itp-share-reddit a:hover{
+    text-decoration: none !important;
+    background: none !important;
+}

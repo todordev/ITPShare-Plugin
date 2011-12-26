@@ -192,7 +192,7 @@ class plgContentITPShare extends JPlugin {
         $html .= $this->getLinkedIn($this->params, $url, $title);
         $html .= $this->getGooglePlusOne($this->params, $url, $title);
         $html .= $this->getReTweetMeMe($this->params, $url, $title);
-        $html .= $this->getYahooBuzz($this->params, $url, $title);
+        $html .= $this->getReddit($this->params, $url, $title);
         $html .= $this->getTumblr($this->params, $url, $title);
 
         $html .= $this->getFacebookLike($this->params, $url, $title);
@@ -608,15 +608,102 @@ tweetmeme_source = "' . $params->get("twitterName") . '";
     }
     
     
-    private function getYahooBuzz($params, $url, $title){
+    private function getReddit($params, $url, $title){
         
         $html = "";
-        if($params->get("yahooBuzzButton")) {
+        if($params->get("redditButton")) {
             
-            $html = '
-            <div class="itp-share-yahoobuzz">
-            <script type="text/javascript" src="http://d.yimg.com/ds/badge2.js" badgetype="'.$params->get("yahooBuzzType").'">' . $url . '</script>
-            </div>';
+            $html .= '<div class="itp-share-reddit">';
+            $redditType = $params->get("redditType");
+            
+            $jsButtons = array(1,2,3);
+            
+            if(in_array($redditType,$jsButtons) ) {
+                $html .='<script type="text/javascript">
+  reddit_url = "'. $url . '";
+  reddit_title = "'.$title.'";
+  reddit_bgcolor = "'.$params->get("redditBgColor").'";
+  reddit_bordercolor = "'.$params->get("redditBorderColor").'";
+  reddit_newwindow = "'.$params->get("redditNewTab").'";
+</script>';
+            }
+                switch($redditType) {
+                    
+                    case 1:
+                        $html .='<script type="text/javascript" src="http://www.reddit.com/static/button/button1.js"></script>';
+                        break;
+
+                    case 2:
+                        $html .='<script type="text/javascript" src="http://www.reddit.com/static/button/button2.js"></script>';
+                        break;
+                    case 3:
+                        $html .='<script type="text/javascript" src="http://www.reddit.com/static/button/button3.js"></script>';
+                        break;
+                    case 4:
+                        $html .='<script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=0"></script>';
+                        break;
+                    case 5:
+                        $html .='<script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=1"></script>';
+                        break;
+                    case 6:
+                        $html .='<script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=2"></script>';
+                        break;
+                    case 7:
+                        $html .='<script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=3"></script>';
+                        break;
+                    case 8:
+                        $html .='<script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=4"></script>';
+                        break;
+                    case 9:
+                        $html .='<script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=5"></script>';
+                        break;
+                    case 10:
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit6.gif" alt="Submit to reddit" border="0" /> </a>';
+                        break;
+                    case 11:
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit1.gif" alt="Submit to reddit" border="0" /> </a>';
+                        break;   
+                    case 12:
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit2.gif" alt="Submit to reddit" border="0" /> </a>';
+                        break;   
+                    case 13:
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit3.gif" alt="Submit to reddit" border="0" /> </a>';
+                        break;   
+                    case 14:
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit4.gif" alt="Submit to reddit" border="0" /> </a>';
+                        break;   
+                    case 15:
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit5.gif" alt="Submit to reddit" border="0" /> </a>';
+                        break;   
+                    case 16:
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit8.gif" alt="Submit to reddit" border="0" /> </a>';
+                        break;   
+                    case 17:
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit9.gif" alt="Submit to reddit" border="0" /> </a>';
+                        break;   
+                    case 18:
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit10.gif" alt="Submit to reddit" border="0" /> </a>';
+                        break;   
+                    case 19:
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit11.gif" alt="Submit to reddit" border="0" /> </a>';
+                        break;   
+                    case 20:
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit12.gif" alt="Submit to reddit" border="0" /> </a>';
+                        break;   
+                    case 21:
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit13.gif" alt="Submit to reddit" border="0" /> </a>';
+                        break;   
+                    case 22:
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit14.gif" alt="Submit to reddit" border="0" /> </a>';
+                        break;   
+                                        
+                    default:
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url=' . $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit7.gif" alt="Submit to reddit" border="0" /> </a>';
+                        break;
+                }
+                
+                $html .='</div>';
+                
         }
         
         return $html;
