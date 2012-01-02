@@ -289,7 +289,7 @@
                    <option value="compact">Compact</option>
                    <option value="normal">Normal</option>
                 </field>
-                <field name="spacer10" type="spacer" class="text" label="############# REDDIT BUZZ SETTINGS #############" />
+                <field name="spacer10" type="spacer" class="text" label="############# REDDIT SETTINGS #############" />
                 <field name="redditButton" type="radio" default="0" label="Reddit Button" description="Show or hide Reddit button." >
                    <option value="0">Hide</option>
                    <option value="1">Show</option>
