@@ -190,12 +190,12 @@ class plgContentITPShare extends JPlugin {
         $html .= $this->getDigg($this->params, $url, $title);
         $html .= $this->getStumbpleUpon($this->params, $url, $title);
         $html .= $this->getLinkedIn($this->params, $url, $title);
-        $html .= $this->getGooglePlusOne($this->params, $url, $title);
         $html .= $this->getReTweetMeMe($this->params, $url, $title);
         $html .= $this->getReddit($this->params, $url, $title);
         $html .= $this->getTumblr($this->params, $url, $title);
 
         $html .= $this->getFacebookLike($this->params, $url, $title);
+        $html .= $this->getGooglePlusOne($this->params, $url, $title);
         
         // Gets extra buttons
         $html   .= $this->getExtraButtons($this->params, $url, $title);
