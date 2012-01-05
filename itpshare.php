@@ -190,12 +190,12 @@ class plgContentITPShare extends JPlugin {
         $html .= $this->getDigg($this->params, $url, $title);
         $html .= $this->getStumbpleUpon($this->params, $url, $title);
         $html .= $this->getLinkedIn($this->params, $url, $title);
-        $html .= $this->getGooglePlusOne($this->params, $url, $title);
         $html .= $this->getReTweetMeMe($this->params, $url, $title);
         $html .= $this->getReddit($this->params, $url, $title);
         $html .= $this->getTumblr($this->params, $url, $title);
 
         $html .= $this->getFacebookLike($this->params, $url, $title);
+        $html .= $this->getGooglePlusOne($this->params, $url, $title);
         
         // Gets extra buttons
         $html   .= $this->getExtraButtons($this->params, $url, $title);
@@ -711,49 +711,49 @@ tweetmeme_source = "' . $params->get("twitterName") . '";
     
     private function getTumblr($params, $url, $title){
             
-            $html = "";
-            if($params->get("tumblrButton")) {
-                
-                $html .= '<div class="itp-share-tbr">';
-                
-                if($params->get("loadTumblrJsLib")) {
-                    $html .= '<script type="text/javascript" src="http://platform.tumblr.com/v1/share.js"></script>';
-                }
-                
-                switch($params->get("tumblrType")) {
-                    
-                    case 1:
-                        $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:61px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_2.png\') top left no-repeat transparent;">Share on Tumblr</a>';
-                        break;
-
-                    case 2:
-                        $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:129px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_3.png\') top left no-repeat transparent;">Share on Tumblr</a>';
-                        break;
-                    case 3:
-                        $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:20px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_4.png\') top left no-repeat transparent;">Share on Tumblr</a>';
-                        break;
-                    case 4:
-                        $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:81px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_1T.png\') top left no-repeat transparent;">Share on Tumblr</a>';
-                        break;
-                    case 5:
-                        $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:61px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_2T.png\') top left no-repeat transparent;">Share on Tumblr</a>';
-                        break;
-                    case 6:
-                        $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:129px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_3T.png\') top left no-repeat transparent;">Share on Tumblr</a>';
-                        break;
-                    case 7:
-                        $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:20px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_4T.png\') top left no-repeat transparent;">Share on Tumblr</a>';
-                        break;   
-                                        
-                    default:
-                        $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:81px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_1.png\') top left no-repeat transparent;">Share on Tumblr</a>';
-                        break;
-                }
-                
-                $html .='</div>';
+        $html = "";
+        if($params->get("tumblrButton")) {
+            
+            $html .= '<div class="itp-share-tbr">';
+            
+            if($params->get("loadTumblrJsLib")) {
+                $html .= '<script type="text/javascript" src="http://platform.tumblr.com/v1/share.js"></script>';
             }
             
-            return $html;
+            switch($params->get("tumblrType")) {
+                
+                case 1:
+                    $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:61px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_2.png\') top left no-repeat transparent;">Share on Tumblr</a>';
+                    break;
+
+                case 2:
+                    $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:129px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_3.png\') top left no-repeat transparent;">Share on Tumblr</a>';
+                    break;
+                case 3:
+                    $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:20px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_4.png\') top left no-repeat transparent;">Share on Tumblr</a>';
+                    break;
+                case 4:
+                    $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:81px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_1T.png\') top left no-repeat transparent;">Share on Tumblr</a>';
+                    break;
+                case 5:
+                    $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:61px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_2T.png\') top left no-repeat transparent;">Share on Tumblr</a>';
+                    break;
+                case 6:
+                    $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:129px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_3T.png\') top left no-repeat transparent;">Share on Tumblr</a>';
+                    break;
+                case 7:
+                    $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:20px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_4T.png\') top left no-repeat transparent;">Share on Tumblr</a>';
+                    break;   
+                                    
+                default:
+                    $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:81px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_1.png\') top left no-repeat transparent;">Share on Tumblr</a>';
+                    break;
+            }
+            
+            $html .='</div>';
         }
+        
+        return $html;
+    }
         
 }
