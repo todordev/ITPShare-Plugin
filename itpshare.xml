@@ -99,7 +99,7 @@
            <option value="7">Button 8</option>
         </param>
         
-        <param name="@spacer4" type="spacer" default="############# FACEBOOK LIKE SETTINGS #############" label="" description="" />
+        <param name="@spacer3" type="spacer" default="############# FACEBOOK LIKE SETTINGS #############" label="" description="" />
         <param name="facebookLikeButton" type="radio" default="0" label="Facebook Like Button" description="Show or hide Facebook Like button." >
            <option value="0">Hide</option>
            <option value="1">Show</option>
@@ -251,7 +251,7 @@
 			<option value="zu_ZA">Zulu</option>
         </param>
         
-        <param name="@spacer5" type="spacer" default="############# DIGG SETTINGS #############" label="" description="" />
+        <param name="@spacer4" type="spacer" default="############# DIGG SETTINGS #############" label="" description="" />
         <param name="diggButton" type="radio" default="0" label="Digg Button" description="Show or hide Digg buttons." >
            <option value="0">Hide</option>
            <option value="1">Show</option>
@@ -262,7 +262,8 @@
            <option value="DiggCompact">Compact</option>
            <option value="DiggIcon">Icon</option>
         </param>
-        <param name="@spacer6" type="spacer" default="############# STUMBLEUPON SETTINGS #############" label="" description="" />
+        <field name="diggTopic" type="text" default="90" label="Digg Media and Topic" description="Use this option to set the media type and topic for unsubmitted stories. Media type and topic are set using the rev attribute of the 'a' tag. You can use the following topics:business, enterntainment, gaming, lifestyle, offbeat, politics, science, technology, world_news." />
+        <param name="@spacer5" type="spacer" default="############# STUMBLEUPON SETTINGS #############" label="" description="" />
         <param name="stumbleButton" type="radio" default="0" label="SumbpleUpon Button" description="Show or hide StubmpleUpon button." >
            <option value="0">Hide</option>
            <option value="1">Show</option>
@@ -276,7 +277,7 @@
            <option value="6">Style 6</option>
         </param>  
         
-        <param name="@spacer7" type="spacer" default="############# LINKEDIN SETTINGS #############" label="" description="" />
+        <param name="@spacer6" type="spacer" default="############# LINKEDIN SETTINGS #############" label="" description="" />
         <param name="linkedInButton" type="radio" default="0" label="LinkedIn Button" description="Show or hide LinkedIn button." >
            <option value="0">Hide</option>
            <option value="1">Show</option>
@@ -287,7 +288,7 @@
            <option value="right">Counter Right</option>
         </param>  
         
-        <param name="@spacer8" type="spacer" default="############# RETWEETME SETTINGS #############" label="" description="" />
+        <param name="@spacer7" type="spacer" default="############# RETWEETME SETTINGS #############" label="" description="" />
         <param name="retweetmeButton" type="radio" default="0" label="ReTweetMe Button" description="Show or hide ReTweetMe button." >
            <option value="0">Hide</option>
            <option value="1">Show</option>
@@ -296,7 +297,7 @@
            <option value="compact">Compact</option>
            <option value="normal">Normal</option>
         </param>
-        <param name="@spacer9" type="spacer" default="############# REDDIT SETTINGS #############" label="" description="" />
+        <param name="@spacer8" type="spacer" default="############# REDDIT SETTINGS #############" label="" description="" />
         <param name="redditButton" type="radio" default="0" label="Reddit Button" description="Show or hide Reddit button." >
            <option value="0">Hide</option>
            <option value="1">Show</option>
@@ -333,7 +334,7 @@
            <option value="1">Yes</option>
         </param>
          
-         <param name="@spacer10" type="spacer" default="############# GOOGLE PLUS ONE SETTINGS #############" label="" description="" />
+         <param name="@spacer9" type="spacer" default="############# GOOGLE PLUS ONE SETTINGS #############" label="" description="" />
         <param name="plusButton" type="radio" default="0" label="Google Plus One" description="Show or hide Plus One button." >
            <option value="0">Hide</option>
            <option value="1">Show</option>
@@ -418,7 +419,7 @@
         </param>
 	</params>
     <params group="advanced">
-        <param name="@spacer11" type="spacer" default="############# FACEBOOK LIKE ADVANCED SETTINGS #############" label="" description="" />
+        <param name="@spacer10" type="spacer" default="############# FACEBOOK LIKE ADVANCED SETTINGS #############" label="" description="" />
         <param name="facebookLikeAppId" type="text" default="" label="Facebook App ID" description="Enter the ID of the your domain name. For more information read the documentation." />
         <param name="facebookLikeSend" type="list" default="0" label="Facebook Send Buttons" description="Specifies whether to include a 'Send button' with the Like button. This only works with the XFBML version." >
            <option value="0">No</option>
@@ -433,31 +434,31 @@
             <option value="1">Yes</option>
         </param>
         
-        <param name="@spacer12" type="spacer" default="############# TUMBLR ADVANCED SETTINGS #############" label="" description=""/>
+        <param name="@spacer11" type="spacer" default="############# TUMBLR ADVANCED SETTINGS #############" label="" description=""/>
         <param name="loadTumblrJsLib" type="radio" default="1" label="Load Tumblr JS library" description="Pass loading the Tumblr JavaScript library 'share.js'. Thus avoiding repeated loading library, if you are using other Tumblr widgets. Accelerating the speed of the site and avoid conflicts between the Tumblr widgets.">
             <option value="0">No</option>
             <option value="1">Yes</option>
         </param>
         
-        <param name="@spacer13" type="spacer"  default="############# DIGG ADVANCED SETTINGS #############" label="" description=""/>
+        <param name="@spacer12" type="spacer"  default="############# DIGG ADVANCED SETTINGS #############" label="" description=""/>
         <param name="loadDiggJsLib" type="radio" default="1" label="Load Digg JS library" description="Pass loading the Digg JavaScript library 'buttons.js'. Thus avoiding repeated loading library, if you are using other Digg widgets. Accelerating the speed of the site and avoid conflicts between the Digg widgets.">
             <option value="0">No</option>
             <option value="1">Yes</option>
         </param>
         
-        <param name="@spacer14" type="spacer" default="############# GOOGLE PLUS ADVANCED SETTINGS #############" label="" description=""/>
+        <param name="@spacer13" type="spacer" default="############# GOOGLE PLUS ADVANCED SETTINGS #############" label="" description=""/>
         <param name="loadGooglePlusJsLib" type="radio" default="1" label="Load Google JS library" description="Pass loading the Google Plus JavaScript library 'buttons.js'. Thus avoiding repeated loading library, if you are using other Google Plus widgets. Accelerating the speed of the site and avoid conflicts between the Google Plus widgets.">
             <option value="0">No</option>
             <option value="1">Yes</option>
         </param>
         
-        <param name="@spacer15" type="spacer"  default="############# ITPShare SETTINGS #############" label="" description=""/>
+        <param name="@spacer14" type="spacer"  default="############# ITPShare SETTINGS #############" label="" description=""/>
         <param name="loadCss" type="radio" default="1" label="Load style.css" description="The style.css is a file that conations button position and some styles of the ReTweetMe button. You can disable the file loading if you have your own styles.">
             <option value="0">No</option>
             <option value="1">Yes</option>
         </param>
         
-        <param name="@spacer16" type="spacer" default="############# EXTRA BUTTONS #############" label="" description="" />
+        <param name="@spacer15" type="spacer" default="############# EXTRA BUTTONS #############" label="" description="" />
         <param name="ebuttons1" type="textarea" default="" label="A Button code 1" description="Insert an extra button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10"/>
         <param name="ebuttons2" type="textarea" default="" label="A Button code 2" description="Insert an extra button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10"/>
         <param name="ebuttons3" type="textarea" default="" label="A Button code 3" description="Insert an extra button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10"/>
