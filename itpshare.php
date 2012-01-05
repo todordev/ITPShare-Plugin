@@ -271,7 +271,7 @@ class plgContentITPShare extends JPlugin {
              $html = '
              	<div class="itp-share-tw">
                 	<a href="https://twitter.com/share" class="twitter-share-button" data-url="' . $url . '" data-text="' . $title . '" data-via="' . $params->get("twitterName") . '" data-lang="' . $params->get("twitterLanguage") . '" data-size="' . $params->get("twitterSize") . '" data-related="' . $params->get("twitterRecommend") . '" data-hashtags="' . $params->get("twitterHashtag") . '" data-count="' . $params->get("twitterCounter") . '">Tweet</a>
-                	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                	<script type="text/javascript">!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
             	</div>
             ';
         }
@@ -454,7 +454,7 @@ $html .= '
         }
         
        if($params->get("facebookLoadJsLib", 1)) {
-            $html .= '<script src="http://connect.facebook.net/' . $this->fbLocale . '/all.js#xfbml=1';
+            $html .= '<script type="text/javascript" src="http://connect.facebook.net/' . $this->fbLocale . '/all.js#xfbml=1';
             if($params->get("facebookLikeAppId")){
                 $html .= '&amp;appId=' . $params->get("facebookLikeAppId"); 
             }
@@ -491,7 +491,7 @@ $html .= '
        if($params->get("facebookLoadJsLib", 1)) {
                    
        $html .='
-<script>(function(d, s, id) {
+<script type="text/javascript">(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
@@ -564,7 +564,7 @@ href="http://digg.com/submit?url=' . rawurlencode($url) . '&amp;title=' . rawurl
             
             $html = '
             <div class="itp-share-su">
-            <script src="http://www.stumbleupon.com/hostedbadge.php?s=' . $params->get("stumbleType",1). '&r=' . rawurlencode($url) . '"></script>
+            <script type="text/javascript" src="http://www.stumbleupon.com/hostedbadge.php?s=' . $params->get("stumbleType",1). '&r=' . rawurlencode($url) . '"></script>
             </div>
             ';
         }
