@@ -345,7 +345,7 @@
         </param>
         <param name="plusType" type="list" default="medium" label="Plus One Button Style" description="Choose a Plus One button style." >
            <option value="small">Small (15px)</option>
-           <option value="">Standard (24px)</option>
+           <option value="standart">Standard (24px)</option>
            <option value="medium">Medium (20px)</option>
            <option value="tall">Tall (60px)</option>
         </param>
