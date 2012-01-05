@@ -62,7 +62,7 @@
 				   <option value="vertical">Vertical</option>
 				   <option value="horizontal">Horizontal</option>
 				</field>
-				<field name="twitterLanguage" type="list" default="0" label="Twitter Language" description="Choose the language of the Twitter button." >
+				<field name="twitterLanguage" type="list" default="en" label="Twitter Language" description="Choose the language of the Twitter button." >
 				   <option value="nl">Dutch</option>
 				   <option value="en">English</option>
 				   <option value="fr">French</option>
