@@ -63,6 +63,10 @@
         <param name="twitterName" type="text" default="" size="80" label="Twitter Name" description="Enter the name of your Twitter account." />
         <param name="twitterRecommend" type="text" default="" size="80" label="Twitter Recommend" description="Enter the username of the related account." />
         <param name="twitterHashtag" type="text" default="" size="80" label="Twitter Hashtags" description="Comma separated hashtags appended to tweet text." />
+        <param name="twitterSize" type="list" default="small" label="Twitter Button Size" description="Select the button size." >
+           <option value="small">Small</option>
+           <option value="large">Large</option>
+        </param>
         <param name="twitterCounter" type="list" default="horizontal" label="Twitter Counter" description="Show or hide Twitter counter." >
            <option value="none">Hide</option>
            <option value="vertical">Vertical</option>
@@ -263,6 +267,7 @@
            <option value="DiggIcon">Icon</option>
         </param>
         <field name="diggTopic" type="text" default="90" label="Digg Media and Topic" description="Use this option to set the media type and topic for unsubmitted stories. Media type and topic are set using the rev attribute of the 'a' tag. You can use the following topics:business, enterntainment, gaming, lifestyle, offbeat, politics, science, technology, world_news." />
+        
         <param name="@spacer5" type="spacer" default="############# STUMBLEUPON SETTINGS #############" label="" description="" />
         <param name="stumbleButton" type="radio" default="0" label="SumbpleUpon Button" description="Show or hide StubmpleUpon button." >
            <option value="0">Hide</option>
@@ -297,6 +302,7 @@
            <option value="compact">Compact</option>
            <option value="normal">Normal</option>
         </param>
+        
         <param name="@spacer8" type="spacer" default="############# REDDIT SETTINGS #############" label="" description="" />
         <param name="redditButton" type="radio" default="0" label="Reddit Button" description="Show or hide Reddit button." >
            <option value="0">Hide</option>
