@@ -42,7 +42,7 @@
 						label="Exclude articles"
 						description="List of excluded articles divided by comma. You must enter the IDs of articles." />
 				<field name="includeArticles" type="text" default="" size="100"
-                label="Display in that articles"
+                label="Display in these articles"
                 description="Displays the buttons in these articles notwithstanding the exclusion settings. You must enter the IDs of articles." />
 
 				<field name="spacer1" type="spacer" class="text" label="############# TWITTER SETTINGS #############" />

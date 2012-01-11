@@ -11,7 +11,7 @@
  */
 
 // Check to ensure this file is included in Joomla!
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 
 jimport('joomla.plugin.plugin');
 
@@ -268,7 +268,7 @@ class plgContentITPShare extends JPlugin {
         $html = "";
         if($params->get("twitterButton")) {
             
-             $html = '
+             $html .= '
              	<div class="itp-share-tw">
                 	<a href="https://twitter.com/share" class="twitter-share-button" data-url="' . $url . '" data-text="' . $title . '" data-via="' . $params->get("twitterName") . '" data-lang="' . $params->get("twitterLanguage") . '" data-size="' . $params->get("twitterSize") . '" data-related="' . $params->get("twitterRecommend") . '" data-hashtags="' . $params->get("twitterHashtag") . '" data-count="' . $params->get("twitterCounter") . '">Tweet</a>
                 	<script type="text/javascript">!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
@@ -424,7 +424,6 @@ $html .= '
     private function genFacebookLikeIframe($params, $url, $layout, $faces, $height) {
         
         $html = '
-            <div class="itp-share-fbl">
             <iframe src="http://www.facebook.com/plugins/like.php?';
             
             if($params->get("facebookLikeAppId")) {
@@ -439,7 +438,6 @@ $html .= '
                 $html .= "&amp;appId=" . $params->get("facebookLikeAppId");
             }
             $html .= '" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:' . $params->get("facebookLikeWidth", "450") . 'px; height:' . $height . 'px;" allowTransparency="true"></iframe>
-            </div>
         ';
             
         return $html;
@@ -482,7 +480,7 @@ $html .= '
     
     private function genFacebookLikeHtml5($params, $url, $layout, $faces, $height) {
         
-         $html = '';
+        $html = '';
                 
         if($params->get("facebookRootDiv",1)) {
             $html .= '<div id="fb-root"></div>';
@@ -564,7 +562,7 @@ href="http://digg.com/submit?url=' . rawurlencode($url) . '&amp;title=' . rawurl
             
             $html = '
             <div class="itp-share-su">
-            <script type="text/javascript" src="http://www.stumbleupon.com/hostedbadge.php?s=' . $params->get("stumbleType",1). '&r=' . rawurlencode($url) . '"></script>
+            <script type="text/javascript" src="http://www.stumbleupon.com/hostedbadge.php?s=' . $params->get("stumbleType",1). '&amp;r=' . rawurlencode($url) . '"></script>
             </div>
             ';
         }
