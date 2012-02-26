@@ -23,8 +23,9 @@ jimport('joomla.plugin.plugin');
  */
 class plgContentITPShare extends JPlugin {
     
-    private $fbLocale = "en_US";
-    private $currentView = "";
+    private $fbLocale        = "en_US";
+    private $currentView     = "";
+    private $currentOption   = "";
     
     /**
      * Constructor

@@ -9,7 +9,7 @@
     <authorUrl>http://itprism.com</authorUrl>
     <version>1.9</version>
     <description><![CDATA[
-    <p><a href="http://itprism.com/free-joomla-extensions/socialmedia-share-plugin" target="_blank">ITPShare</a> is a plugin that adds republish buttons of Twitter, Facebook, Digg, LinkedIn, Stumbleupon, Google Plus, Thumblr, Pinterest, BufferApp,...on your site. It will help you to find more readers for your publications.</p>
+    <p><a href="http://itprism.com/free-joomla-extensions/socialmedia-share-plugin">ITPShare</a> is an extension that adds republish buttons, widgets or goodies on your site. There are social plugins of Twitter, Facebook, Digg, LinkedIn, Stumbleupon, Google Plus, Thumblr, Pinterest, BufferApp,... It will help you to find more readers for your publications.</p>
     <p>Invest in the extension improvement. You can <a href="http://itprism.com/sponsorship" title="Sponsoring" target="_blank">sponsor the extension via SMS or PayPal</a>.</p>
     <p><a href="http://itprism.com/" target="_blank">Subscribe for the newsletter</a> to receive information about updates and new ITPrism extensions.</p>
     <p>Please, <a href="http://extensions.joomla.org/extensions/social-web/republish/15665" target="_blank">vote for the extension</a> on Joomla! Extensions Directory</p>]]></description>
@@ -494,12 +494,12 @@
                         <option value="1">JYES</option>
                     </field>
                     
-	                <field name="spacer19" type="spacer" class="text" label="############# EXTRA BUTTONS #############" />
-	                <field name="ebuttons1" type="textarea" default="" label="A Button code 1" description="Insert an extra button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
-			        <field name="ebuttons2" type="textarea" default="" label="A Button code 2" description="Insert an extra button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
-			        <field name="ebuttons3" type="textarea" default="" label="A Button code 3" description="Insert an extra button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
-			        <field name="ebuttons4" type="textarea" default="" label="A Button code 4" description="Insert an extra button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
-			        <field name="ebuttons5" type="textarea" default="" label="A Button code 5" description="Insert an extra button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
+	                <field name="spacer19" type="spacer" class="text" label="############# ADDITIONAL BUTTONS #############" />
+	                <field name="ebuttons1" type="textarea" default="" label="A Button code 1" description="Insert an additional button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
+			        <field name="ebuttons2" type="textarea" default="" label="A Button code 2" description="Insert an additional button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
+			        <field name="ebuttons3" type="textarea" default="" label="A Button code 3" description="Insert an additional button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
+			        <field name="ebuttons4" type="textarea" default="" label="A Button code 4" description="Insert an additional button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
+			        <field name="ebuttons5" type="textarea" default="" label="A Button code 5" description="Insert an additional button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
 	            </fieldset>
 	            
         </fields>
