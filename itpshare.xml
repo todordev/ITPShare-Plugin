@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="1.7" type="plugin" group="content" method="upgrade">
+<extension version="2.5" type="plugin" group="content" method="upgrade">
     <name>Content - ITPShare</name>
     <author>Todor Iliev</author>
     <creationDate>January, 2011</creationDate>
@@ -7,11 +7,12 @@
     <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
     <authorEmail>todor@itprism.com</authorEmail>
     <authorUrl>http://itprism.com</authorUrl>
-    <version>1.8</version>
+    <version>1.9</version>
     <description><![CDATA[
-    <p><a href="http://itprism.com/free-joomla-extensions/socialmedia-share-plugin">ITPShare</a> is a plugin that adds republish buttons of Twitter, Facebook, Digg, LinkedIn, Stumbleupon,...on your site. It will help you to find more readers for your posts.</p>
-    <p>Invest in the extension improvement. You can <a href="http://itprism.com/sponsorship" title="Sponsoring" target="_blank">sponsor the extension via SMS or PayPal</a>.
-    <p>Please, <a href="http://extensions.joomla.org/extensions/social-web/republish/15665">vote for the extension</a> on Joomla! Extensions Directory</p>]]></description>
+    <p><a href="http://itprism.com/free-joomla-extensions/socialmedia-share-plugin" target="_blank">ITPShare</a> is a plugin that adds republish buttons of Twitter, Facebook, Digg, LinkedIn, Stumbleupon, Google Plus, Thumblr, Pinterest, BufferApp,...on your site. It will help you to find more readers for your publications.</p>
+    <p>Invest in the extension improvement. You can <a href="http://itprism.com/sponsorship" title="Sponsoring" target="_blank">sponsor the extension via SMS or PayPal</a>.</p>
+    <p><a href="http://itprism.com/" target="_blank">Subscribe for the newsletter</a> to receive information about updates and new ITPrism extensions.</p>
+    <p>Please, <a href="http://extensions.joomla.org/extensions/social-web/republish/15665" target="_blank">vote for the extension</a> on Joomla! Extensions Directory</p>]]></description>
     <files>
         <filename plugin="itpshare">itpshare.php</filename>
 		<filename>style.css</filename>
@@ -25,25 +26,6 @@
 				   <option value="1">Top</option>
 				   <option value="2">Bottom</option>
 				</field>
-				
-				<field name="showInArticles" type="radio" default="1" label="Show in articles" description="Display buttons in view 'article'." >
-                   <option value="0">No</option>
-                   <option value="1">Yes</option>
-                </field>
-				<field name="showInCategories" type="radio" default="1" label="Show in categories" description="Display buttons in view 'category' and format 'blog'." >
-                   <option value="0">No</option>
-                   <option value="1">Yes</option>
-                </field>
-				
-				<field name="excludeCats" type="text" default="" size="100"
-						label="Exclude categories"
-						description="List with excluded categories divided by comma. You must enter the IDs of categories." />
-				<field name="excludeArticles" type="text" default="" size="100"
-						label="Exclude articles"
-						description="List of excluded articles divided by comma. You must enter the IDs of articles." />
-				<field name="includeArticles" type="text" default="" size="100"
-                label="Display in these articles"
-                description="Displays the buttons in these articles notwithstanding the exclusion settings. You must enter the IDs of articles." />
 
 				<field name="spacer1" type="spacer" class="text" label="############# TWITTER SETTINGS #############" />
 				<field name="twitterButton" type="radio" default="0" label="Twitter Button" description="Show or hide Twitter buttons." >
@@ -111,7 +93,7 @@
 				   <option value="box_count">Box count</option>
 				   <option value="button_count">Button count</option>
 				</field>
-				<field name="facebookLikeFaces" type="radio" default="0" label="Facebook Show Faces" description="Show or hide faces of people." >
+				<field name="facebookLikeFaces" type="radio" default="0" label="Facebook Show Faces" description="Display faces of people. The button type must be 'standart'." >
 				   <option value="0">Hide</option>
 				   <option value="1">Show</option>
 				</field>
@@ -255,6 +237,7 @@
 				   <option value="DiggCompact">Compact</option>
 				   <option value="DiggIcon">Icon</option>
 				</field>
+				
 				<field name="diggTopic" type="text" default="90" label="Digg Media and Topic" description="Use this option to set the media type and topic for unsubmitted stories. Media type and topic are set using the rev attribute of the 'a' tag. You can use the following topics:business, enterntainment, gaming, lifestyle, offbeat, politics, science, technology, world_news." />
 				<field name="spacer5" type="spacer" class="text" label="############# STUMBLEUPON SETTINGS #############" />
 				<field name="stumbleButton" type="radio" default="0" label="SumbpleUpon Button" description="Show or hide StubmpleUpon button." >
@@ -269,6 +252,7 @@
 				   <option value="5">Style 5</option>
 				   <option value="6">Style 6</option>
 				</field>  
+				
 				<field name="spacer6" type="spacer" class="text" label="############# LINKEDIN SETTINGS #############" />
 				<field name="linkedInButton" type="radio" default="0" label="LinkedIn Button" description="Show or hide LinkedIn button." >
 				   <option value="0">Hide</option>
@@ -325,6 +309,7 @@
                    <option value="0">No</option>
                    <option value="1">Yes</option>
                 </field>
+                
                 <field name="spacer9" type="spacer" class="text" label="############# GOOGLE PLUS ONE SETTINGS #############" />
 		        <field name="plusButton" type="radio" default="0" label="Google Plus One" description="Show or hide Plus One button." >
 		           <option value="0">Hide</option>
@@ -408,10 +393,64 @@
 		            <option value="uk">Ukrainian</option>
 		            <option value="vi">Vietnamese</option>
 		        </field>
+		        
+		        <field name="spacer10" type="spacer" class="text" label="############# PINTEREST SETTINGS #############" />
+                <field name="pinterestButton" type="radio" default="0" label="Pinterest Button" description="Show or hide Pinterest button." >
+                   <option value="0">Hide</option>
+                   <option value="1">Show</option>
+                </field>
+                <field name="pinterestType" type="list" default="horizontal" label="Pinterest Type" description="The type of the button." >
+                   <option value="horizontal">Horizontal</option>
+                   <option value="vertical">Vertical</option>
+                   <option value="none">None</option>
+                </field>
+                
+                <field name="spacer11" type="spacer" class="text" label="############# BUFFER SETTINGS #############" />
+                <field name="bufferButton" type="radio" default="0" label="Buffer Button" description="Show or hide BufferApp.com buttons." >
+                   <option value="0">Hide</option>
+                   <option value="1">Show</option>
+                </field>
+                <field name="bufferType" type="list" default="horizontal" label="Buffer Type" description="The type of the button." >
+                   <option value="horizontal">Horizontal</option>
+                   <option value="vertical">Vertical</option>
+                   <option value="none">None</option>
+                </field>
+                <field name="bufferTwitterName" type="text" default="" size="80"
+                            label="Twitter Username"
+                            description="Enter the name of your twitter account you want to be mentioned." />
+                
 				</fieldset>
 				
 				<fieldset name="advanced">
-				    <field name="spacer10" type="spacer" class="text" label="############# FACEBOOK LIKE ADVANCED SETTINGS #############" />
+				    
+				    <field name="spacer12" type="spacer" class="text" label="############# JOOMLA CONTENT ( com_content ) SETTINGS #############" />
+				    <field name="showInArticles" type="radio" default="1" label="Show in articles" description="Display buttons in view 'article'." >
+	                   <option value="0">No</option>
+	                   <option value="1">Yes</option>
+	                </field>
+	                <field name="showInCategories" type="radio" default="0" label="Show in categories" description="Display buttons in view 'category' in a format 'blog'." >
+	                   <option value="0">No</option>
+	                   <option value="1">Yes</option>
+	                </field>
+	                
+	                <field name="showInFeatured" type="radio" default="0" label="Show in featured" description="Display buttons in view 'featured'." >
+                       <option value="0">No</option>
+                       <option value="1">Yes</option>
+                    </field>
+	                
+	                <field name="excludeArticles" type="text" default="" size="80"
+                            label="Exclude articles"
+                            description="List of excluded articles divided by comma. You must enter the IDs of articles." />
+                            
+	                <field name="excludeCats" type="text" default="" size="80"
+	                        label="Exclude categories"
+	                        description="List with excluded categories divided by comma. You must enter the IDs of categories." />
+	                        
+	                <field name="includeArticles" type="text" default="" size="80"
+	                label="Display in these articles"
+	                description="Displays the buttons in these articles notwithstanding the exclusion settings. You must enter the IDs of articles." />
+	                
+				    <field name="spacer13" type="spacer" class="text" label="############# FACEBOOK LIKE ADVANCED SETTINGS #############" />
 				    <field name="facebookLikeAppId" type="text" default="" label="Facebook App ID" description="Enter the ID of the your domain name. For more information read the documentation." />
 				    <field name="facebookLikeSend" type="list" default="0" label="Facebook Send Buttons" description="Specifies whether to include a 'Send button' with the Like button. This only works with the XFBML version." >
 	                   <option value="0">JNO</option>
@@ -425,31 +464,37 @@
 	                    <option value="0">JNO</option>
 	                    <option value="1">JYES</option>
 	                </field>
-	                <field name="spacer11" type="spacer" class="text" label="############# TUMBLR ADVANCED SETTINGS #############" />
+	                <field name="spacer14" type="spacer" class="text" label="############# TUMBLR ADVANCED SETTINGS #############" />
 	                <field name="loadTumblrJsLib" type="radio" default="1" label="Load Tumblr JS library" description="Pass loading the Tumblr JavaScript library 'share.js'. Thus avoiding repeated loading library, if you are using other Tumblr widgets. Accelerating the speed of the site and avoid conflicts between the Tumblr widgets.">
                         <option value="0">JNO</option>
                         <option value="1">JYES</option>
                     </field>
                     
-                    <field name="spacer12" type="spacer" class="text" label="############# DIGG ADVANCED SETTINGS #############" />
+                    <field name="spacer15" type="spacer" class="text" label="############# DIGG ADVANCED SETTINGS #############" />
                     <field name="loadDiggJsLib" type="radio" default="1" label="Load Digg JS library" description="Pass loading the Digg JavaScript library 'buttons.js'. Thus avoiding repeated loading library, if you are using other Digg widgets. Accelerating the speed of the site and avoid conflicts between the Digg widgets.">
                         <option value="0">JNO</option>
                         <option value="1">JYES</option>
                     </field>
                     
-                    <field name="spacer13" type="spacer" class="text" label="############# GOOGLE PLUS ADVANCED SETTINGS #############" />
-                    <field name="loadGooglePlusJsLib" type="radio" default="1" label="Load Google JS library" description="Pass loading the Google Plus JavaScript library 'buttons.js'. Thus avoiding repeated loading library, if you are using other Google Plus widgets. Accelerating the speed of the site and avoid conflicts between the Google Plus widgets.">
+                    <field name="spacer16" type="spacer" class="text" label="############# GOOGLE PLUS ADVANCED SETTINGS #############" />
+                    <field name="loadGooglePlusJsLib" type="radio" default="1" label="Load Google JS library" description="Pass loading the Google Plus JavaScript library 'plus'. Thus avoiding repeated loading library, if you are using other Google Plus widgets. Accelerating the speed of the site and avoid conflicts between the Google Plus widgets.">
                         <option value="0">JNO</option>
                         <option value="1">JYES</option>
                     </field>
                     
-                    <field name="spacer14" type="spacer" class="text" label="############# ITPShare SETTINGS #############" />
+                    <field name="spacer17" type="spacer" class="text" label="############# PINTEREST ADVANCED SETTINGS #############" />
+                    <field name="loadPinterestJsLib" type="radio" default="1" label="Load Pinterest JS library" description="Pass loading the Pinterest JavaScript library. Thus avoiding repeated loading library, if you are using other Google Plus widgets. Accelerating the speed of the site and avoid conflicts between the Pinterest widgets.">
+                        <option value="0">JNO</option>
+                        <option value="1">JYES</option>
+                    </field>
+                    
+                    <field name="spacer18" type="spacer" class="text" label="############# ITPShare SETTINGS #############" />
                     <field name="loadCss" type="radio" default="1" label="Load style.css" description="The style.css is a file that conations button position and some styles of the ReTweetMe button. You can disable the file loading if you have your own styles.">
                         <option value="0">JNO</option>
                         <option value="1">JYES</option>
                     </field>
                     
-	                <field name="spacer15" type="spacer" class="text" label="############# EXTRA BUTTONS #############" />
+	                <field name="spacer19" type="spacer" class="text" label="############# EXTRA BUTTONS #############" />
 	                <field name="ebuttons1" type="textarea" default="" label="A Button code 1" description="Insert an extra button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
 			        <field name="ebuttons2" type="textarea" default="" label="A Button code 2" description="Insert an extra button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
 			        <field name="ebuttons3" type="textarea" default="" label="A Button code 3" description="Insert an extra button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />

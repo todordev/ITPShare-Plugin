@@ -36,6 +36,13 @@ class plgContentITPShare extends JPlugin {
      */
     public function __construct(&$subject, $config = array()) {
         parent::__construct($subject, $config);
+        
+        $app =& JFactory::getApplication();
+        /* @var $app JApplication */
+
+        if($app->isAdmin()) {
+            return;
+        }
       
         if($this->params->get("fbDynamicLocale", 0)) {
             $lang = JFactory::getLanguage();
@@ -44,6 +51,9 @@ class plgContentITPShare extends JPlugin {
         } else {
             $this->fbLocale = $this->params->get("fbLocale", "en_US");
         }
+        
+        $this->currentView    = JRequest::getCmd("view");
+        $this->currentOption  = JRequest::getCmd("option");
         
     }
     
@@ -57,7 +67,7 @@ class plgContentITPShare extends JPlugin {
 	 */
     public function onContentPrepare($context, &$article, &$params, $page = 0) {
 
-        if (!$article) { return; };            
+        if (!$article OR !isset($this->params)) { return; };            
         
         $app =& JFactory::getApplication();
         /* @var $app JApplication */
@@ -75,40 +85,84 @@ class plgContentITPShare extends JPlugin {
             return;
         }
         
-        $currentOption = JRequest::getCmd("option");
-        
-        if( ($currentOption != "com_content") OR !isset($this->params)) {
-            return;            
+        switch($this->currentOption) {
+            case "com_content":
+                if($this->isContentRestricted($article)) {
+                    return;
+                }
+                break;    
+                
+            case "com_k2":
+                break;
+                
+            case "com_virtuemart":
+                break;
+                
+            default:
+                break;   
         }
         
-        $this->currentView  = JRequest::getCmd("view");
+        // Generate content
+		$content      = $this->getContent($article);
+        $position     = $this->params->get('position');
         
-        /** Check for selected views, which will display the buttons. **/   
+        switch($position){
+            case 1:
+                $article->text = $content . $article->text;
+                break;
+            case 2:
+                $article->text = $article->text . $content;
+                break;
+            default:
+                $article->text = $content . $article->text . $content;
+                break;
+        }
+        
+        return;
+    }
+    
+    /**
+     * 
+     * Checks allowed articles, exluded categories/articles,... for component COM_CONTENT
+     * @param object $article
+     */
+    private function isContentRestricted($article) {
+        
+    	/** Check for selected views, which will display the buttons. **/   
         /** If there is a specific set and do not match, return an empty string.**/
         $showInArticles     = $this->params->get('showInArticles');
         
         if(!$showInArticles AND (strcmp("article", $this->currentView) == 0)){
-            return;
+            return true;
         }
         
-        // Check for category view
+        // Will be displayed in view "caegories"?
         $showInCategories   = $this->params->get('showInCategories');
-        
         if(!$showInCategories AND (strcmp("category", $this->currentView) == 0)){
-            return;
+            return true;
         }
         
-        if($showInCategories AND ($this->currentView == "category")) {
+        // Will be displayed in view "featured"?
+        $showInFeatured   = $this->params->get('showInFeatured');
+        if(!$showInFeatured AND (strcmp("featured", $this->currentView) == 0)){
+            return true;
+        }
+        
+        if(
+            ($showInCategories AND ($this->currentView == "category") )
+        OR 
+            ($showInFeatured AND ($this->currentView == "featured") )
+            ) {
             $articleData        = $this->getArticle($article);
-            $article->id        = $articleData['id'];
-            $article->catid     = $articleData['catid'];
-            $article->title     = $articleData['title'];
-            $article->slug      = $articleData['slug'];
-            $article->catslug   = $articleData['catslug'];
+            $article->id        = JArrayHelper::getValue($articleData,'id');
+            $article->catid     = JArrayHelper::getValue($articleData,'catid');
+            $article->title     = JArrayHelper::getValue($articleData,'title');
+            $article->slug      = JArrayHelper::getValue($articleData, 'slug');
+            $article->catslug   = JArrayHelper::getValue($articleData,'catslug');
         }
         
         if(empty($article->id)) {
-            return;            
+            return true;            
         }
         
         $excludeArticles = $this->params->get('excludeArticles');
@@ -135,29 +189,12 @@ class plgContentITPShare extends JPlugin {
         JArrayHelper::toInteger($includedArticles);
         
         if(!in_array($article->id, $includedArticles)) {
-            // Check exluded places
+            // Check exluded articles
             if(in_array($article->id, $excludeArticles) OR in_array($article->catid, $excludedCats)){
-                return;
+                return true;
             }
         }
-            
-        // Generate content
-		$content      = $this->getContent($article, $params);
-        $position     = $this->params->get('position');
         
-        switch($position){
-            case 1:
-                $article->text = $content . $article->text;
-                break;
-            case 2:
-                $article->text = $article->text . $content;
-                break;
-            default:
-                $article->text = $content . $article->text . $content;
-                break;
-        }
-        
-        return;
     }
     
     /**
@@ -166,7 +203,7 @@ class plgContentITPShare extends JPlugin {
      * @param   object      The article params
      * @return  string      Returns html code or empty string.
      */
-    private function getContent(&$article, &$params){
+    private function getContent(&$article){
         
         $doc   = JFactory::getDocument();
         /* @var $doc JDocumentHtml */
@@ -175,13 +212,8 @@ class plgContentITPShare extends JPlugin {
             $doc->addStyleSheet(JURI::root() . "plugins/content/itpshare/style.css");
         }
         
-        $url = JURI::getInstance();
-        $domain= $url->getScheme() ."://" . $url->getHost();
-        
-        $url = JRoute::_(ContentHelperRoute::getArticleRoute($article->slug, $article->catslug), false);
-        $url = $domain.$url;
-        
-        $title= htmlentities($article->title, ENT_QUOTES, "UTF-8");
+        $url  = $this->getUrl($article);
+        $title= $this->getTitle($article);
         
         $html = '
         <div class="itp-share">';
@@ -190,9 +222,11 @@ class plgContentITPShare extends JPlugin {
         $html .= $this->getDigg($this->params, $url, $title);
         $html .= $this->getStumbpleUpon($this->params, $url, $title);
         $html .= $this->getLinkedIn($this->params, $url, $title);
-        $html .= $this->getReTweetMeMe($this->params, $url, $title);
         $html .= $this->getTumblr($this->params, $url, $title);
+        $html .= $this->getBuffer($this->params, $url, $title);
         $html .= $this->getReddit($this->params, $url, $title);
+        $html .= $this->getPinterest($this->params, $url, $title);
+        $html .= $this->getReTweetMeMe($this->params, $url, $title);
 
         $html .= $this->getFacebookLike($this->params, $url, $title);
         $html .= $this->getGooglePlusOne($this->params, $url, $title);
@@ -208,6 +242,64 @@ class plgContentITPShare extends JPlugin {
         return $html;
     }
     
+    private function getUrl(&$article) {
+        
+        $url = JURI::getInstance();
+        $domain= $url->getScheme() ."://" . $url->getHost();
+        
+        switch($this->currentOption) {
+            case "com_content":
+                $uri = JRoute::_(ContentHelperRoute::getArticleRoute($article->slug, $article->catslug), false);
+                break;    
+                
+            case "com_k2":
+                $uri = $article->link;
+                break;
+                
+            case "com_virtuemart":
+                $uri = $article->link;
+                break;
+                
+            default:
+                $uri = "";
+                break;   
+        }
+        
+        return $domain.$uri;
+        
+    }
+    
+    private function getTitle(&$article) {
+        
+        switch($this->currentOption) {
+            case "com_content":
+                $title= htmlentities($article->title, ENT_QUOTES, "UTF-8");
+                break;    
+                
+            case "com_k2":
+                $title= htmlentities($article->title, ENT_QUOTES, "UTF-8");
+                break;
+                
+            case "com_virtuemart":
+                $title = (!empty($article->custom_title)) ? $article->custom_title : $article->product_name;
+                $title= htmlentities($title, ENT_QUOTES, "UTF-8");
+                break;
+                
+            default:
+                $title = "";
+                break;   
+        }
+        
+        return $title;
+        
+    }
+    
+    /**
+     * 
+     * Load an information about article in the view 'category' and 'featured'
+     * @param object $article
+     * @todo Implement exceptions for Joomla! platform 12.1
+     */
     private function getArticle(&$article) {
         
         $db = JFactory::getDbo();
@@ -226,15 +318,21 @@ class plgContentITPShare extends JPlugin {
             ON
                 `#__content`.`catid`=`#__categories`.`id`
             WHERE
-                `#__content`.`introtext` = " . $db->Quote($article->text); 
+                `#__content`.`introtext` = " . $db->quote($article->text); 
         
         $db->setQuery($query);
-        $result = $db->loadAssoc();
-        
+       
+        $result = $db->loadAssoc(); 
         if ($db->getErrorNum() != 0) {
             JError::raiseError(500, "System error!", $db->getErrorMsg());
         }
-        
+        /*
+        try {
+            $result = $db->loadAssoc();
+        } catch(JDatabaseException $e) {
+        } catch(Exception $e) {
+        }
+        */
         if(!empty($result)) {
             $result['slug']     = $result['alias'] ? $result['id'].':'.$result['alias'] : $result['id'];
             $result['catslug']  = $result['category_alias'] ? $result['catid'].':'.$result['category_alias'] : $result['catid'];
@@ -555,6 +653,51 @@ href="http://digg.com/submit?url=' . rawurlencode($url) . '&amp;title=' . rawurl
         return $html;
     }
     
+    private function getPinterest($params, $url, $title){
+        
+        $title = html_entity_decode($title,ENT_QUOTES, "UTF-8");
+        
+        $html = "";
+        if($params->get("pinterestButton")) {
+            
+            $html .= '<div class="itp-share-pinterest">';
+            
+            // Load the JS library
+            if($params->get("loadPinterestJsLib")) {
+                $html .= '<!-- Include ONCE for ALL buttons in the page -->
+<script type="text/javascript">
+(function() {
+    window.PinIt = window.PinIt || { loaded:false };
+    if (window.PinIt.loaded) return;
+    window.PinIt.loaded = true;
+    function async_load(){
+        var s = document.createElement("script");
+        s.type = "text/javascript";
+        s.async = true;
+        if (window.location.protocol == "https:")
+            s.src = "https://assets.pinterest.com/js/pinit.js";
+        else
+            s.src = "http://assets.pinterest.com/js/pinit.js";
+        var x = document.getElementsByTagName("script")[0];
+        x.parentNode.insertBefore(s, x);
+    }
+    if (window.attachEvent)
+        window.attachEvent("onload", async_load);
+    else
+        window.addEventListener("load", async_load, false);
+})();
+</script>
+';
+            }
+            
+$html .= '<!-- Customize and include for EACH button in the page -->
+<a href="http://pinterest.com/pin/create/button/?url=' . rawurlencode($url) . '&amp;description=' . rawurlencode($title) . '" class="pin-it-button" count-layout="'.$params->get("pinterestType").'">Pin It</a>';
+            $html .= '</div>';
+        }
+        
+        return $html;
+    }
+    
     private function getStumbpleUpon($params, $url, $title){
         
         $html = "";
@@ -563,6 +706,21 @@ href="http://digg.com/submit?url=' . rawurlencode($url) . '&amp;title=' . rawurl
             $html = '
             <div class="itp-share-su">
             <script type="text/javascript" src="http://www.stumbleupon.com/hostedbadge.php?s=' . $params->get("stumbleType",1). '&amp;r=' . rawurlencode($url) . '"></script>
+            </div>
+            ';
+        }
+        
+        return $html;
+    }
+    
+    private function getBuffer($params, $url, $title){
+        
+        $html = "";
+        if($params->get("bufferButton")) {
+            
+            $html = '
+            <div class="itp-share-buffer">
+            <a href="http://bufferapp.com/add" class="buffer-add-button" data-text="' . $title . '" data-url="'.$url.'" data-count="'.$params->get("bufferType").'" data-via="'.$params->get("bufferTwitterName").'">Buffer</a><script type="text/javascript" src="http://static.bufferapp.com/js/button.js"></script>
             </div>
             ';
         }
@@ -604,6 +762,7 @@ tweetmeme_source = "' . $params->get("twitterName") . '";
         
         return $html;
     }
+    
     
     
     private function getReddit($params, $url, $title){

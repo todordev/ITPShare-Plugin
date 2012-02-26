@@ -53,3 +53,13 @@
     text-decoration: none !important;
     background: none !important;
 }
+
+.itp-share-pinterest {
+	float:left;
+    margin-top:10px;
+}
+
+.itp-share-buffer {
+    float:left;
+    margin-top:10px;
+}
