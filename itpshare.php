@@ -762,8 +762,6 @@ tweetmeme_source = "' . $params->get("twitterName") . '";
         return $html;
     }
     
-    
-    
     private function getReddit($params, $url, $title){
         
         $html = "";
