@@ -196,6 +196,7 @@ class plgContentITPShare extends JPlugin {
             }
         }
         
+        return false;
     }
     
     /**
