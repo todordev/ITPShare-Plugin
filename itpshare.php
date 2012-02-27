@@ -62,7 +62,7 @@ class plgContentITPShare extends JPlugin {
      * @param   object  The content params
      * @param   int     The 'page' number
      */
-    public function onPrepareContent(&$article, &$params, $limitstart){
+    public function onPrepareContent(&$article, &$params = null, $limitstart = null){
         
         if (!is_a($article, "stdClass") OR !isset($this->params) ) { return; };         
         
@@ -216,8 +216,8 @@ class plgContentITPShare extends JPlugin {
         $html .= $this->getLinkedIn($this->params, $url, $title);
         $html .= $this->getTumblr($this->params, $url, $title);
         $html .= $this->getBuffer($this->params, $url, $title);
-        $html .= $this->getReddit($this->params, $url, $title);
         $html .= $this->getPinterest($this->params, $url, $title);
+        $html .= $this->getReddit($this->params, $url, $title);
         $html .= $this->getReTweetMeMe($this->params, $url, $title);
 
         $html .= $this->getFacebookLike($this->params, $url, $title);
