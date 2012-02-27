@@ -5,13 +5,14 @@
     <creationDate>January, 2011</creationDate>
     <copyright>Copyright (C) 2010 Todor Iliev ( ITPrism.com ). All rights reserved.</copyright>
     <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
-    <authorEmail>support@itprism.com</authorEmail>
+    <authorEmail>todor@itprism.com</authorEmail>
     <authorUrl>http://itprism.com</authorUrl>
-    <version>1.8</version>
+    <version>1.9</version>
     <description><![CDATA[
-    <p><a href="http://itprism.com/free-joomla-extensions/socialmedia-share-plugin">ITPShare</a> is a plugin that adds republish buttons of Twitter, Facebook, Digg, LinkedIn, Stumbleupon,...on your site. It will help you to find more readers for your posts.</p>
-    <p>Invest in the extension improvement. You can <a href="http://itprism.com/sponsorship" title="Sponsoring" target="_blank">sponsor the extension via SMS or PayPal</a>.
-    <p>Please, <a href="http://extensions.joomla.org/extensions/social-web/republish/15665">vote for the extension</a> on Joomla! Extensions Directory</p>
+    <p><a href="http://itprism.com/free-joomla-extensions/socialmedia-share-plugin">ITPShare</a> is an extension that adds republish buttons, widgets or goodies on your site. There are social plugins of Twitter, Facebook, Digg, LinkedIn, Stumbleupon, Google Plus, Thumblr, Pinterest, BufferApp,... It will help you to find more readers for your publications.</p>
+    <p>Invest in the extension improvement. You can <a href="http://itprism.com/sponsorship" title="Sponsoring" target="_blank">sponsor the extension via SMS or PayPal</a>.</p>
+    <p><a href="http://itprism.com/" target="_blank">Subscribe for the newsletter</a> to receive information about updates and new ITPrism extensions.</p>
+    <p>Please, <a href="http://extensions.joomla.org/extensions/social-web/republish/15665" target="_blank">vote for the extension</a> on Joomla! Extensions Directory</p>
     ]]></description>
     <files>
         <filename plugin="itpshare">itpshare.php</filename>
@@ -23,37 +24,6 @@
            <option value="1">Top</option>
            <option value="2">Bottom</option>
         </param>
-        <param name="showInArticles" type="radio" default="1" label="Show In Articles" description="Display buttons in the view 'article'." >
-           <option value="0">No</option>
-           <option value="1">Yes</option>
-        </param>
-        
-        <param name="showInCategories" type="radio" default="0" label="Show In Categories" description="Display buttons in the view 'category'." >
-           <option value="0">No</option>
-           <option value="1">Yes</option>
-        </param>
-        
-        <param name="showInSections" type="radio" default="0" label="Show In Sections" description="Display buttons in the view 'section'." >
-           <option value="0">No</option>
-           <option value="1">Yes</option>
-        </param>
-        
-        <param name="showInFrontPage" type="radio" default="0" label="Show In FrontPage" description="Display buttons in the view 'frontpage'." >
-           <option value="0">No</option>
-           <option value="1">Yes</option>
-        </param>
-        <param name="excludeSections" type="text" default="" size="100"
-                label="Exclude sections"
-                description="List with excluded sections divided by comma. You must enter the IDs of sections." />
-        <param name="excludeCats" type="text" default="" size="100"
-                label="Exclude categories"
-                description="List with excluded categories divided by comma. You must enter the IDs of categories." />
-        <param name="excludeArticles" type="text" default="" size="100"
-                label="Exclude articles"
-                description="List of excluded articles divided by comma. You must enter the IDs of articles." />
-        <param name="includeArticles" type="text" default="" size="100"
-                label="Display in that articles"
-                description="Displays the buttons in these articles notwithstanding the exclusion settings. You must enter the IDs of articles." /> 
         
         <param name="@spacer1" type="spacer" default="############# TWITTER SETTINGS #############" label="" description="" />
         <param name="twitterButton" type="radio" default="0" label="Twitter Button" description="Show or hide Twitter buttons." >
@@ -424,8 +394,66 @@
             <option value="vi">Vietnamese</option>
         </param>
         
+        <param name="spacer10" type="spacer" class="text" label="############# PINTEREST SETTINGS #############" />
+        <param name="pinterestButton" type="radio" default="0" label="Pinterest Button" description="Show or hide Pinterest button." >
+           <option value="0">Hide</option>
+           <option value="1">Show</option>
+        </param>
+        <param name="pinterestType" type="list" default="horizontal" label="Pinterest Type" description="The type of the button." >
+           <option value="horizontal">Horizontal</option>
+           <option value="vertical">Vertical</option>
+           <option value="none">None</option>
+        </param>
+        
+        <param name="spacer11" type="spacer" class="text" label="############# BUFFER SETTINGS #############" />
+        <param name="bufferButton" type="radio" default="0" label="Buffer Button" description="Show or hide BufferApp.com buttons." >
+           <option value="0">Hide</option>
+           <option value="1">Show</option>
+        </param>
+        <param name="bufferType" type="list" default="horizontal" label="Buffer Type" description="The type of the button." >
+           <option value="horizontal">Horizontal</option>
+           <option value="vertical">Vertical</option>
+           <option value="none">None</option>
+        </param>
+        <param name="bufferTwitterName" type="text" default="" size="80"
+                    label="Twitter Username"
+                    description="Enter the name of your twitter account you want to be mentioned." />
+                    
 	</params>
     <params group="advanced">
+    
+        <param name="showInArticles" type="radio" default="1" label="Show In Articles" description="Display buttons in the view 'article'." >
+           <option value="0">No</option>
+           <option value="1">Yes</option>
+        </param>
+        
+        <param name="showInCategories" type="radio" default="0" label="Show In Categories" description="Display buttons in the view 'category'." >
+           <option value="0">No</option>
+           <option value="1">Yes</option>
+        </param>
+        
+        <param name="showInSections" type="radio" default="0" label="Show In Sections" description="Display buttons in the view 'section'." >
+           <option value="0">No</option>
+           <option value="1">Yes</option>
+        </param>
+        
+        <param name="showInFrontPage" type="radio" default="0" label="Show In FrontPage" description="Display buttons in the view 'frontpage'." >
+           <option value="0">No</option>
+           <option value="1">Yes</option>
+        </param>
+        <param name="excludeSections" type="text" default="" size="100"
+                label="Exclude sections"
+                description="List with excluded sections divided by comma. You must enter the IDs of sections." />
+        <param name="excludeCats" type="text" default="" size="100"
+                label="Exclude categories"
+                description="List with excluded categories divided by comma. You must enter the IDs of categories." />
+        <param name="excludeArticles" type="text" default="" size="100"
+                label="Exclude articles"
+                description="List of excluded articles divided by comma. You must enter the IDs of articles." />
+        <param name="includeArticles" type="text" default="" size="100"
+                label="Display in that articles"
+                description="Displays the buttons in these articles notwithstanding the exclusion settings. You must enter the IDs of articles." /> 
+                
         <param name="@spacer10" type="spacer" default="############# FACEBOOK LIKE ADVANCED SETTINGS #############" label="" description="" />
         <param name="facebookLikeAppId" type="text" default="" label="Facebook App ID" description="Enter the ID of the your domain name. For more information read the documentation." />
         <param name="facebookLikeSend" type="list" default="0" label="Facebook Send Buttons" description="Specifies whether to include a 'Send button' with the Like button. This only works with the XFBML version." >
@@ -455,6 +483,12 @@
         
         <param name="@spacer13" type="spacer" default="############# GOOGLE PLUS ADVANCED SETTINGS #############" label="" description=""/>
         <param name="loadGooglePlusJsLib" type="radio" default="1" label="Load Google JS library" description="Pass loading the Google Plus JavaScript library 'buttons.js'. Thus avoiding repeated loading library, if you are using other Google Plus widgets. Accelerating the speed of the site and avoid conflicts between the Google Plus widgets.">
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </param>
+        
+        <param name="spacer17" type="spacer" class="text" label="############# PINTEREST ADVANCED SETTINGS #############" />
+        <param name="loadPinterestJsLib" type="radio" default="1" label="Load Pinterest JS library" description="Pass loading the Pinterest JavaScript library. Thus avoiding repeated loading library, if you are using other Google Plus widgets. Accelerating the speed of the site and avoid conflicts between the Pinterest widgets.">
             <option value="0">No</option>
             <option value="1">Yes</option>
         </param>
