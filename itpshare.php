@@ -103,6 +103,10 @@ class plgContentITPShare extends JPlugin {
                 break;   
         }
         
+        if($this->params->get("loadCss")) {
+            $doc->addStyleSheet(JURI::root() . "plugins/content/itpshare/style.css");
+        }
+        
         // Generate content
 		$content      = $this->getContent($article);
         $position     = $this->params->get('position');
@@ -206,13 +210,6 @@ class plgContentITPShare extends JPlugin {
      * @return  string      Returns html code or empty string.
      */
     private function getContent(&$article){
-        
-        $doc   = JFactory::getDocument();
-        /* @var $doc JDocumentHtml */
-
-        if($this->params->get("loadCss")) {
-            $doc->addStyleSheet(JURI::root() . "plugins/content/itpshare/style.css");
-        }
         
         $url  = $this->getUrl($article);
         $title= $this->getTitle($article);
