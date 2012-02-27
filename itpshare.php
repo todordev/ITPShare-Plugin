@@ -223,8 +223,8 @@ class plgContentITPShare extends JPlugin {
         $html .= $this->getLinkedIn($this->params, $url, $title);
         $html .= $this->getTumblr($this->params, $url, $title);
         $html .= $this->getBuffer($this->params, $url, $title);
-        $html .= $this->getReddit($this->params, $url, $title);
         $html .= $this->getPinterest($this->params, $url, $title);
+        $html .= $this->getReddit($this->params, $url, $title);
         $html .= $this->getReTweetMeMe($this->params, $url, $title);
 
         $html .= $this->getFacebookLike($this->params, $url, $title);
