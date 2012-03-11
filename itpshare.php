@@ -276,7 +276,7 @@ class plgContentITPShare extends JPlugin {
         if(strpos($context, "com_virtuemart") === false) {
            return true;
         }
-        dump($this->currentView);
+        
         $displayInDetails     = $this->params->get('vmDisplayInDetails', 0);
         if(!$displayInDetails AND (strcmp("productdetails", $this->currentView) == 0)){
             return true;
