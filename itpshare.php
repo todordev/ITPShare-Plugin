@@ -394,7 +394,7 @@ class plgContentITPShare extends JPlugin {
                 break;   
         }
         
-        return htmlentities($title, ENT_QUOTES, "UTF-8");;
+        return htmlentities($title, ENT_QUOTES, "UTF-8");
         
     }
     
@@ -488,8 +488,6 @@ class plgContentITPShare extends JPlugin {
         $html = "";
         if($params->get("plusButton")) {
             
-            $language = "";
-        
             // Get locale code
             if(!$params->get("dynamicLocale")) {
                 $this->plusLocale = $params->get("plusLocale", "en");
