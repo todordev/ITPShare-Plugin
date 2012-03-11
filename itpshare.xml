@@ -7,7 +7,7 @@
     <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
     <authorEmail>todor@itprism.com</authorEmail>
     <authorUrl>http://itprism.com</authorUrl>
-    <version>1.9</version>
+    <version>2.0</version>
     <description><![CDATA[
     <p><a href="http://itprism.com/free-joomla-extensions/socialmedia-share-plugin">ITPShare</a> is an extension that adds republish buttons, widgets or goodies on your site. There are social plugins of Twitter, Facebook, Digg, LinkedIn, Stumbleupon, Google Plus, Thumblr, Pinterest, BufferApp,... It will help you to find more readers for your publications.</p>
     <p>Invest in the extension improvement. You can <a href="http://itprism.com/sponsorship" title="Sponsoring" target="_blank">sponsor the extension via SMS or PayPal</a>.</p>
@@ -17,6 +17,7 @@
         <filename plugin="itpshare">itpshare.php</filename>
 		<filename>style.css</filename>
 		<filename>index.html</filename>
+		<filename>README.md</filename>
     </files>
     <config>
 		<fields name="params">
@@ -45,18 +46,30 @@
 				   <option value="horizontal">Horizontal</option>
 				</field>
 				<field name="twitterLanguage" type="list" default="en" label="Twitter Language" description="Choose the language of the Twitter button." >
-				   <option value="nl">Dutch</option>
 				   <option value="en">English</option>
-				   <option value="fr">French</option>
-				   <option value="gr">German</option>
-				   <option value="id">Indonesian</option>
-				   <option value="it">Italian</option>
-				   <option value="jp">Japanese</option>
+                   <option value="th">Thai</option>
+                   <option value="msa">Malay</option>
+                   <option value="tr">Turkish</option>
+                   <option value="hi">Hindi</option>
+                   <option value="fil">Filipino</option>
+                   <option value="zh-cn">Simplified Chinese</option>
                    <option value="ko">Korean</option>
-                   <option value="pt">Portuguese</option>
+                   <option value="it">Italian</option>
+                   <option value="da">Danish</option>
+                   <option value="fr">French</option>
+                   <option value="pl">Polish</option>
+                   <option value="nl">Dutch</option>
+                   <option value="id">Indonesian</option>
+                   <option value="hu">Hungarian</option>
+                   <option value="fi">Finnish</option>
+                   <option value="es">Spanish</option>
+                   <option value="jp">Japanese</option>
+                   <option value="no">Norwegian</option>
                    <option value="ru">Russian</option>
-		           <option value="es">Spanish</option>
-		           <option value="tr">Turkish</option>
+                   <option value="pt">Portuguese</option>
+                   <option value="sv">Swedish</option>
+                   <option value="zh-tw">Traditional Chinese</option>
+                   <option value="de">German</option>
 				</field>
 				<field name="spacer2" type="spacer" class="text" label="############# TUMBLR SETTINGS #############" />
 		        <field name="tumblrButton" type="radio" default="0" label="Tumblr Button" description="Show or hide the Tumblr button." >
@@ -112,10 +125,6 @@
 		        </field>
 				<field name="facebookLikeWidth" type="text" default="90" label="Facebook Like Width" description="Enter the width of your Facebook Like button." />
 				
-				<field name="fbDynamicLocale" type="radio" default="1" label="Auto language" description="If you set 'Yes' the plugin will take Joomla! locale settings automatically.">
-		            <option value="0">No</option>
-		            <option value="1">Yes</option>
-		        </field>
 		        <field name="fbLocale" type="list" default="en_US" label="Language" description="A list with locations and language for the button. Default location - English [en_US].">
 		            <option value="af_ZA">Afrikaans</option>
 		            <option value="ar_AR">Arabic</option>
@@ -237,8 +246,8 @@
 				   <option value="DiggCompact">Compact</option>
 				   <option value="DiggIcon">Icon</option>
 				</field>
-				
 				<field name="diggTopic" type="text" default="90" label="Digg Media and Topic" description="Use this option to set the media type and topic for unsubmitted stories. Media type and topic are set using the rev attribute of the 'a' tag. You can use the following topics:business, enterntainment, gaming, lifestyle, offbeat, politics, science, technology, world_news." />
+				
 				<field name="spacer5" type="spacer" class="text" label="############# STUMBLEUPON SETTINGS #############" />
 				<field name="stumbleButton" type="radio" default="0" label="SumbpleUpon Button" description="Show or hide StubmpleUpon button." >
 				   <option value="0">Hide</option>
@@ -415,9 +424,7 @@
                    <option value="vertical">Vertical</option>
                    <option value="none">None</option>
                 </field>
-                <field name="bufferTwitterName" type="text" default="" size="80"
-                            label="Twitter Username"
-                            description="Enter the name of your twitter account you want to be mentioned." />
+                <field name="bufferTwitterName" type="text" default="" size="80" label="Twitter Username" description="Enter the name of your twitter account you want to be mentioned." />
                 
 				</fieldset>
 				
@@ -438,19 +445,42 @@
                        <option value="1">Yes</option>
                     </field>
 	                
-	                <field name="excludeArticles" type="text" default="" size="80"
+	                <field name="excludeArticles" type="text" default="" size="100"
                             label="Exclude articles"
                             description="List of excluded articles divided by comma. You must enter the IDs of articles." />
                             
-	                <field name="excludeCats" type="text" default="" size="80"
+	                <field name="excludeCats" type="text" default="" size="100"
 	                        label="Exclude categories"
 	                        description="List with excluded categories divided by comma. You must enter the IDs of categories." />
 	                        
-	                <field name="includeArticles" type="text" default="" size="80"
+	                <field name="includeArticles" type="text" default="" size="100"
 	                label="Display in these articles"
 	                description="Displays the buttons in these articles notwithstanding the exclusion settings. You must enter the IDs of articles." />
 	                
-				    <field name="spacer13" type="spacer" class="text" label="############# FACEBOOK LIKE ADVANCED SETTINGS #############" />
+	                <field name="spacer13" type="spacer" class="text" label="############# K2 ( com_k2 ) SETTINGS #############" />
+                    <field name="k2DisplayInArticles" type="radio" default="1" label="Display in articles" description="Setting this to true and the buttons will be displayed on article page." >
+                       <option value="0">No</option>
+                       <option value="1">Yes</option>
+                    </field>
+                    
+                    <field name="k2DisplayInItemlist" type="radio" default="1" label="Display in categories" description="Setting this to true and the buttons will be displayed on categories page." >
+                       <option value="0">No</option>
+                       <option value="1">Yes</option>
+                    </field>
+                    
+                    <field name="spacer14" type="spacer" class="text" label="############# VIRTUEMART ( com_virtuemart ) SETTINGS #############" />
+                    <field name="vmDisplayInDetails" type="radio" default="1" label="Display in details" description="Setting this to true and the buttons will be displayed on details page." >
+                       <option value="0">No</option>
+                       <option value="1">Yes</option>
+                    </field>
+                    
+	                <field name="spacer15" type="spacer" class="text" label="############# JEVENTS ( com_jevents ) SETTINGS #############" />
+                    <field name="jeDisplayInEvents" type="radio" default="1" label="Display in events" description="Display buttons on event details page." >
+                       <option value="0">No</option>
+                       <option value="1">Yes</option>
+                    </field>
+                    
+				    <field name="spacer16" type="spacer" class="text" label="############# FACEBOOK LIKE ADVANCED SETTINGS #############" />
 				    <field name="facebookLikeAppId" type="text" default="" label="Facebook App ID" description="Enter the ID of the your domain name. For more information read the documentation." />
 				    <field name="facebookLikeSend" type="list" default="0" label="Facebook Send Buttons" description="Specifies whether to include a 'Send button' with the Like button. This only works with the XFBML version." >
 	                   <option value="0">JNO</option>
@@ -464,42 +494,47 @@
 	                    <option value="0">JNO</option>
 	                    <option value="1">JYES</option>
 	                </field>
-	                <field name="spacer14" type="spacer" class="text" label="############# TUMBLR ADVANCED SETTINGS #############" />
+                            
+	                <field name="spacer17" type="spacer" class="text" label="############# TUMBLR ADVANCED SETTINGS #############" />
 	                <field name="loadTumblrJsLib" type="radio" default="1" label="Load Tumblr JS library" description="Pass loading the Tumblr JavaScript library 'share.js'. Thus avoiding repeated loading library, if you are using other Tumblr widgets. Accelerating the speed of the site and avoid conflicts between the Tumblr widgets.">
                         <option value="0">JNO</option>
                         <option value="1">JYES</option>
                     </field>
                     
-                    <field name="spacer15" type="spacer" class="text" label="############# DIGG ADVANCED SETTINGS #############" />
+                    <field name="spacer18" type="spacer" class="text" label="############# DIGG ADVANCED SETTINGS #############" />
                     <field name="loadDiggJsLib" type="radio" default="1" label="Load Digg JS library" description="Pass loading the Digg JavaScript library 'buttons.js'. Thus avoiding repeated loading library, if you are using other Digg widgets. Accelerating the speed of the site and avoid conflicts between the Digg widgets.">
                         <option value="0">JNO</option>
                         <option value="1">JYES</option>
                     </field>
                     
-                    <field name="spacer16" type="spacer" class="text" label="############# GOOGLE PLUS ADVANCED SETTINGS #############" />
+                    <field name="spacer19" type="spacer" class="text" label="############# GOOGLE PLUS ADVANCED SETTINGS #############" />
                     <field name="loadGooglePlusJsLib" type="radio" default="1" label="Load Google JS library" description="Pass loading the Google Plus JavaScript library 'plus'. Thus avoiding repeated loading library, if you are using other Google Plus widgets. Accelerating the speed of the site and avoid conflicts between the Google Plus widgets.">
                         <option value="0">JNO</option>
                         <option value="1">JYES</option>
                     </field>
                     
-                    <field name="spacer17" type="spacer" class="text" label="############# PINTEREST ADVANCED SETTINGS #############" />
+                    <field name="spacer20" type="spacer" class="text" label="############# PINTEREST ADVANCED SETTINGS #############" />
                     <field name="loadPinterestJsLib" type="radio" default="1" label="Load Pinterest JS library" description="Pass loading the Pinterest JavaScript library. Thus avoiding repeated loading library, if you are using other Google Plus widgets. Accelerating the speed of the site and avoid conflicts between the Pinterest widgets.">
                         <option value="0">JNO</option>
                         <option value="1">JYES</option>
                     </field>
                     
-                    <field name="spacer18" type="spacer" class="text" label="############# ITPShare SETTINGS #############" />
+                    <field name="spacer21" type="spacer" class="text" label="############# ITPShare SETTINGS #############" />
                     <field name="loadCss" type="radio" default="1" label="Load style.css" description="The style.css is a file that conations button position and some styles of the ReTweetMe button. You can disable the file loading if you have your own styles.">
                         <option value="0">JNO</option>
                         <option value="1">JYES</option>
                     </field>
+                    <field name="dynamicLocale" type="radio" default="0" label="Auto language" description="If you set 'Yes' the plugin will take Joomla! locale settings automatically.">
+	                    <option value="0">No</option>
+	                    <option value="1">Yes</option>
+	               </field>
                     
-	                <field name="spacer19" type="spacer" class="text" label="############# ADDITIONAL BUTTONS #############" />
-	                <field name="ebuttons1" type="textarea" default="" label="A Button code 1" description="Insert an additional button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
-			        <field name="ebuttons2" type="textarea" default="" label="A Button code 2" description="Insert an additional button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
-			        <field name="ebuttons3" type="textarea" default="" label="A Button code 3" description="Insert an additional button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
-			        <field name="ebuttons4" type="textarea" default="" label="A Button code 4" description="Insert an additional button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
-			        <field name="ebuttons5" type="textarea" default="" label="A Button code 5" description="Insert an additional button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
+	                <field name="spacer22" type="spacer" class="text" label="############# ADDITIONAL BUTTONS #############" />
+	                <field name="ebuttons1" type="textarea" default="" label="Custom Button code 1" description="Insert an additional button code that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
+			        <field name="ebuttons2" type="textarea" default="" label="Custom Button code 2" description="Insert an additional button code that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
+			        <field name="ebuttons3" type="textarea" default="" label="Custom Button code 3" description="Insert an additional button code that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
+			        <field name="ebuttons4" type="textarea" default="" label="Custom Button code 4" description="Insert an additional button code that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
+			        <field name="ebuttons5" type="textarea" default="" label="Custom Button code 5" description="Insert an additional button code that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
 	            </fieldset>
 	            
         </fields>

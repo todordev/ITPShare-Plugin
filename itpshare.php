@@ -23,9 +23,13 @@ jimport('joomla.plugin.plugin');
  */
 class plgContentITPShare extends JPlugin {
     
-    private $fbLocale        = "en_US";
-    private $currentView     = "";
-    private $currentOption   = "";
+    private $locale         = "en_US";
+    private $fbLocale       = "en_US";
+    private $plusLocale     = "en";
+    private $twitterLocale  = "en";
+    private $currentView    = "";
+    private $currentTask    = "";
+    private $currentOption  = "";
     
     /**
      * Constructor
@@ -45,15 +49,15 @@ class plgContentITPShare extends JPlugin {
             return;
         }
       
-        if($this->params->get("fbDynamicLocale", 0)) {
+        // Get locale code automatically
+        if($this->params->get("dynamicLocale", 0)) {
             $lang = JFactory::getLanguage();
             $locale = $lang->getTag();
-            $this->fbLocale = str_replace("-","_",$locale);
-        } else {
-            $this->fbLocale = $this->params->get("fbLocale", "en_US");
+            $this->locale = str_replace("-","_",$locale);
         }
         
         $this->currentView    = JRequest::getCmd("view");
+        $this->currentTask    = JRequest::getCmd("task");
         $this->currentOption  = JRequest::getCmd("option");
         
     }
@@ -71,35 +75,49 @@ class plgContentITPShare extends JPlugin {
         if (!$article OR !isset($this->params)) { return; };            
         
         $app =& JFactory::getApplication();
-        /* @var $app JApplication */
+        /** @var $app JApplication **/
 
         if($app->isAdmin()) {
             return;
         }
         
         $doc     = JFactory::getDocument();
-        /* @var $doc JDocumentHtml */
+        /**  @var $doc JDocumentHtml **/
         $docType = $doc->getType();
         
         // Check document type
         if(strcmp("html", $docType) != 0){
             return;
         }
-        
+       
         switch($this->currentOption) {
             case "com_content":
-                if($this->isContentRestricted($article)) {
+                if($this->isContentRestricted($article, $context)) {
                     return;
                 }
                 break;    
                 
             case "com_k2":
+                if($this->isK2Restricted($article, $context)) {
+                    return;
+                }
                 break;
                 
             case "com_virtuemart":
+                if($this->isVirtuemartRestricted($article, $context)) {
+                    return;
+                }
+                break;
+
+            case "com_jevents":
+                
+                if($this->isJEventsRestricted($article, $context)) {
+                    return;
+                }
                 break;
                 
             default:
+                return;
                 break;   
         }
         
@@ -130,18 +148,23 @@ class plgContentITPShare extends JPlugin {
      * 
      * Checks allowed articles, exluded categories/articles,... for component COM_CONTENT
      * @param object $article
+     * @param string $context
      */
-    private function isContentRestricted($article) {
+    private function isContentRestricted(&$article, $context) {
+        
+        // Check for currect context
+        if(strpos($context, "com_content") === false) {
+           return true;
+        }
         
     	/** Check for selected views, which will display the buttons. **/   
         /** If there is a specific set and do not match, return an empty string.**/
         $showInArticles     = $this->params->get('showInArticles');
-        
         if(!$showInArticles AND (strcmp("article", $this->currentView) == 0)){
             return true;
         }
         
-        // Will be displayed in view "caegories"?
+        // Will be displayed in view "categories"?
         $showInCategories   = $this->params->get('showInCategories');
         if(!$showInCategories AND (strcmp("category", $this->currentView) == 0)){
             return true;
@@ -203,6 +226,64 @@ class plgContentITPShare extends JPlugin {
         return false;
     }
     
+    private function isK2Restricted(&$article, $context) {
+        
+        // Check for currect context
+        if(strpos($context, "com_k2") === false) {
+           return true;
+        }
+        
+        $displayInArticles     = $this->params->get('k2DisplayInArticles', 0);
+        if(!$displayInArticles AND (strcmp("item", $this->currentView) == 0)){
+            return true;
+        }
+        
+        $displayInItemlist     = $this->params->get('k2DisplayInItemlist', 0);
+        if(!$displayInItemlist AND (strcmp("itemlist", $this->currentView) == 0)){
+            return true;
+        }
+        
+    }
+    
+    /**
+     * 
+     * Do verifications for JEvent extension
+     * @param jIcalEventRepeat $article
+     * @param string $context
+     */
+    private function isJEventsRestricted(&$article, $context) {
+        
+        // Display buttons only in the description
+        if (!is_a($article, "jIcalEventRepeat")) { 
+            return true; 
+        };
+        
+        // Check for currect context
+        if(strpos($context, "com_jevents") === false) {
+           return true;
+        }
+        
+        $displayInEvents     = $this->params->get('jeDisplayInEvents', 0);
+        if(!$displayInEvents AND (strcmp("icalrepeat.detail", $this->currentTask) == 0)){
+            return true;
+        }
+        
+    }
+    
+    private function isVirtuemartRestricted(&$article, $context) {
+            
+        // Check for currect context
+        if(strpos($context, "com_virtuemart") === false) {
+           return true;
+        }
+        dump($this->currentView);
+        $displayInDetails     = $this->params->get('vmDisplayInDetails', 0);
+        if(!$displayInDetails AND (strcmp("productdetails", $this->currentView) == 0)){
+            return true;
+        }
+    }
+    
+    
     /**
      * Generate content
      * @param   object      The article object.  Note $article->text is also available
@@ -244,6 +325,7 @@ class plgContentITPShare extends JPlugin {
     private function getUrl(&$article) {
         
         $url = JURI::getInstance();
+        $uri = "";
         $domain= $url->getScheme() ."://" . $url->getHost();
         
         switch($this->currentOption) {
@@ -259,6 +341,14 @@ class plgContentITPShare extends JPlugin {
                 $uri = $article->link;
                 break;
                 
+            case "com_jevents":
+                // Display buttons only in the description
+                if (is_a($article, "jIcalEventRepeat")) { 
+                    $uri    = $url->getPath();
+                };
+                
+                break;
+                
             default:
                 $uri = "";
                 break;   
@@ -270,34 +360,48 @@ class plgContentITPShare extends JPlugin {
     
     private function getTitle(&$article) {
         
+        $title = "";
+        
         switch($this->currentOption) {
             case "com_content":
-                $title= htmlentities($article->title, ENT_QUOTES, "UTF-8");
+                $title= $article->title;
                 break;    
                 
             case "com_k2":
-                $title= htmlentities($article->title, ENT_QUOTES, "UTF-8");
+                $title= $article->title;
                 break;
                 
             case "com_virtuemart":
                 $title = (!empty($article->custom_title)) ? $article->custom_title : $article->product_name;
-                $title= htmlentities($title, ENT_QUOTES, "UTF-8");
                 break;
                 
+            case "com_jevents":
+                // Display buttons only in the description
+                if (is_a($article, "jIcalEventRepeat")) { 
+                    
+                    $title    = JString::trim($article->title());
+                    if(!$title) {
+                        $doc     = JFactory::getDocument();
+                        /**  @var $doc JDocumentHtml **/
+                        $title    =  $doc->getTitle();
+                    }
+                };
+                
+                break;   
+                 
             default:
                 $title = "";
                 break;   
         }
         
-        return $title;
+        return htmlentities($title, ENT_QUOTES, "UTF-8");;
         
     }
     
     /**
      * 
-     * Load an information about article in the view 'category' and 'featured'
+     * Load an information about article, if missing, on the view 'category' and 'featured'
      * @param object $article
-     * @todo Implement exceptions for Joomla! platform 12.1
      */
     private function getArticle(&$article) {
         
@@ -321,17 +425,12 @@ class plgContentITPShare extends JPlugin {
         
         $db->setQuery($query);
        
-        $result = $db->loadAssoc(); 
-        if ($db->getErrorNum() != 0) {
-            JError::raiseError(500, "System error!", $db->getErrorMsg());
-        }
-        /*
         try {
             $result = $db->loadAssoc();
-        } catch(JDatabaseException $e) {
         } catch(Exception $e) {
+            JError::raiseError(500, "System error!", $e->getMessage());
         }
-        */
+        
         if(!empty($result)) {
             $result['slug']     = $result['alias'] ? $result['id'].':'.$result['alias'] : $result['id'];
             $result['catslug']  = $result['category_alias'] ? $result['catid'].':'.$result['category_alias'] : $result['catid'];
@@ -365,9 +464,17 @@ class plgContentITPShare extends JPlugin {
         $html = "";
         if($params->get("twitterButton")) {
             
+            // Get locale code
+            if(!$params->get("dynamicLocale")) {
+                $this->twitterLocale = $params->get("twitterLanguage", "en");
+            } else {
+                $locales = $this->getButtonsLocales($this->locale); 
+                $this->twitterLocale = JArrayHelper::getValue($locales, "twitter", "en");
+            }
+            
              $html .= '
              	<div class="itp-share-tw">
-                	<a href="https://twitter.com/share" class="twitter-share-button" data-url="' . $url . '" data-text="' . $title . '" data-via="' . $params->get("twitterName") . '" data-lang="' . $params->get("twitterLanguage") . '" data-size="' . $params->get("twitterSize") . '" data-related="' . $params->get("twitterRecommend") . '" data-hashtags="' . $params->get("twitterHashtag") . '" data-count="' . $params->get("twitterCounter") . '">Tweet</a>
+                	<a href="https://twitter.com/share" class="twitter-share-button" data-url="' . $url . '" data-text="' . $title . '" data-via="' . $params->get("twitterName") . '" data-lang="' . $this->twitterLocale . '" data-size="' . $params->get("twitterSize") . '" data-related="' . $params->get("twitterRecommend") . '" data-hashtags="' . $params->get("twitterHashtag") . '" data-count="' . $params->get("twitterCounter") . '">Tweet</a>
                 	<script type="text/javascript">!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
             	</div>
             ';
@@ -377,14 +484,22 @@ class plgContentITPShare extends JPlugin {
     }
     
     private function getGooglePlusOne($params, $url, $title){
-        $language = "";
-        
-        if($params->get("plusLocale")) {
-            $language = " {lang: '" . $params->get("plusLocale") . "'};";
-        }
         
         $html = "";
         if($params->get("plusButton")) {
+            
+            $language = "";
+        
+            // Get locale code
+            if(!$params->get("dynamicLocale")) {
+                $this->plusLocale = $params->get("plusLocale", "en");
+            } else {
+                $locales = $this->getButtonsLocales($this->locale); 
+                $this->plusLocale = JArrayHelper::getValue($locales, "google", "en");
+            }
+            
+            $language = " {lang: '" . $this->plusLocale . "'};";
+            
             $html .= '<div class="itp-share-gone">';
             
             switch($params->get("plusRenderer")) {
@@ -486,8 +601,18 @@ $html .= '
         $html = "";
         if($params->get("facebookLikeButton")) {
             
+            /**** Get locale code ***/
+            if(!$params->get("dynamicLocale")) {
+                $this->fbLocale = $params->get("fbLocale", "en_US");
+            } else {
+                $locales = $this->getButtonsLocales($this->locale); 
+                $this->fbLocale = JArrayHelper::getValue($locales, "facebook", "en_US");
+            }
+            
+            /**** Faces ***/
             $faces = (!$params->get("facebookLikeFaces")) ? "false" : "true";
             
+            /**** Layout Styles ***/
             $layout = $params->get("facebookLikeType", "button_count");
             if(strcmp("box_count", $layout)==0){
                 $height = "80";
@@ -495,6 +620,7 @@ $html .= '
                 $height = "25";
             }
             
+            /**** Generate code ***/
             $html = '<div class="itp-share-fbl">';
             
             switch($params->get("facebookLikeRenderer")) {
@@ -910,4 +1036,165 @@ tweetmeme_source = "' . $params->get("twitterName") . '";
         return $html;
     }
         
+    private function getButtonsLocales($locale) {
+        
+         // Default locales
+        $result = array(
+            "twitter"     => "en",
+        	"facebook"    => "en_US",
+        	"google"      => "en"
+        );
+        
+        // The locales map
+        $locales = array (
+            "en_US" => array(
+                "twitter"     => "en",
+            	"facebook"    => "en_US",
+            	"google"      => "en"
+            ),
+            "en_GB" => array(
+                "twitter"     => "en",
+            	"facebook"    => "en_GB",
+            	"google"      => "en_GB"
+            ),
+            "th_TH" => array(
+                "twitter"     => "th",
+            	"facebook"    => "th_TH",
+            	"google"      => "th"
+            ),
+            "ms_MY" => array(
+                "twitter"     => "msa",
+            	"facebook"    => "ms_MY",
+            	"google"      => "ms"
+            ),
+            "tr_TR" => array(
+                "twitter"     => "tr",
+            	"facebook"    => "tr_TR",
+            	"google"      => "tr"
+            ),
+            "hi_IN" => array(
+                "twitter"     => "hi",
+            	"facebook"    => "hi_IN",
+            	"google"      => "hi"
+            ),
+            "tl_PH" => array(
+                "twitter"     => "fil",
+            	"facebook"    => "tl_PH",
+            	"google"      => "fil"
+            ),
+            "zh_CN" => array(
+                "twitter"     => "zh-cn",
+            	"facebook"    => "zh_CN",
+            	"google"      => "zh"
+            ),
+            "ko_KR" => array(
+                "twitter"     => "ko",
+            	"facebook"    => "ko_KR",
+            	"google"      => "ko"
+            ),
+            "it_IT" => array(
+                "twitter"     => "it",
+            	"facebook"    => "it_IT",
+            	"google"      => "it"
+            ),
+            "da_DK" => array(
+                "twitter"     => "da",
+            	"facebook"    => "da_DK",
+            	"google"      => "da"
+            ),
+            "fr_FR" => array(
+                "twitter"     => "fr",
+            	"facebook"    => "fr_FR",
+            	"google"      => "fr"
+            ),
+            "pl_PL" => array(
+                "twitter"     => "pl",
+            	"facebook"    => "pl_PL",
+            	"google"      => "pl"
+            ),
+            "nl_NL" => array(
+                "twitter"     => "nl",
+            	"facebook"    => "nl_NL",
+            	"google"      => "nl"
+            ),
+            "id_ID" => array(
+                "twitter"     => "in",
+            	"facebook"    => "nl_NL",
+            	"google"      => "in"
+            ),
+            "hu_HU" => array(
+                "twitter"     => "hu",
+            	"facebook"    => "hu_HU",
+            	"google"      => "hu"
+            ),
+            "fi_FI" => array(
+                "twitter"     => "fi",
+            	"facebook"    => "fi_FI",
+            	"google"      => "fi"
+            ),
+            "es_ES" => array(
+                "twitter"     => "es",
+            	"facebook"    => "es_ES",
+            	"google"      => "es"
+            ),
+            "ja_JP" => array(
+                "twitter"     => "ja",
+            	"facebook"    => "ja_JP",
+            	"google"      => "ja"
+            ),
+            "nn_NO" => array(
+                "twitter"     => "no",
+            	"facebook"    => "nn_NO",
+            	"google"      => "no"
+            ),
+            "ru_RU" => array(
+                "twitter"     => "ru",
+            	"facebook"    => "ru_RU",
+            	"google"      => "ru"
+            ),
+            "pt_PT" => array(
+                "twitter"     => "pt",
+            	"facebook"    => "pt_PT",
+            	"google"      => "pt"
+            ),
+            "pt_BR" => array(
+                "twitter"     => "pt",
+            	"facebook"    => "pt_BR",
+            	"google"      => "pt"
+            ),
+            "sv_SE" => array(
+                "twitter"     => "sv",
+            	"facebook"    => "sv_SE",
+            	"google"      => "sv"
+            ),
+            "zh_HK" => array(
+                "twitter"     => "zh-tw",
+            	"facebook"    => "zh_HK",
+            	"google"      => "zh_HK"
+            ),
+            "zh_TW" => array(
+                "twitter"     => "zh-tw",
+            	"facebook"    => "zh_TW",
+            	"google"      => "zh_TW"
+            ),
+            "de_DE" => array(
+                "twitter"     => "de",
+            	"facebook"    => "de_DE",
+            	"google"      => "de"
+            ),
+            "bg_BG" => array(
+                "twitter"     => "en",
+            	"facebook"    => "bg_BG",
+            	"google"      => "bg"
+            ),
+            
+        );
+        
+        if(isset($locales[$locale])) {
+            $result = $locales[$locale];
+        }
+        
+        return $result;
+        
+    }
 }

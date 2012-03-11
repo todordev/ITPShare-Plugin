@@ -1,6 +1,6 @@
 ITPShare Plugin for Joomla! 
 ==========================
-( Version 1.9 )
+( Version 2.0 )
 --------------------------
 
 
@@ -8,13 +8,20 @@ ITPShare Plugin for Joomla!
 Changelog
 ---------
 
+v2.0
+-----
+Improved the multilanguage
+Fixed appearing in the module with custom HTML  
+Now works with JEvents
+Added more options for K2 and Virtuemart
+
 v1.9
 -----
 * Now works for K2
 * Now works for VirtueMart
 * The buttons now appear on the front page ( on the featured articles )
 * Added Pinterest button
-* Added BufferApp.com button
+* Added BufferApp button
 
 v1.8
 -----
