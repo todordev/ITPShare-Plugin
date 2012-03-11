@@ -1,10 +1,17 @@
 ITPShare Plugin for Joomla! 1.5
 ==========================
-( Version 1.9 )
+( Version 2.0 )
 --------------------------
 
 Changelog
 ---------
+
+v2.0
+-----
+Improved the multilanguage
+Fixed appearing in the module with custom HTML  
+Now works with JEvents
+Added more options for K2 and Virtuemart
 
 v1.9
 -----
