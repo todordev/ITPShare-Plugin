@@ -7,9 +7,9 @@
     <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
     <authorEmail>todor@itprism.com</authorEmail>
     <authorUrl>http://itprism.com</authorUrl>
-    <version>2.0</version>
+    <version>2.1</version>
     <description><![CDATA[
-    <p><a href="http://itprism.com/free-joomla-extensions/socialmedia-share-plugin">ITPShare</a> is an extension that adds republish buttons, widgets or goodies on your site. There are social plugins of Twitter, Facebook, Digg, LinkedIn, Stumbleupon, Google Plus, Thumblr, Pinterest, BufferApp,... It will help you to find more readers for your publications.</p>
+    <p><a href="http://itprism.com/free-joomla-extensions/socialmedia-share-plugin" target="_blank">ITPShare</a> is an extension that adds republish buttons, widgets or goodies on your site. There are social plugins of Twitter, Facebook, Digg, LinkedIn, Stumbleupon, Google Plus, Thumblr, Pinterest, BufferApp,... It will help you to find more readers for your publications.</p>
     <p>Invest in the extension improvement. You can <a href="http://itprism.com/sponsorship" title="Sponsoring" target="_blank">sponsor the extension via SMS or PayPal</a>.</p>
     <p><a href="http://itprism.com/" target="_blank">Subscribe for the newsletter</a> to receive information about updates and new ITPrism extensions.</p>
     <p>Please, <a href="http://extensions.joomla.org/extensions/social-web/republish/15665" target="_blank">vote for the extension</a> on Joomla! Extensions Directory</p>
@@ -448,18 +448,10 @@
            <option value="0">No</option>
            <option value="1">Yes</option>
         </param>
-        <param name="excludeSections" type="text" default="" size="100"
-                label="Exclude sections"
-                description="List with excluded sections divided by comma. You must enter the IDs of sections." />
-        <param name="excludeCats" type="text" default="" size="100"
-                label="Exclude categories"
-                description="List with excluded categories divided by comma. You must enter the IDs of categories." />
-        <param name="excludeArticles" type="text" default="" size="100"
-                label="Exclude articles"
-                description="List of excluded articles divided by comma. You must enter the IDs of articles." />
-        <param name="includeArticles" type="text" default="" size="100"
-                label="Display in that articles"
-                description="Displays the buttons in these articles notwithstanding the exclusion settings. You must enter the IDs of articles." /> 
+        <param name="excludeSections" type="text" default="" size="80" label="Exclude sections" description="List with excluded sections divided by comma. You must enter the IDs of sections." />
+        <param name="excludeCats" type="text" default="" size="80" label="Exclude categories" description="List with excluded categories divided by comma. You must enter the IDs of categories." />
+        <param name="excludeArticles" type="text" default="" size="80" label="Exclude articles" description="List of excluded articles divided by comma. You must enter the IDs of articles." />
+        <param name="includeArticles" type="text" default="" size="80" label="Display in that articles" description="Displays the buttons in these articles notwithstanding the exclusion settings. You must enter the IDs of articles." /> 
         
         <param name="@spacer13" type="spacer" default="############# K2 ( com_k2 ) SETTINGS #############" />
         <param name="k2DisplayInArticles" type="radio" default="1" label="Display in articles" description="Setting this to true and the buttons will be displayed on article page." >
@@ -484,7 +476,27 @@
            <option value="1">Yes</option>
         </param>
                 
-        <param name="@spacer16" type="spacer" default="############# FACEBOOK LIKE ADVANCED SETTINGS #############" label="" description="" />
+        <param name="@spacer16" type="spacer" default="############# EASY BLOG ( com_easyblog ) SETTINGS #############" />
+        <param name="ebDisplayInEntry" type="radio" default="1" label="Display in entry" description="Setting this to true and the plugin content will be displayed on entry page." >
+           <option value="0">No</option>
+           <option value="1">Yes</option>
+        </param>
+        <param name="ebDisplayInCategories" type="radio" default="1" label="Display in categories" description="Setting this to true and the plugin content will be displayed on the categories page." >
+           <option value="0">No</option>
+           <option value="1">Yes</option>
+        </param>
+        <param name="ebDisplayInLatest" type="radio" default="1" label="Display in latest" description="Setting this to true and the plugin content will be displayed on the page with latest posts." >
+           <option value="0">No</option>
+           <option value="1">Yes</option>
+        </param>
+        
+        <param name="@spacer17" type="spacer" default="############# MYBLOG ( com_myblog ) SETTINGS #############" />
+        <param name="mbDisplay" type="radio" default="1" label="Display in posts" description="Setting this to true and the plugin content will be displayed on entry page." >
+           <option value="0">No</option>
+           <option value="1">Yes</option>
+        </param>
+        
+        <param name="@spacer18" type="spacer" default="############# FACEBOOK LIKE ADVANCED SETTINGS #############" label="" description="" />
         <param name="facebookLikeAppId" type="text" default="" label="Facebook App ID" description="Enter the ID of the your domain name. For more information read the documentation." />
         <param name="facebookLikeSend" type="list" default="0" label="Facebook Send Buttons" description="Specifies whether to include a 'Send button' with the Like button. This only works with the XFBML version." >
            <option value="0">No</option>
@@ -499,31 +511,31 @@
             <option value="1">Yes</option>
         </param>
         
-        <param name="@spacer17" type="spacer" default="############# TUMBLR ADVANCED SETTINGS #############" label="" description=""/>
+        <param name="@spacer19" type="spacer" default="############# TUMBLR ADVANCED SETTINGS #############" label="" description=""/>
         <param name="loadTumblrJsLib" type="radio" default="1" label="Load Tumblr JS library" description="Pass loading the Tumblr JavaScript library 'share.js'. Thus avoiding repeated loading library, if you are using other Tumblr widgets. Accelerating the speed of the site and avoid conflicts between the Tumblr widgets.">
             <option value="0">No</option>
             <option value="1">Yes</option>
         </param>
         
-        <param name="@spacer18" type="spacer"  default="############# DIGG ADVANCED SETTINGS #############" label="" description=""/>
+        <param name="@spacer20" type="spacer"  default="############# DIGG ADVANCED SETTINGS #############" label="" description=""/>
         <param name="loadDiggJsLib" type="radio" default="1" label="Load Digg JS library" description="Pass loading the Digg JavaScript library 'buttons.js'. Thus avoiding repeated loading library, if you are using other Digg widgets. Accelerating the speed of the site and avoid conflicts between the Digg widgets.">
             <option value="0">No</option>
             <option value="1">Yes</option>
         </param>
         
-        <param name="@spacer19" type="spacer" default="############# GOOGLE PLUS ADVANCED SETTINGS #############" label="" description=""/>
+        <param name="@spacer21" type="spacer" default="############# GOOGLE PLUS ADVANCED SETTINGS #############" label="" description=""/>
         <param name="loadGooglePlusJsLib" type="radio" default="1" label="Load Google JS library" description="Pass loading the Google Plus JavaScript library 'buttons.js'. Thus avoiding repeated loading library, if you are using other Google Plus widgets. Accelerating the speed of the site and avoid conflicts between the Google Plus widgets.">
             <option value="0">No</option>
             <option value="1">Yes</option>
         </param>
         
-        <param name="spacer20" type="spacer" default="############# PINTEREST ADVANCED SETTINGS #############" />
+        <param name="@spacer22" type="spacer" default="############# PINTEREST ADVANCED SETTINGS #############" />
         <param name="loadPinterestJsLib" type="radio" default="1" label="Load Pinterest JS library" description="Pass loading the Pinterest JavaScript library. Thus avoiding repeated loading library, if you are using other Google Plus widgets. Accelerating the speed of the site and avoid conflicts between the Pinterest widgets.">
             <option value="0">No</option>
             <option value="1">Yes</option>
         </param>
         
-        <param name="@spacer21" type="spacer"  default="############# ITPShare SETTINGS #############" label="" description=""/>
+        <param name="@spacer23" type="spacer"  default="############# ITPShare SETTINGS #############" label="" description=""/>
         <param name="loadCss" type="radio" default="1" label="Load style.css" description="The style.css is a file that conations button position and some styles of the ReTweetMe button. You can disable the file loading if you have your own styles.">
             <option value="0">No</option>
             <option value="1">Yes</option>
@@ -532,8 +544,18 @@
              <option value="0">No</option>
              <option value="1">Yes</option>
         </param>
+
+        <param name="@spacer24" type="spacer" default="############# SHORTENER URL SERVICES SETTINGS #############"  />        
+        <param name="sService" type="list" default="" label="Shortener service" description="You can select a shortener URL service. To work properly, a PHP option 'allow_url_fopen' must be enabled. You must enable PHP curl for Google shortener serice." >
+           <option value="">None</option>
+           <option value="bitly">bit.ly</option>
+           <option value="tinycc">tiny.cc</option>
+           <option value="jmp">j.mp</option>
+        </param>
+        <param name="sLogin" type="text" default="" label="Login" description="Username for the shortener URL service."/>
+        <param name="sApiKey" type="text" default="" size="80" label="API key" description="An API key for the shortener URL serivce."/>
         
-        <param name="@spacer22" type="spacer" default="############# EXTRA BUTTONS #############" label="" description="" />
+        <param name="@spacer25" type="spacer" default="############# EXTRA BUTTONS #############" label="" description="" />
         <param name="ebuttons1" type="textarea" default="" label="Custom Button code 1" description="Insert an extra button code that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10"/>
         <param name="ebuttons2" type="textarea" default="" label="Custom Button code 2" description="Insert an extra button code that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10"/>
         <param name="ebuttons3" type="textarea" default="" label="Custom Button code 3" description="Insert an extra button code that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10"/>

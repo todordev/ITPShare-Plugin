@@ -89,34 +89,14 @@ class plgContentITPShare extends JPlugin {
         // Generate context value
         $context = $this->currentOption.".".$this->currentView;
         
-        switch($this->currentOption) {
-            case "com_content":
-                if($this->isContentRestricted($article, $context)) {
-                    return;
-                }
-                break;    
-                
-            case "com_k2":
-                if($this->isK2Restricted($article, $context)) {
-                    return;
-                }
-                break;
-                
-            case "com_virtuemart":
-                if($this->isVirtuemartRestricted($article, $context)) {
-                    return;
-                }
-                break;
-
-            case "com_jevents":
-                if($this->isJEventsRestricted($article, $context)) {
-                    return;
-                }
-                break;
-                
-            default:
-                return;
-                break;   
+        // Set the context if the component is MyBlog
+    	if(is_a($article, "myblogBlogContent")) {
+        	$context = "com_myblog";
+        }
+        
+        /*** Check for restrictions ***/
+    	if($this->isRestricted($article, $context)) {
+        	return;
         }
         
         if($this->params->get("loadCss")) {
@@ -124,7 +104,7 @@ class plgContentITPShare extends JPlugin {
         }
         
         // Generate content
-        $content    = $this->getContent($article);
+        $content    = $this->getContent($article, $context);
         $position   = $this->params->get('position');
         
         switch($position){
@@ -140,6 +120,63 @@ class plgContentITPShare extends JPlugin {
         }
         
         return;
+    }
+    
+	private function isRestricted($article, $context) {
+    	
+    	$result = false;
+    	
+		switch($this->currentOption) {
+            case "com_content":
+                // It's an implementation of "com_myblog"
+            	// I don't know why but $option contains "com_content" for a value
+            	// I hope it will be fixed in the future versions of "com_myblog"
+            	if(!strcmp($context, "com_myblog") == 0) {
+            		if($this->isContentRestricted($article, $context)) {
+	                    $result = true;
+	                }
+	                break;
+            	} 
+	                
+            case "com_myblog":
+                
+                if($this->isMyBlogRestricted($article, $context)) {
+                    $result = true;
+                }
+                
+                break;   
+                
+            case "com_k2":
+                if($this->isK2Restricted($article, $context)) {
+                    $result = true;
+                }
+                break;
+                
+            case "com_virtuemart":
+                if($this->isVirtuemartRestricted($article, $context)) {
+                    $result = true;
+                }
+                break;
+
+            case "com_jevents":
+                if($this->isJEventsRestricted($article, $context)) {
+                    $result = true;
+                }
+                break;
+
+            case "com_easyblog":
+                if($this->isEasyBlogRestricted($article, $context)) {
+                    $result = true;
+                }
+                break;
+                
+            default:
+                $result = true;
+                break;   
+        }
+        
+        return $result;
+        
     }
     
 	/**
@@ -232,6 +269,8 @@ class plgContentITPShare extends JPlugin {
             return true;
         }
         
+        return false;
+        
     }
     
 	/**
@@ -257,6 +296,8 @@ class plgContentITPShare extends JPlugin {
             return true;
         }
         
+        return false;
+        
     }
     
     private function isVirtuemartRestricted(&$article, $context) {
@@ -270,6 +311,67 @@ class plgContentITPShare extends JPlugin {
         if(!$displayInDetails AND (strcmp("productdetails", $this->currentView) == 0)){
             return true;
         }
+        
+        return false;
+    }
+    
+	/**
+     * 
+     * It's a method that verify restriction for the component "com_easyblog"
+     * @param object $article
+     * @param string $context
+     */
+	private function isEasyBlogRestricted(&$article, $context) {
+        $allowedViews = array("categories", "entry", "latest");   
+        // Check for currect context
+        if(strpos($context, "easyblog") === false) {
+           return true;
+        }
+        
+        // Only put buttons in allowed views
+        if(!in_array($this->currentView, $allowedViews)) {
+        	return true;
+        }
+        
+   		// Verify the option for displaying in view "categories"
+        $displayInCategories     = $this->params->get('ebDisplayInCategories', 0);
+        if(!$displayInCategories AND (strcmp("categories", $this->currentView) == 0)){
+            return true;
+        }
+        
+   		// Verify the option for displaying in view "latest"
+        $displayInLatest     = $this->params->get('ebDisplayInLatest', 0);
+        if(!$displayInLatest AND (strcmp("latest", $this->currentView) == 0)){
+            return true;
+        }
+        
+		// Verify the option for displaying in view "entry"
+        $displayInEntry     = $this->params->get('ebDisplayInEntry', 0);
+        if(!$displayInEntry AND (strcmp("entry", $this->currentView) == 0)){
+            return true;
+        }
+        
+        return false;
+    }
+    
+    /**
+     * 
+     * It's a method that verify restriction for the component "com_myblog"
+     * @param object $article
+     * @param string $context
+     */
+	private function isMyBlogRestricted(&$article, $context) {
+
+        // Check for currect context
+        if(strpos($context, "myblog") === false) {
+           return true;
+        }
+        
+        if(!$this->params->get('mbDisplay', 0)){
+            return true;
+        }
+        
+        return false;
     }
     
     /**
@@ -278,10 +380,15 @@ class plgContentITPShare extends JPlugin {
      * @param   object      The article params
      * @return  string      Returns html code or empty string.
      */
-    private function getContent(&$article){
+    private function getContent(&$article, $context){
         
-        $url  = $this->getUrl($article);
-        $title= $this->getTitle($article);
+        $url  = $this->getUrl($article, $context);
+        $title= $this->getTitle($article, $context);
+        
+    	/*** Convert the url to short one ***/
+        if($this->params->get("sService")) {
+            $url = $this->getShortUrl($url);
+        }
         
         // Start buttons box
         $html = '
@@ -312,7 +419,7 @@ class plgContentITPShare extends JPlugin {
         return $html;
     }
     
-    private function getUrl(&$article) {
+    private function getUrl(&$article, $context) {
         
         $url = JURI::getInstance();
         $uri = "";
@@ -320,8 +427,17 @@ class plgContentITPShare extends JPlugin {
         
         switch($this->currentOption) {
             case "com_content":
-                $uri = JRoute::_(ContentHelperRoute::getArticleRoute($article->slug, $article->catslug, $article->sectionid), false);
-                break;    
+            	// It's an implementation of "com_myblog"
+            	// I don't know why but $option contains "com_content" for a value
+            	// I hope it will be fixed in the future versions of "com_myblog"
+            	if(!strcmp($context, "com_myblog") == 0) {
+                	$uri = JRoute::_(ContentHelperRoute::getArticleRoute($article->slug, $article->catslug, $article->sectionid), false);
+                	break;
+            	}
+            	
+            case "com_myblog":
+                $uri = $article->permalink;
+                break;   
                 
             case "com_k2":
                 $uri = $article->link;
@@ -339,6 +455,10 @@ class plgContentITPShare extends JPlugin {
                 
                 break;
                 
+            case "com_easyblog":
+            	$uri	= EasyBlogRouter::getRoutedURL( 'index.php?option=com_easyblog&view=entry&id=' . $article->id , false , false );
+                break;
+                    
             default:
                 $uri = "";
                 break;   
@@ -348,12 +468,21 @@ class plgContentITPShare extends JPlugin {
         
     }
     
-    private function getTitle(&$article) {
+    private function getTitle(&$article, $context) {
         
         switch($this->currentOption) {
             case "com_content":
+            	// It's an implementation of "com_myblog"
+            	// I don't know why but $option contains "com_content" for a value
+            	// I hope it will be fixed in the future versions of "com_myblog"
+            	if(!strcmp($context, "com_myblog") == 0) {
+                	$title= $article->title;
+                	break;
+            	}
+                
+            case "com_myblog":
                 $title= $article->title;
-                break;    
+                break;      
                 
             case "com_k2":
                 $title= $article->title;
@@ -377,6 +506,10 @@ class plgContentITPShare extends JPlugin {
                 
                 break; 
                 
+            case "com_easyblog":
+                $title= $article->title;
+                break;  
+                  
             default:
                 $title = "";
                 break;   
@@ -386,6 +519,36 @@ class plgContentITPShare extends JPlugin {
         
     }
     
+	/**
+     * A method that make a long url to short url
+     * 
+     * @param string $link
+     * @param array $params
+     * @return string
+     */
+    private function getShortUrl($link){
+        
+        JLoader::register("ItpShortUrlSocialButtons",JPATH_PLUGINS.DS."content".DS."itpshare".DS."itpshorturlsocialbuttons.php");
+        $options = array(
+            "login"     => $this->params->get("sLogin"),
+            "apiKey"    => $this->params->get("sApiKey"),
+            "service"   => $this->params->get("sService"),
+        );
+        $shortUrl 	= new ItpShortUrlSocialButtons($link,$options);
+        $shortLink  = $shortUrl->getUrl();
+        
+        if(!$shortLink) {
+        	jimport('joomla.log.loggers.formattedtext');
+        	$message   = $shortUrl->getError();
+            $entry     = new JLogEntry($message);
+	        $logger    = new JLoggerFormattedText($this->loggerOptions);
+	        $logger->addEntry($entry, JLog::ALERT);
+	        $shortLink = "";
+        }
+        
+        return $shortLink;
+            
+    }
     
     /**
      * Generate a code for the extra buttons

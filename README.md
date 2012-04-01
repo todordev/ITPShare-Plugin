@@ -1,10 +1,15 @@
 ITPShare Plugin for Joomla! 1.5
 ==========================
-( Version 2.0 )
+( Version 2.1 )
 --------------------------
 
 Changelog
 ---------
+
+v2.1
+----
+* Now works with EasyBlog and MyBlog
+* Added services that convert addresses into shorter ones
 
 v2.0
 -----
