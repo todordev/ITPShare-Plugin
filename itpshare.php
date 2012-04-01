@@ -23,6 +23,7 @@ jimport('joomla.plugin.plugin');
  */
 class plgContentITPShare extends JPlugin {
     
+	private $loggerOptions  = array();
     private $locale         = "en_US";
     private $fbLocale       = "en_US";
     private $plusLocale     = "en";
@@ -90,55 +91,8 @@ class plgContentITPShare extends JPlugin {
             return;
         }
        
-        switch($this->currentOption) {
-            case "com_content":
-            	
-            	// It's an implementation of "com_myblog"
-            	// I don't know why but $option contains "com_content" for a value
-            	// I hope it will be fixed in the future versions of "com_myblog"
-            	if(!strcmp($context, "com_myblog") == 0) {
-            		if($this->isContentRestricted($article, $context)) {
-	                    return;
-	                }
-	                break;
-            	} 
-	                
-            case "com_myblog":
-                
-                if($this->isMyBlogRestricted($article, $context)) {
-                    return;
-                }
-                
-                break;
-                    
-            case "com_k2":
-                if($this->isK2Restricted($article, $context)) {
-                    return;
-                }
-                break;
-                
-            case "com_virtuemart":
-                if($this->isVirtuemartRestricted($article, $context)) {
-                    return;
-                }
-                break;
-
-            case "com_jevents":
-                
-                if($this->isJEventsRestricted($article, $context)) {
-                    return;
-                }
-                break;
-
-            case "com_easyblog":
-                if($this->isEasyBlogRestricted($article, $context)) {
-                    return;
-                }
-                break;
-                
-            default:
-                return;
-                break;   
+        if($this->isRestricted($article, $context)) {
+        	return;
         }
         
         if($this->params->get("loadCss")) {
@@ -162,6 +116,65 @@ class plgContentITPShare extends JPlugin {
         }
         
         return;
+    }
+    
+    private function isRestricted($article, $context) {
+    	
+    	$result = false;
+    	
+    	switch($this->currentOption) {
+            case "com_content":
+            	
+            	// It's an implementation of "com_myblog"
+            	// I don't know why but $option contains "com_content" for a value
+            	// I hope it will be fixed in the future versions of "com_myblog"
+            	if(!strcmp($context, "com_myblog") == 0) {
+            		if($this->isContentRestricted($article, $context)) {
+	                    $result = true;
+	                }
+	                break;
+            	} 
+	                
+            case "com_myblog":
+                
+                if($this->isMyBlogRestricted($article, $context)) {
+                    $result = true;
+                }
+                
+                break;
+                    
+            case "com_k2":
+                if($this->isK2Restricted($article, $context)) {
+                    $result = true;
+                }
+                break;
+                
+            case "com_virtuemart":
+                if($this->isVirtuemartRestricted($article, $context)) {
+                    $result = true;
+                }
+                break;
+
+            case "com_jevents":
+                
+                if($this->isJEventsRestricted($article, $context)) {
+                    $result = true;
+                }
+                break;
+
+            case "com_easyblog":
+                if($this->isEasyBlogRestricted($article, $context)) {
+                    $result = true;
+                }
+                break;
+                
+            default:
+                $result = true;
+                break;   
+        }
+        
+        return $result;
+        
     }
     
     /**
@@ -314,7 +327,6 @@ class plgContentITPShare extends JPlugin {
      * @param object $article
      * @param string $context
      */
-    
 	private function isEasyBlogRestricted(&$article, $context) {
         $allowedViews = array("categories", "entry", "latest");   
         // Check for currect context
@@ -378,6 +390,11 @@ class plgContentITPShare extends JPlugin {
         
         $url  = $this->getUrl($article, $context);
         $title= $this->getTitle($article, $context);
+        
+    	/*** Convert the url to short one ***/
+        if($this->params->get("sService")) {
+            $url = $this->getShortUrl($url);
+        }
         
         $html = '
         <div class="itp-share">';
@@ -552,6 +569,38 @@ class plgContentITPShare extends JPlugin {
         
         return $result;
     }
+    
+	/**
+     * A method that make a long url to short url
+     * 
+     * @param string $link
+     * @param array $params
+     * @return string
+     */
+    private function getShortUrl($link){
+        
+        JLoader::register("ItpShortUrlSocialButtons",JPATH_PLUGINS.DS."content".DS."itpshare".DS."itpshorturlsocialbuttons.php");
+        $options = array(
+            "login"     => $this->params->get("sLogin"),
+            "apiKey"    => $this->params->get("sApiKey"),
+            "service"   => $this->params->get("sService"),
+        );
+        $shortUrl 	= new ItpShortUrlSocialButtons($link,$options);
+        $shortLink  = $shortUrl->getUrl();
+        
+        if(!$shortLink) {
+        	jimport('joomla.log.loggers.formattedtext');
+        	$message   = $shortUrl->getError();
+            $entry     = new JLogEntry($message);
+	        $logger    = new JLoggerFormattedText($this->loggerOptions);
+	        $logger->addEntry($entry, JLog::ALERT);
+	        $shortLink = "";
+        }
+        
+        return $shortLink;
+            
+    }
+    
     
     /**
      * Generate a code for the extra buttons

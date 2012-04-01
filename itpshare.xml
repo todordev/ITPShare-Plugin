@@ -487,7 +487,7 @@
                     </field>
                     
                     <field name="spacer17" type="spacer" class="text" label="############# MYBLOG ( com_myblog ) SETTINGS #############" />
-	                <field name="mbDisplay" type="radio" default="1" label="Display in" description="Setting this to true and the plugin content will be displayed on entry page." >
+	                <field name="mbDisplay" type="radio" default="1" label="Display in posts" description="Setting this to true and the plugin content will be displayed on entry page." >
 	                   <option value="0">JNO</option>
 	                   <option value="1">JYES</option>
 	                </field>
@@ -541,7 +541,17 @@
 	                    <option value="1">JYES</option>
 	               </field>
                     
-	                <field name="spacer24" type="spacer" class="text" label="############# ADDITIONAL BUTTONS #############" />
+                    <field name="spacer24" type="spacer" class="text" label="############# SHORTENER URL SERVICES SETTINGS #############"  />
+                    <field name="sService" type="list" default="" label="Shortener service" description="You can select a shortener URL service. To work properly, a PHP option 'allow_url_fopen' must be enabled. You must enable PHP curl for Google shortener serice." >
+                       <option value="">None</option>
+                       <option value="bitly">bit.ly</option>
+                       <option value="tinycc">tiny.cc</option>
+                       <option value="jmp">j.mp</option>
+                    </field>
+			        <field name="sLogin" type="text" default="" label="Login" description="Username for the shortener URL service."/>
+			        <field name="sApiKey" type="text" default="" size="80" label="API key" description="An API key for the shortener URL serivce."/>
+			        
+	                <field name="spacer25" type="spacer" class="text" label="############# ADDITIONAL BUTTONS #############" />
 	                <field name="ebuttons1" type="textarea" default="" label="Custom Button code 1" description="Insert an additional button code that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
 			        <field name="ebuttons2" type="textarea" default="" label="Custom Button code 2" description="Insert an additional button code that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
 			        <field name="ebuttons3" type="textarea" default="" label="Custom Button code 3" description="Insert an additional button code that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
