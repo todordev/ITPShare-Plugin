@@ -75,7 +75,7 @@ class ItpShortUrlSocialButtons extends JObject{
                 
             case "tinycc":
                 
-                $requestUrl = "http://tiny.cc/?c=rest_api&m=shorten&version=2.0.2&format=json&longUrl=" . $this->url . "&login=" . $this->login . "&apiKey=" . $this->apiKey;
+                $requestUrl = "http://tiny.cc/?c=rest_api&m=shorten&version=2.0.3&format=json&longUrl=" . $this->url . "&login=" . $this->login . "&apiKey=" . $this->apiKey;
                 $response   = file_get_contents($requestUrl);
                 if(!empty($response)) {
                     $response = json_decode($response, true);

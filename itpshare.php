@@ -730,9 +730,7 @@ class plgContentITPShare extends JPlugin {
 		if($params->get("loadGoogleJsLib")) {
   
             $html .= '<script type="text/javascript">';
-            if($this->plusLocale) {
-               $html .= ' window.___gcfg = {lang: "' . $this->plusLocale . '"};';
-            }
+            $html .= ' window.___gcfg = {lang: "' . $this->plusLocale . '"};';
             
             $html .= '
               (function() {
@@ -1464,7 +1462,7 @@ tweetmeme_source = "' . $params->get("twitterName") . '";
             $size = ' height="' . $params->get("gsType") . '" ';
         }
         
-        $html = '<g:plus action="share" ' . $annotation . $size . '" href="' . $url . '"></g:plus>';
+        $html = '<g:plus action="share" ' . $annotation . $size . ' href="' . $url . '"></g:plus>';
         
         return $html;
     }
