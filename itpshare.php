@@ -623,7 +623,7 @@ class plgContentITPShare extends JPlugin {
 		if($params->get("loadGoogleJsLib")) {
       
             $html .= '<script type="text/javascript">';
-            $html .= ' window.___gcfg = {lang: "' . $this->plusLocale . '"};';
+            $html .= ' window.___gcfg = {lang: "' . $this->plusLocale . '"}; ';
             
             $html .= '
               (function() {
@@ -1285,7 +1285,7 @@ tweetmeme_source = "' . $params->get("twitterName") . '";
     private function getGoogleShare($params, $url, $title){
         
         $html = "";
-        if($params->get("plusButton")) {
+        if($params->get("gsButton")) {
             
             // Get locale code
             if(!$params->get("dynamicLocale")) {
@@ -1313,7 +1313,7 @@ tweetmeme_source = "' . $params->get("twitterName") . '";
         
                 $html .= '<script type="text/javascript">';
                 if($this->gshareLocale) {
-                   $html .= ' window.___gcfg = {lang: "'.$this->gshareLocale.'"}';
+                   $html .= ' window.___gcfg = {lang: "'.$this->gshareLocale.'"}; ';
                 }
                 
                 $html .= '
