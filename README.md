@@ -1,10 +1,15 @@
 ITPShare Plugin for Joomla! 1.5
 ==========================
-( Version 2.1 )
+( Version 2.2 )
 --------------------------
 
 Changelog
 ---------
+
+v2.2
+----
+* Added Google Share Button
+* Improved buttons displaying on the frontpage and category blog page.
 
 v2.1
 ----
