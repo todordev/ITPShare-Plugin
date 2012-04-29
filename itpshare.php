@@ -27,6 +27,7 @@ class plgContentITPShare extends JPlugin {
     private $locale         = "en_US";
     private $fbLocale       = "en_US";
     private $plusLocale     = "en";
+    private $gshareLocale   = "en";
     private $twitterLocale  = "en";
     private $currentView    = "";
     private $currentTask    = "";
@@ -218,6 +219,7 @@ class plgContentITPShare extends JPlugin {
             $article->id        = JArrayHelper::getValue($articleData,'id');
             $article->catid     = JArrayHelper::getValue($articleData,'catid');
             $article->title     = JArrayHelper::getValue($articleData,'title');
+            $article->images     = JArrayHelper::getValue($articleData,'images');
             $article->slug      = JArrayHelper::getValue($articleData, 'slug');
             $article->catslug   = JArrayHelper::getValue($articleData,'catslug');
         }
@@ -390,6 +392,7 @@ class plgContentITPShare extends JPlugin {
         
         $url  = $this->getUrl($article, $context);
         $title= $this->getTitle($article, $context);
+        $image= $this->getImage($article, $context);
         
     	/*** Convert the url to short one ***/
         if($this->params->get("sService")) {
@@ -405,12 +408,13 @@ class plgContentITPShare extends JPlugin {
         $html .= $this->getLinkedIn($this->params, $url, $title);
         $html .= $this->getTumblr($this->params, $url, $title);
         $html .= $this->getBuffer($this->params, $url, $title);
-        $html .= $this->getPinterest($this->params, $url, $title);
+        $html .= $this->getPinterest($this->params, $url, $title, $image);
         $html .= $this->getReddit($this->params, $url, $title);
         $html .= $this->getReTweetMeMe($this->params, $url, $title);
 
         $html .= $this->getFacebookLike($this->params, $url, $title);
         $html .= $this->getGooglePlusOne($this->params, $url, $title);
+        $html .= $this->getGoogleShare($this->params, $url, $title);
         
         // Gets extra buttons
         $html   .= $this->getExtraButtons($this->params, $url, $title);
@@ -529,6 +533,54 @@ class plgContentITPShare extends JPlugin {
         
     }
     
+    private function getImage($article, $context) {
+        
+    	$result = false;
+    	
+    	switch($this->currentOption) {
+            case "com_content":
+            	
+            	// It's an implementation of "com_myblog"
+            	// I don't know why but $option contains "com_content" for a value
+            	// I hope it will be fixed in the future versions of "com_myblog"
+            	if(!strcmp($context, "com_myblog") == 0) {
+            	    
+            		if(!empty($article->images)) {
+            		    $images = json_decode($article->images);
+            		    if(isset($images->image_intro)) {
+            		        $result = JURI::root().$images->image_intro;
+            		    }
+            		}
+            		 
+	                break;
+            	} 
+	                
+            case "com_k2":
+    	        if(!empty($article->imageSmall)) {
+    		        $result = JURI::root().$article->imageSmall;
+        		}
+                
+                break;
+                
+            case "com_virtuemart":
+                
+    	        /*if(!empty($article->file_url)) {
+    		        $result = JURI::root().$article->file_url;
+        		}*/
+                break;
+
+            case "com_myblog":
+            case "com_easyblog":
+            case "com_jevents":
+            default:
+                $result = "";
+                break;   
+        }
+        
+        return $result;
+        
+    }
+    
     /**
      * 
      * Load an information about article, if missing, on the view 'category' and 'featured'
@@ -544,7 +596,9 @@ class plgContentITPShare extends JPlugin {
                 `#__content`.`catid`,
                 `#__content`.`alias`,
                 `#__content`.`title`,
+                `#__content`.`images`,
                 `#__categories`.`alias` as category_alias
+                
             FROM
                 `#__content`
             INNER JOIN
@@ -552,7 +606,7 @@ class plgContentITPShare extends JPlugin {
             ON
                 `#__content`.`catid`=`#__categories`.`id`
             WHERE
-                `#__content`.`introtext` = " . $db->quote($article->text); 
+                `#__content`.`introtext` SOUNDS LIKE " . $db->quote($article->text); 
         
         $db->setQuery($query);
        
@@ -659,21 +713,35 @@ class plgContentITPShare extends JPlugin {
                 $this->plusLocale = JArrayHelper::getValue($locales, "google", "en");
             }
             
-            $language = " {lang: '" . $this->plusLocale . "'};";
-            
             $html .= '<div class="itp-share-gone">';
             
             switch($params->get("plusRenderer")) {
                 
                 case 1:
-                    $html .= $this->genGooglePlus($params, $url, $language);
+                    $html .= $this->genGooglePlus($params, $url);
                     break;
                     
                 default:
-                    $html .= $this->genGooglePlusHTML5($params, $url, $language);
+                    $html .= $this->genGooglePlusHTML5($params, $url);
                     break;
             }
             
+        // Load the JavaScript asynchroning
+		if($params->get("loadGoogleJsLib")) {
+  
+            $html .= '<script type="text/javascript">';
+            if($this->plusLocale) {
+               $html .= ' window.___gcfg = {lang: "' . $this->plusLocale . '"};';
+            }
+            
+            $html .= '
+              (function() {
+                var po = document.createElement("script"); po.type = "text/javascript"; po.async = true;
+                po.src = "https://apis.google.com/js/plusone.js";
+                var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s);
+              })();
+            </script>';
+		}
           
             $html .= '</div>';
         }
@@ -687,9 +755,8 @@ class plgContentITPShare extends JPlugin {
      * 
      * @param array $params
      * @param string $url
-     * @param string $language
      */
-    private function genGooglePlus($params, $url, $language) {
+    private function genGooglePlus($params, $url) {
         
         $annotation = "";
         if($params->get("plusAnnotation")) {
@@ -698,24 +765,6 @@ class plgContentITPShare extends JPlugin {
         
         $html = '<g:plusone size="' . $params->get("plusType") . '" ' . $annotation . ' href="' . $url . '"></g:plusone>';
 
-        
-        // Load the JavaScript asynchroning
-		if($params->get("loadGooglePlusJsLib")) {
-  
-$html .= '<script type="text/javascript">';
-if($language) {
-   $html .= ' window.___gcfg = '.$language;
-}
-
-$html .= '
-  (function() {
-    var po = document.createElement("script"); po.type = "text/javascript"; po.async = true;
-    po.src = "https://apis.google.com/js/plusone.js";
-    var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s);
-  })();
-</script>';
-				}
-				
         return $html;
     }
     
@@ -725,9 +774,8 @@ $html .= '
      * 
      * @param array $params
      * @param string $url
-     * @param string $language
      */
-    private function genGooglePlusHTML5($params, $url, $language) {
+    private function genGooglePlusHTML5($params, $url) {
         
         $annotation = "";
         if($params->get("plusAnnotation")) {
@@ -735,23 +783,6 @@ $html .= '
         }
         
         $html = '<div class="g-plusone" data-size="' . $params->get("plusType") . '" ' . $annotation . ' data-href="' . $url . '"></div>';
-
-        // Load the JavaScript asynchroning
-		if($params->get("loadGooglePlusJsLib")) {
-      
-            $html .= '<script type="text/javascript">';
-            if($language) {
-               $html .= ' window.___gcfg = '.$language;
-            }
-            
-            $html .= '
-              (function() {
-                var po = document.createElement("script"); po.type = "text/javascript"; po.async = true;
-                po.src = "https://apis.google.com/js/plusone.js";
-                var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s);
-              })();
-            </script>';
-		}
     				
         return $html;
     }
@@ -939,7 +970,7 @@ href="http://digg.com/submit?url=' . rawurlencode($url) . '&amp;title=' . rawurl
         return $html;
     }
     
-    private function getPinterest($params, $url, $title){
+    private function getPinterest($params, $url, $title, $image){
         
         $title = html_entity_decode($title,ENT_QUOTES, "UTF-8");
         
@@ -976,8 +1007,13 @@ href="http://digg.com/submit?url=' . rawurlencode($url) . '&amp;title=' . rawurl
 ';
             }
             
+        $media = "";
+        if(!empty($image)) {
+            $media = "&amp;media=" . rawurlencode($image);
+        }
+        
 $html .= '<!-- Customize and include for EACH button in the page -->
-<a href="http://pinterest.com/pin/create/button/?url=' . rawurlencode($url) . '&amp;description=' . rawurlencode($title) . '" class="pin-it-button" count-layout="'.$params->get("pinterestType").'">Pin It</a>';
+<a href="http://pinterest.com/pin/create/button/?url=' . rawurlencode($url) . $media. '&amp;description=' . rawurlencode($title) . '" class="pin-it-button" count-layout="'.$params->get("pinterestType").'">Pin It</a>';
             $html .= '</div>';
         }
         
@@ -1358,4 +1394,104 @@ tweetmeme_source = "' . $params->get("twitterName") . '";
         return $result;
         
     }
+    
+    private function getGoogleShare($params, $url, $title){
+        
+        $html = "";
+        if($params->get("plusButton")) {
+            
+            // Get locale code
+            if(!$params->get("dynamicLocale")) {
+                $this->gshareLocale = $params->get("gsLocale", "en");
+            } else {
+                $locales = $this->getButtonsLocales($this->locale); 
+                $this->gshareLocale = JArrayHelper::getValue($locales, "google", "en");
+            }
+            
+            $html .= '<div class="itp-share-gshare">';
+            
+            switch($params->get("gsRenderer")) {
+                
+                case 1:
+                    $html .= $this->genGoogleShare($params, $url);
+                    break;
+                    
+                default:
+                    $html .= $this->genGoogleShareHTML5($params, $url);
+                    break;
+            }
+            
+            // Load the JavaScript asynchroning
+        	if($params->get("loadGoogleJsLib")) {
+        
+                $html .= '<script type="text/javascript">';
+                if($this->gshareLocale) {
+                   $html .= ' window.___gcfg = {lang: "'.$this->gshareLocale.'"}';
+                }
+                
+                $html .= '
+                  (function() {
+                    var po = document.createElement("script"); po.type = "text/javascript"; po.async = true;
+                    po.src = "https://apis.google.com/js/plusone.js";
+                    var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s);
+                  })();
+                </script>';
+            }
+          
+            $html .= '</div>';
+        }
+        
+        return $html;
+    }
+    
+    /**
+     * 
+     * Render the Google Share in standart syntax
+     * 
+     * @param array $params
+     * @param string $url
+     * @param string $language
+     */
+    private function genGoogleShare($params, $url) {
+        
+        $annotation = "";
+        if($params->get("gsAnnotation")) {
+            $annotation = ' annotation="' . $params->get("gsAnnotation") . '"';
+        }
+        
+        $size = "";
+        if($params->get("gsAnnotation") != "vertical-bubble") {
+            $size = ' height="' . $params->get("gsType") . '" ';
+        }
+        
+        $html = '<g:plus action="share" ' . $annotation . $size . '" href="' . $url . '"></g:plus>';
+        
+        return $html;
+    }
+    
+    /**
+     * 
+     * Render the Google Share in HTML5 syntax
+     * 
+     * @param array $params
+     * @param string $url
+     * @param string $language
+     */
+    private function genGoogleShareHTML5($params, $url) {
+        
+        $annotation = "";
+        if($params->get("gsAnnotation")) {
+            $annotation = ' data-annotation="' . $params->get("gsAnnotation") . '"';
+        }
+        
+        $size = "";
+        if($params->get("gsAnnotation") != "vertical-bubble") {
+            $size = ' data-height="' . $params->get("gsType") . '" ';
+        }
+        
+        $html = '<div class="g-plus" data-action="share" ' . $annotation . $size . ' data-href="' . $url . '"></div>';
+
+        return $html;
+    }
+    
 }

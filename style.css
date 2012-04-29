@@ -1,4 +1,5 @@
 @CHARSET "UTF-8";
+
 .itp-share{
     display:block !important;        
 }
@@ -40,6 +41,13 @@
     margin-top:10px;
 }
 
+.itp-share-gshare{
+    float:left;
+    margin-left:5px;
+    margin-right:10px;
+    margin-top:10px;
+}
+
 .itp-share-retweetme{
     float:left;
     margin-top:10px;
@@ -64,3 +72,4 @@
     float:left;
     margin-top:10px;
 }
+

@@ -7,9 +7,9 @@
     <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
     <authorEmail>todor@itprism.com</authorEmail>
     <authorUrl>http://itprism.com</authorUrl>
-    <version>2.1</version>
+    <version>2.2</version>
     <description><![CDATA[
-    <p><a href="http://itprism.com/free-joomla-extensions/socialmedia-share-plugin" target="_blank">ITPShare</a> is an extension that adds republish buttons, widgets or goodies on your site. There are social plugins of Twitter, Facebook, Digg, LinkedIn, Stumbleupon, Google Plus, Thumblr, Pinterest, BufferApp,... It will help you to find more readers for your publications.</p>
+    <p><a href="http://itprism.com/free-joomla-extensions/socialmedia-share-plugin" target="_blank">ITPShare</a> is an extension that adds republish buttons, widgets or goodies on your site. There are social plugins of Twitter, Facebook, Digg, LinkedIn, Stumbleupon, Google Plus, Google Share, Thumblr, Pinterest, BufferApp,... It will help you to find more readers for your publications.</p>
     <p>Invest in the extension improvement. You can <a href="http://itprism.com/sponsorship" title="Sponsoring" target="_blank">sponsor the extension via SMS or PayPal</a>.</p>
     <p><a href="http://itprism.com/" target="_blank">Subscribe for the newsletter</a> to receive information about updates and new ITPrism extensions.</p>
     <p>Please, <a href="http://extensions.joomla.org/extensions/social-web/republish/15665" target="_blank">vote for the extension</a> on Joomla! Extensions Directory</p>]]></description>
@@ -415,7 +415,7 @@
                 </field>
                 
                 <field name="spacer11" type="spacer" class="text" label="############# BUFFER SETTINGS #############" />
-                <field name="bufferButton" type="radio" default="0" label="Buffer Button" description="Show or hide BufferApp.com buttons." >
+                <field name="bufferButton" type="radio" default="0" label="Buffer Button" description="Show or hide BufferApp.com button." >
                    <option value="0">Hide</option>
                    <option value="1">Show</option>
                 </field>
@@ -426,11 +426,95 @@
                 </field>
                 <field name="bufferTwitterName" type="text" default="" size="80" label="Twitter Username" description="Enter the name of your twitter account you want to be mentioned." />
                 
+                <field name="spacer12" type="spacer" class="text" label="############# GOOGLE SHARE SETTINGS #############" />
+                <field name="gsButton" type="radio" default="0" label="Google Share Button" description="Show or hide Google Share button." >
+                   <option value="0">Hide</option>
+                   <option value="1">Show</option>
+                </field>
+                <field name="gsRenderer" type="list" default="0" label="Google Share Renderer" description="Select the way of rendering." >
+                   <option value="0">HTML5</option>
+                   <option value="1">Standart</option>
+                </field>
+                <field name="gsType" type="list" default="0" label="Google Share Style" description="Select a Google Share button style." >
+                   <option value="15">Small (15px)</option>
+                   <option value="0">Standard</option>
+                   <option value="24">Large (20px)</option>
+                </field>
+                
+                <field name="gsAnnotation" type="list" default="bubble" label="Google Share Annotation" description="Select a Google Share button annotation." >
+                   <option value="bubble">Bubble (horizontal)</option>
+                   <option value="vertical-bubble">Bubble (vertical)</option>
+                   <option value="inline">Inline</option>
+                   <option value="none">None</option>
+                </field>
+                
+                <field name="gsLocale" type="list" default="en" label="Google Share Language" description="Choose a Google Share language." >
+                    <option value="ar">Arabic</option>
+                    <option value="bn">Bengali</option>
+                    <option value="bg">Bulgarian</option>
+                    <option value="ca">Catalan</option>
+                    <option value="zh">Chinese</option>
+                    <option value="zh_CN">Chinese (China)</option>
+                    <option value="zh_HK">Chinese (Hong Kong)</option>
+                    <option value="zh_TW">Chinese (Taiwan)</option>
+                    <option value="hr">Croatian</option>
+                    <option value="cs">Czech</option>
+                    <option value="da">Danish</option>
+                    <option value="nl">Dutch</option>
+                    <option value="en">English</option>
+                    <option value="en_IN">English (India)</option>
+                    <option value="en_IE">English (Ireland)</option>
+                    <option value="en_SG">English (Singapore)</option>
+                    <option value="en_ZA">English (South Africa)</option>
+                    <option value="en_GB">English (United Kingdom)</option>
+                    <option value="fil">Filipino</option>
+                    <option value="fi">Finnish</option>
+                    <option value="fr">French</option>
+                    <option value="de">German</option>
+                    <option value="de_CH">German (Switzerland)</option>
+                    <option value="el">Greek</option>
+                    <option value="gu">Gujarati</option>
+                    <option value="iw">Hebrew</option>
+                    <option value="hi">Hindi</option>
+                    <option value="hu">Hungarian</option>
+                    <option value="in">Indonesian</option>
+                    <option value="it">Italian</option>
+                    <option value="ja">Japanese</option>
+                    <option value="kn">Kannada</option>
+                    <option value="ko">Korean</option>
+                    <option value="lv">Latvian</option>
+                    <option value="ln">Lingala</option>
+                    <option value="lt">Lithuanian</option>
+                    <option value="ms">Malay</option>
+                    <option value="ml">Malayalam</option>
+                    <option value="mr">Marathi</option>
+                    <option value="no">Norwegian</option>
+                    <option value="or">Oriya</option>
+                    <option value="fa">Persian</option>
+                    <option value="pl">Polish</option>
+                    <option value="pt_BR">Portuguese (Brazil)</option>
+                    <option value="pt_PT">Portuguese (Portugal)</option>
+                    <option value="ro">Romanian</option>
+                    <option value="ru">Russian</option>
+                    <option value="sr">Serbian</option>
+                    <option value="sk">Slovak</option>
+                    <option value="sl">Slovenian</option>
+                    <option value="es">Spanish</option>
+                    <option value="sv">Swedish</option>
+                    <option value="gsw">Swiss German</option>
+                    <option value="ta">Tamil</option>
+                    <option value="te">Telugu</option>
+                    <option value="th">Thai</option>
+                    <option value="tr">Turkish</option>
+                    <option value="uk">Ukrainian</option>
+                    <option value="vi">Vietnamese</option>
+                </field>
+                
 				</fieldset>
 				
 				<fieldset name="advanced">
 				    
-				    <field name="spacer12" type="spacer" class="text" label="############# JOOMLA CONTENT ( com_content ) SETTINGS #############" />
+				    <field name="spacer13" type="spacer" class="text" label="############# JOOMLA CONTENT ( com_content ) SETTINGS #############" />
 				    <field name="showInArticles" type="radio" default="1" label="Show in articles" description="Display buttons in view 'article'." >
 	                   <option value="0">JNO</option>
 	                   <option value="1">JYES</option>
@@ -449,7 +533,7 @@
 	                <field name="excludeCats" type="text" default="" size="80" label="Exclude categories" description="List with excluded categories divided by comma. You must enter the IDs of categories." />
 	                <field name="includeArticles" type="text" default="" size="80" label="Display in these articles" description="Displays the buttons in these articles notwithstanding the exclusion settings. You must enter the IDs of articles." />
 	                
-	                <field name="spacer13" type="spacer" class="text" label="############# K2 ( com_k2 ) SETTINGS #############" />
+	                <field name="spacer14" type="spacer" class="text" label="############# K2 ( com_k2 ) SETTINGS #############" />
                     <field name="k2DisplayInArticles" type="radio" default="1" label="Display in articles" description="Setting this to true and the buttons will be displayed on article page." >
                        <option value="0">JNO</option>
                        <option value="1">JYES</option>
@@ -460,19 +544,19 @@
                        <option value="1">JYES</option>
                     </field>
                     
-                    <field name="spacer14" type="spacer" class="text" label="############# VIRTUEMART ( com_virtuemart ) SETTINGS #############" />
+                    <field name="spacer15" type="spacer" class="text" label="############# VIRTUEMART ( com_virtuemart ) SETTINGS #############" />
                     <field name="vmDisplayInDetails" type="radio" default="1" label="Display in details" description="Setting this to true and the buttons will be displayed on details page." >
                        <option value="0">JNO</option>
                        <option value="1">JYES</option>
                     </field>
                     
-	                <field name="spacer15" type="spacer" class="text" label="############# JEVENTS ( com_jevents ) SETTINGS #############" />
+	                <field name="spacer16" type="spacer" class="text" label="############# JEVENTS ( com_jevents ) SETTINGS #############" />
                     <field name="jeDisplayInEvents" type="radio" default="1" label="Display in events" description="Display buttons on event details page." >
                        <option value="0">JNO</option>
                        <option value="1">JYES</option>
                     </field>
                     
-                    <field name="spacer16" type="spacer" class="text" label="############# EASY BLOG ( com_easyblog ) SETTINGS #############" />
+                    <field name="spacer17" type="spacer" class="text" label="############# EASY BLOG ( com_easyblog ) SETTINGS #############" />
 	                <field name="ebDisplayInEntry" type="radio" default="1" label="Display in entry" description="Setting this to true and the plugin content will be displayed on entry page." >
 	                   <option value="0">JNO</option>
 	                   <option value="1">JYES</option>
@@ -486,13 +570,13 @@
                        <option value="1">JYES</option>
                     </field>
                     
-                    <field name="spacer17" type="spacer" class="text" label="############# MYBLOG ( com_myblog ) SETTINGS #############" />
+                    <field name="spacer18" type="spacer" class="text" label="############# MYBLOG ( com_myblog ) SETTINGS #############" />
 	                <field name="mbDisplay" type="radio" default="1" label="Display in posts" description="Setting this to true and the plugin content will be displayed on entry page." >
 	                   <option value="0">JNO</option>
 	                   <option value="1">JYES</option>
 	                </field>
                     
-				    <field name="spacer18" type="spacer" class="text" label="############# FACEBOOK LIKE ADVANCED SETTINGS #############" />
+				    <field name="spacer19" type="spacer" class="text" label="############# FACEBOOK LIKE ADVANCED SETTINGS #############" />
 				    <field name="facebookLikeAppId" type="text" default="" label="Facebook App ID" description="Enter the ID of the your domain name. For more information read the documentation." />
 				    <field name="facebookLikeSend" type="list" default="0" label="Facebook Send Buttons" description="Specifies whether to include a 'Send button' with the Like button. This only works with the XFBML version." >
 	                   <option value="0">JNO</option>
@@ -507,31 +591,31 @@
 	                    <option value="1">JYES</option>
 	                </field>
                             
-	                <field name="spacer19" type="spacer" class="text" label="############# TUMBLR ADVANCED SETTINGS #############" />
+	                <field name="spacer20" type="spacer" class="text" label="############# TUMBLR ADVANCED SETTINGS #############" />
 	                <field name="loadTumblrJsLib" type="radio" default="1" label="Load Tumblr JS library" description="Pass loading the Tumblr JavaScript library 'share.js'. Thus avoiding repeated loading library, if you are using other Tumblr widgets. Accelerating the speed of the site and avoid conflicts between the Tumblr widgets.">
                         <option value="0">JNO</option>
                         <option value="1">JYES</option>
                     </field>
                     
-                    <field name="spacer20" type="spacer" class="text" label="############# DIGG ADVANCED SETTINGS #############" />
+                    <field name="spacer21" type="spacer" class="text" label="############# DIGG ADVANCED SETTINGS #############" />
                     <field name="loadDiggJsLib" type="radio" default="1" label="Load Digg JS library" description="Pass loading the Digg JavaScript library 'buttons.js'. Thus avoiding repeated loading library, if you are using other Digg widgets. Accelerating the speed of the site and avoid conflicts between the Digg widgets.">
                         <option value="0">JNO</option>
                         <option value="1">JYES</option>
                     </field>
                     
-                    <field name="spacer21" type="spacer" class="text" label="############# GOOGLE PLUS ADVANCED SETTINGS #############" />
-                    <field name="loadGooglePlusJsLib" type="radio" default="1" label="Load Google JS library" description="Pass loading the Google Plus JavaScript library 'plus'. Thus avoiding repeated loading library, if you are using other Google Plus widgets. Accelerating the speed of the site and avoid conflicts between the Google Plus widgets.">
+                    <field name="spacer22" type="spacer" class="text" label="############# GOOGLE ADVANCED SETTINGS #############" />
+                    <field name="loadGoogleJsLib" type="radio" default="1" label="Load Google JS library" description="Pass loading the Google JavaScript library. Thus avoiding repeated loading library, if you are using other Google widgets. Accelerating the speed of the site and avoid conflicts between the Google widgets.">
                         <option value="0">JNO</option>
                         <option value="1">JYES</option>
                     </field>
                     
-                    <field name="spacer22" type="spacer" class="text" label="############# PINTEREST ADVANCED SETTINGS #############" />
+                    <field name="spacer23" type="spacer" class="text" label="############# PINTEREST ADVANCED SETTINGS #############" />
                     <field name="loadPinterestJsLib" type="radio" default="1" label="Load Pinterest JS library" description="Pass loading the Pinterest JavaScript library. Thus avoiding repeated loading library, if you are using other Google Plus widgets. Accelerating the speed of the site and avoid conflicts between the Pinterest widgets.">
                         <option value="0">JNO</option>
                         <option value="1">JYES</option>
                     </field>
                     
-                    <field name="spacer23" type="spacer" class="text" label="############# ITPShare SETTINGS #############" />
+                    <field name="spacer24" type="spacer" class="text" label="############# ITPShare SETTINGS #############" />
                     <field name="loadCss" type="radio" default="1" label="Load style.css" description="The style.css is a file that conations button position and some styles of the ReTweetMe button. You can disable the file loading if you have your own styles.">
                         <option value="0">JNO</option>
                         <option value="1">JYES</option>
@@ -541,7 +625,7 @@
 	                    <option value="1">JYES</option>
 	               </field>
                     
-                    <field name="spacer24" type="spacer" class="text" label="############# SHORTENER URL SERVICES SETTINGS #############"  />
+                    <field name="spacer25" type="spacer" class="text" label="############# SHORTENER URL SERVICES SETTINGS #############"  />
                     <field name="sService" type="list" default="" label="Shortener service" description="You can select a shortener URL service. To work properly, a PHP option 'allow_url_fopen' must be enabled. You must enable PHP curl for Google shortener serice." >
                        <option value="">None</option>
                        <option value="bitly">bit.ly</option>
@@ -551,7 +635,7 @@
 			        <field name="sLogin" type="text" default="" label="Login" description="Username for the shortener URL service."/>
 			        <field name="sApiKey" type="text" default="" size="80" label="API key" description="An API key for the shortener URL serivce."/>
 			        
-	                <field name="spacer25" type="spacer" class="text" label="############# ADDITIONAL BUTTONS #############" />
+	                <field name="spacer26" type="spacer" class="text" label="############# ADDITIONAL BUTTONS #############" />
 	                <field name="ebuttons1" type="textarea" default="" label="Custom Button code 1" description="Insert an additional button code that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
 			        <field name="ebuttons2" type="textarea" default="" label="Custom Button code 2" description="Insert an additional button code that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
 			        <field name="ebuttons3" type="textarea" default="" label="Custom Button code 3" description="Insert an additional button code that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />

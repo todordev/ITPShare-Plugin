@@ -1,12 +1,19 @@
 ITPShare Plugin for Joomla! 
 ==========================
-( Version 2.1 )
+( Version 2.2 )
 --------------------------
 
 
 
 Changelog
 ---------
+
+v2.2
+----
+* Added Google Share Button
+* Added new parameter "media" to Pinterest bitton that points to image of the article. 
+( It is a part of plugin version for Jomomla! 2.5. It works only for Joomla! Content (com_content) and K2 (com_k2) now. )
+* Improved buttons displaying on the frontpage and category blog page. 
 
 v2.1
 ----
