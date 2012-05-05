@@ -15,8 +15,9 @@
     <p>Please, <a href="http://extensions.joomla.org/extensions/social-web/republish/15665" target="_blank">vote for the extension</a> on Joomla! Extensions Directory</p>]]></description>
     <files>
         <filename plugin="itpshare">itpshare.php</filename>
+        <filename>index.html</filename>
+        <filename>itpshorturlsocialbuttons.php</filename>
 		<filename>style.css</filename>
-		<filename>index.html</filename>
 		<filename>README.md</filename>
     </files>
     <config>
