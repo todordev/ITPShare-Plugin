@@ -1,12 +1,19 @@
 ITPShare Plugin for Joomla! 
 ==========================
-( Version 2.2 )
+( Version 2.3 )
 --------------------------
-
-
 
 Changelog
 ---------
+v2.3
+----
+* Added some new Twitter languages
+* Added ablility to be used on 'https'-Domain (SSL)
+* Removed the Digg and ReTwittMe buttons. Those services do not work anymore.
+* Updated the code of buttons SumbpleUpon, Facebook, Pinterest, BufferApp.
+* Fixed the Pinterest button
+* [[#1]](https://github.com/ITPrism/ITPShare-Plugin/issues/1 "Valid CSS for Facebook Like with multiple instances.") Fixed duplication of "fb-root"
+* Improved language
 
 v2.2
 ----
