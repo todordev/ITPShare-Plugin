@@ -616,7 +616,6 @@ class plgContentITPShare extends JPlugin {
         	    // Using contect because the context show us it is com_myblog
         	    // $this->currentOption contains value "com_content" 
         	    $result = $this->findImage($context, $article);
-        	    dump($result,"com_myblog");
         	    break;
 
             case "com_k2":
@@ -635,8 +634,7 @@ class plgContentITPShare extends JPlugin {
                 break;
                 
             case "com_vipportfolio":
-                dump($article);
-//                dump($result, "com_vipportfolio");
+                $result = JURI::root().$article->image_intro;
                 break;
                 
             default:
