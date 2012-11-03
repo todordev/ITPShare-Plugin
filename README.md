@@ -8,6 +8,7 @@ Changelog
 
 v2.4
 ----
+* Now works with EasyBlog and MyBlog
 * Improved
 
 v2.3
