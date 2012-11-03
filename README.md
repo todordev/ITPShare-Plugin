@@ -1,13 +1,13 @@
 ITPShare Plugin for Joomla! 
 ==========================
-( Version 2.3 )
+( Version 2.4 )
 --------------------------
 
 Changelog
 ---------
-v2.4
----------
 
+v2.4
+----
 * Improved
 
 v2.3
