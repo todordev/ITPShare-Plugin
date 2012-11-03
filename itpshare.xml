@@ -7,7 +7,7 @@
     <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
     <authorEmail>todor@itprism.com</authorEmail>
     <authorUrl>http://itprism.com</authorUrl>
-    <version>2.3</version>
+    <version>2.4</version>
     <description>PLG_CONTENT_ITPSHARE_DESC</description>
     
     <languages  folder="language">
@@ -46,59 +46,59 @@
                    <option value="small">PLG_CONTENT_ITPSHARE_SMALL</option>
                    <option value="large">PLG_CONTENT_ITPSHARE_LARGE</option>
                 </field>
-				<field name="twitterCounter" type="list" default="horizontal" label="PLG_CONTENT_ITPSHARE_TWITTER_LANGUAGE" description="PLG_CONTENT_ITPSHARE_TWITTER_LANGUAGE_DESC" >
+				<field name="twitterCounter" type="list" default="horizontal" label="PLG_CONTENT_ITPSHARE_TWITTER_COUNTER" description="PLG_CONTENT_ITPSHARE_TWITTER_COUNTER_DESC" >
 				   <option value="none">JHIDE</option>
 				   <option value="vertical">PLG_CONTENT_ITPSHARE_VERTICAL</option>
 				   <option value="horizontal">PLG_CONTENT_ITPSHARE_HORIZONTAL</option>
 				</field>
 				<field name="twitterLanguage" type="list" default="en" label="PLG_CONTENT_ITPSHARE_TWITTER_LANGUAGE" description="PLG_CONTENT_ITPSHARE_TWITTER_LANGUAGE_DESC" >
-				   <option value="ar">Arabic</option>
-                   <option value="eu">Basque</option>
-                   <option value="ca">Catalan</option>
-                   <option value="cs">Czech</option>
-                   <option value="da">Danish</option>
-                   <option value="nl">Dutch</option>
-                   <option value="en">English</option>
-                   <option value="fa">Farsi</option>
-                   <option value="fil">Filipino</option>
-                   <option value="fr">French</option>
-                   <option value="fi">Finnish</option>
-                   <option value="de">German</option>
-                   <option value="el">Greek</option>
-                   <option value="hi">Hindi</option>
-                   <option value="hu">Hungarian</option>
-                   <option value="it">Italian</option>
-                   <option value="id">Indonesian</option>
-                   <option value="uk">Ukrainian</option>
-                   <option value="ur">Urdu</option>
-                   <option value="ko">Korean</option>
-                   <option value="msa">Malay</option>
-                   <option value="ru">Russian</option>
-                   <option value="es">Spanish</option>
-                   <option value="sv">Swedish</option>
-                   <option value="zh-cn">Simplified Chinese</option>
-                   <option value="no">Norwegian</option>
-                   <option value="pl">Polish</option>
-                   <option value="pt">Portuguese</option>
-                   <option value="zh-tw">Traditional Chinese</option>
-                   <option value="th">Thai</option>
-                   <option value="tr">Turkish</option>
-                   <option value="jp">Japanese</option>
+				   <option value="ar">PLG_CONTENT_ITPSHARE_ARABIC</option>
+                   <option value="eu">PLG_CONTENT_ITPSHARE_BASQUE</option>
+                   <option value="ca">PLG_CONTENT_ITPSHARE_CATALAN</option>
+                   <option value="zh-cn">PLG_CONTENT_ITPSHARE_CHINESE_ZH</option>
+                   <option value="zh-tw">PLG_CONTENT_ITPSHARE_CHINESE_TW</option>
+                   <option value="cs">PLG_CONTENT_ITPSHARE_CZECH</option>
+                   <option value="da">PLG_CONTENT_ITPSHARE_DANISH</option>
+                   <option value="nl">PLG_CONTENT_ITPSHARE_DUTCH</option>
+                   <option value="en">PLG_CONTENT_ITPSHARE_ENGLISH</option>
+                   <option value="fa">PLG_CONTENT_ITPSHARE_FARSI</option>
+                   <option value="fil">PLG_CONTENT_ITPSHARE_FILIPINO</option>
+                   <option value="fr">PLG_CONTENT_ITPSHARE_FRENCH_FR</option>
+                   <option value="fi">PLG_CONTENT_ITPSHARE_FINNISH</option>
+                   <option value="de">PLG_CONTENT_ITPSHARE_GERMAN</option>
+                   <option value="el">PLG_CONTENT_ITPSHARE_GREEK</option>
+                   <option value="hi">PLG_CONTENT_ITPSHARE_HINDI</option>
+                   <option value="hu">PLG_CONTENT_ITPSHARE_HUNGARIAN</option>
+                   <option value="it">PLG_CONTENT_ITPSHARE_ITALIAN</option>
+                   <option value="id">PLG_CONTENT_ITPSHARE_INDONESIAN</option>
+                   <option value="uk">PLG_CONTENT_ITPSHARE_UKRAINIAN</option>
+                   <option value="ur">PLG_CONTENT_ITPSHARE_URDU</option>
+                   <option value="ko">PLG_CONTENT_ITPSHARE_KOREAN</option>
+                   <option value="msa">PLG_CONTENT_ITPSHARE_MALAY</option>
+                   <option value="ru">PLG_CONTENT_ITPSHARE_RUSSIAN</option>
+                   <option value="es">PLG_CONTENT_ITPSHARE_SPANISH</option>
+                   <option value="sv">PLG_CONTENT_ITPSHARE_SWEDISH</option>
+                   <option value="no">PLG_CONTENT_ITPSHARE_NORWEGIAN</option>
+                   <option value="pl">PLG_CONTENT_ITPSHARE_POLISH</option>
+                   <option value="pt">PLG_CONTENT_ITPSHARE_PORTUGUESE</option>
+                   <option value="th">PLG_CONTENT_ITPSHARE_THAI</option>
+                   <option value="tr">PLG_CONTENT_ITPSHARE_TURKISH</option>
+                   <option value="jp">PLG_CONTENT_ITPSHARE_JAPANESE</option>
 				</field>
 				<field name="spacer2" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_TUMBLR_SETTINGS" />
 		        <field name="tumblrButton" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_TUMBLR_BUTTON" description="PLG_CONTENT_ITPSHARE_TUMBLR_BUTTON_DESC" >
 		           <option value="0">JHIDE</option>
                    <option value="1">JSHOW</option>
 		        </field>
-		        <field name="tumblrType" type="list" default="small" label="PLG_CONTENT_ITPSHARE_TUMBLR_TYPE" description="PLG_CONTENT_ITPSHARE_TUMBLR_TYPE_DESC" >
-		           <option value="0">Button 1</option>
-		           <option value="1">Button 2</option>
-		           <option value="2">Button 3</option>
-		           <option value="3">Button 4</option>
-		           <option value="4">Button 5</option>
-		           <option value="5">Button 6</option>
-		           <option value="6">Button 7</option>
-		           <option value="7">Button 8</option>
+		        <field name="tumblrType" type="list" default="0" label="PLG_CONTENT_ITPSHARE_TUMBLR_TYPE" description="PLG_CONTENT_ITPSHARE_TUMBLR_TYPE_DESC" >
+		           <option value="0">PLG_CONTENT_ITPSHARE_BUTTON_1</option>
+                   <option value="1">PLG_CONTENT_ITPSHARE_BUTTON_2</option>
+                   <option value="2">PLG_CONTENT_ITPSHARE_BUTTON_3</option>
+                   <option value="3">PLG_CONTENT_ITPSHARE_BUTTON_4</option>
+                   <option value="4">PLG_CONTENT_ITPSHARE_BUTTON_5</option>
+                   <option value="5">PLG_CONTENT_ITPSHARE_BUTTON_6</option>
+                   <option value="6">PLG_CONTENT_ITPSHARE_BUTTON_7</option>
+                   <option value="7">PLG_CONTENT_ITPSHARE_BUTTON_8</option>
 		        </field>
 		        
 				<field name="spacer3" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_FACEBOOK_SETTINGS" />
@@ -116,9 +116,9 @@
                    <option value="recommend">PLG_CONTENT_ITPSHARE_RECOMMEND</option>
 		        </field>
 				<field name="facebookLikeType" type="list" default="button_count" label="PLG_CONTENT_ITPSHARE_FACEBOOK_TYPE" description="PLG_CONTENT_ITPSHARE_FACEBOOK_TYPE_DESC" >
-					<option value="standard">Standard</option>
-				   <option value="box_count">Box count</option>
-				   <option value="button_count">Button count</option>
+					<option value="standard">PLG_CONTENT_ITPSHARE_STANDARD</option>
+                    <option value="box_count">PLG_CONTENT_ITPSHARE_BOX_COUNT</option>
+                    <option value="button_count">PLG_CONTENT_ITPSHARE_BUTTON_COUNT</option>
 				</field>
 				<field name="facebookLikeFaces" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_FACEBOOK_FACES" description="PLG_CONTENT_ITPSHARE_FACEBOOK_FACES_DESC" >
 				   <option value="0">JHIDE</option>
@@ -139,113 +139,113 @@
 		        </field>
 				<field name="facebookLikeWidth" type="text" default="90" label="PLG_CONTENT_ITPSHARE_FACEBOOK_WIDTH" description="PLG_CONTENT_ITPSHARE_FACEBOOK_WIDTH_DESC" />
 		        <field name="fbLocale" type="list" default="en_US" label="PLG_CONTENT_ITPSHARE_LANGUAGE" description="PLG_CONTENT_ITPSHARE_LANGUAGE_DESC">
-		            <option value="af_ZA">Afrikaans</option>
-		            <option value="ar_AR">Arabic</option>
-		            <option value="ay_BO">Aymara</option>
-		            <option value="az_AZ">Azeri</option>
-		            <option value="be_BY">Belarusian</option>
-		            <option value="bg_BG">Bulgarian</option>
-		            <option value="bn_IN">Bengali</option>
-		            <option value="bs_BA">Bosnian</option>
-		            <option value="ca_ES">Catalan</option>
-		            <option value="ck_US">Cherokee</option>
-		            <option value="cs_CZ">Czech</option>
-		            <option value="cy_GB">Welsh</option>
-		            <option value="da_DK">Danish</option>
-		            <option value="de_DE">German</option>
-		            <option value="el_GR">Greek</option>
-		            <option value="en_GB">English (UK)</option>
-		            <option value="en_PI">English (Pirate)</option>
-		            <option value="en_UD">English (Upside Down)</option>
-		            <option value="en_US">English [US]</option>
-		            <option value="eo_EO">Esperanto</option>
-		            <option value="es_CL">Spanish (Chile)</option>
-		            <option value="es_CO">Spanish (Colombia)</option>
-		            <option value="es_ES">Spanish (Spain)</option>
-		            <option value="es_LA">Spanish</option>
-		            <option value="es_MX">Spanish (Mexico)</option>
-		            <option value="es_VE">Spanish (Mexico)</option>
-		            <option value="et_EE">Estonian</option>
-		            <option value="eu_ES">Basque</option>
-		            <option value="fa_IR">Persian</option>
-		            <option value="fb_LT">Leet Speak</option>
-		            <option value="fi_FI">Finnish</option>
-		            <option value="fo_FO">Faroese</option>
-		            <option value="fr_CA">French (Canada)</option>
-		            <option value="fr_FR">French (France)</option>
-		            <option value="ga_IE">Irish</option>
-		            <option value="gl_ES">Galician</option>
-		            <option value="gn_PY">Guarani</option>
-		            <option value="gu_IN">Gujarati</option>
-		            <option value="he_IL">Hebrew</option>
-		            <option value="hi_IN">Hindi</option>
-		            <option value="hr_HR">Croatian</option>
-		            <option value="hu_HU">Hungarian</option>
-		            <option value="hy_AM">Armenian</option>
-		            <option value="id_ID">Indonesian</option>
-		            <option value="is_IS">Icelandic</option>
-		            <option value="it_IT">Italian</option>
-		            <option value="ja_JP">Japanese</option>
-		            <option value="jv_ID">Javanese</option>
-		            <option value="ka_GE">Georgian</option>
-		            <option value="kk_KZ">Kazakh</option>
-		            <option value="km_KH">Khmer</option>
-		            <option value="kn_IN">Kannada</option>
-		            <option value="ko_KR">Korean</option>
-		            <option value="ku_TR">Kurdish</option>
-		            <option value="la_VA">Latin</option>
-		            <option value="li_NL">Limburgish</option>
-		            <option value="lt_LT">Lithuanian</option>
-		            <option value="lv_LV">Latvian</option>
-		            <option value="mg_MG">Malagasy</option>
-		            <option value="mk_MK">Macedonian</option>
-		            <option value="ml_IN">Malayalam</option>
-		            <option value="mn_MN">Mongolian</option>
-		            <option value="mr_IN">Marathi</option>
-		            <option value="ms_MY">Malay</option>
-		            <option value="mt_MT">Maltese</option>
-		            <option value="nb_NO">Norwegian (bokmal)</option>
-		            <option value="ne_NP">Nepali</option>
-		            <option value="nl_BE">Dutch (Belgie)</option>
-		            <option value="nl_NL">Dutch</option>
-		            <option value="nn_NO">Norwegian (nynorsk)</option>
-		            <option value="pa_IN">Punjabi</option>
-		            <option value="pl_PL">Polish</option>
-		            <option value="ps_AF">Pashto</option>
-		            <option value="pt_BR">Portuguese (Brazil)</option>
-		            <option value="pt_PT">Portuguese (Portugal)</option>
-		            <option value="qu_PE">Quechua</option>
-		            <option value="rm_CH">Romansh</option>
-		            <option value="ro_RO">Romanian</option>
-		            <option value="ru_RU">Russian</option>
-		            <option value="sa_IN">Sanskrit</option>
-		            <option value="se_NO">Northern Sami</option>
-		            <option value="sk_SK">Slovak</option>
-		            <option value="sl_SI">Slovenian</option>
-		            <option value="so_SO">Somali</option>
-		            <option value="sq_AL">Albanian</option>
-		            <option value="sr_RS">Serbian</option>
-		            <option value="sv_SE">Swedish</option>
-		            <option value="sw_KE">Swahili</option>
-		            <option value="sy_SY">Syriac</option>
-		            <option value="ta_IN">Tamil</option>
-		            <option value="te_IN">Telugu</option>
-		            <option value="tg_TJ">Tajik</option>
-		            <option value="th_TH">Thai</option>
-		            <option value="tl_PH">Filipino</option>
-		            <option value="tl_ST">Klingon</option>
-		            <option value="tr_TR">Turkish</option>
-		            <option value="tt_RU">Tatar</option>
-		            <option value="uk_UA">Ukrainian</option>
-		            <option value="ur_PK">Urdu</option>
-		            <option value="uz_UZ">Uzbek</option>
-		            <option value="vi_VN">Vietnamese</option>
-		            <option value="xh_ZA">Xhosa</option>
-		            <option value="yi_DE">Yiddish</option>
-		            <option value="zh_CN">Simplified Chinese (China)</option>
-		            <option value="zh_HK">Traditional Chinese (Hong Kong)</option>
-		            <option value="zh_TW">Traditional Chinese (Taiwan)</option>
-		            <option value="zu_ZA">Zulu</option>
+		            <option value="af_ZA">PLG_CONTENT_ITPSHARE_AFRIKAANS</option>
+                    <option value="ar_AR">PLG_CONTENT_ITPSHARE_ARABIC</option>
+                    <option value="sq_AL">PLG_CONTENT_ITPSHARE_ALBANIAN</option>
+                    <option value="ay_BO">PLG_CONTENT_ITPSHARE_AYMARA</option>
+                    <option value="az_AZ">PLG_CONTENT_ITPSHARE_AZERI</option>
+                    <option value="be_BY">PLG_CONTENT_ITPSHARE_BELARUSIAN</option>
+                    <option value="bg_BG">PLG_CONTENT_ITPSHARE_BULGARIAN</option>
+                    <option value="bn_IN">PLG_CONTENT_ITPSHARE_BENGALI</option>
+                    <option value="bs_BA">PLG_CONTENT_ITPSHARE_BOSNIAN</option>
+                    <option value="ca_ES">PLG_CONTENT_ITPSHARE_CATALAN</option>
+                    <option value="zh_CN">PLG_CONTENT_ITPSHARE_CHINESE_ZH</option>
+                    <option value="zh_HK">PLG_CONTENT_ITPSHARE_CHINESE_HK</option>
+                    <option value="zh_TW">PLG_CONTENT_ITPSHARE_CHINESE_TW</option>
+                    <option value="ck_US">PLG_CONTENT_ITPSHARE_CHEROKEE</option>
+                    <option value="cs_CZ">PLG_CONTENT_ITPSHARE_CZECH</option>
+                    <option value="cy_GB">PLG_CONTENT_ITPSHARE_WELSH</option>
+                    <option value="da_DK">PLG_CONTENT_ITPSHARE_DANISH</option>
+                    <option value="de_DE">PLG_CONTENT_ITPSHARE_GERMAN</option>
+                    <option value="el_GR">PLG_CONTENT_ITPSHARE_GREEK</option>
+                    <option value="en_GB">PLG_CONTENT_ITPSHARE_ENGLISH_GB</option>
+                    <option value="en_PI">PLG_CONTENT_ITPSHARE_ENGLISH_PI</option>
+                    <option value="en_UD">PLG_CONTENT_ITPSHARE_ENGLISH_UD</option>
+                    <option value="en_US">PLG_CONTENT_ITPSHARE_ENGLISH</option>
+                    <option value="eo_EO">PLG_CONTENT_ITPSHARE_ESPERANTO</option>
+                    <option value="es_CL">PLG_CONTENT_ITPSHARE_SPANISH_CL</option>
+                    <option value="es_CO">PLG_CONTENT_ITPSHARE_SPANISH_CO</option>
+                    <option value="es_ES">PLG_CONTENT_ITPSHARE_SPANISH_ES</option>
+                    <option value="es_LA">PLG_CONTENT_ITPSHARE_SPANISH</option>
+                    <option value="es_MX">PLG_CONTENT_ITPSHARE_SPANISH_MX</option>
+                    <option value="es_VE">PLG_CONTENT_ITPSHARE_SPANISH_VE</option>
+                    <option value="et_EE">PLG_CONTENT_ITPSHARE_ESTONIAN</option>
+                    <option value="eu_ES">PLG_CONTENT_ITPSHARE_BASQUE</option>
+                    <option value="fa_IR">PLG_CONTENT_ITPSHARE_PERSIAN</option>
+                    <option value="fb_LT">PLG_CONTENT_ITPSHARE_LEET_SPEAK</option>
+                    <option value="fi_FI">PLG_CONTENT_ITPSHARE_FINNISH</option>
+                    <option value="fo_FO">PLG_CONTENT_ITPSHARE_FAROESE</option>
+                    <option value="fr_CA">PLG_CONTENT_ITPSHARE_FRENCH_CA</option>
+                    <option value="fr_FR">PLG_CONTENT_ITPSHARE_FRENCH_FR</option>
+                    <option value="ga_IE">PLG_CONTENT_ITPSHARE_IRISH</option>
+                    <option value="gl_ES">PLG_CONTENT_ITPSHARE_GALICIAN</option>
+                    <option value="gn_PY">PLG_CONTENT_ITPSHARE_GUARANI</option>
+                    <option value="gu_IN">PLG_CONTENT_ITPSHARE_GUJARATI</option>
+                    <option value="he_IL">PLG_CONTENT_ITPSHARE_HEBREW</option>
+                    <option value="hi_IN">PLG_CONTENT_ITPSHARE_HINDI</option>
+                    <option value="hr_HR">PLG_CONTENT_ITPSHARE_CROATIAN</option>
+                    <option value="hu_HU">PLG_CONTENT_ITPSHARE_HUNGARIAN</option>
+                    <option value="hy_AM">PLG_CONTENT_ITPSHARE_ARMENIAN</option>
+                    <option value="id_ID">PLG_CONTENT_ITPSHARE_INDONESIAN</option>
+                    <option value="is_IS">PLG_CONTENT_ITPSHARE_ICELANDIC</option>
+                    <option value="it_IT">PLG_CONTENT_ITPSHARE_ITALIAN</option>
+                    <option value="ja_JP">PLG_CONTENT_ITPSHARE_JAPANESE</option>
+                    <option value="jv_ID">PLG_CONTENT_ITPSHARE_JAVANESE</option>
+                    <option value="ka_GE">PLG_CONTENT_ITPSHARE_GEORGIAN</option>
+                    <option value="kk_KZ">PLG_CONTENT_ITPSHARE_KAZAKH</option>
+                    <option value="km_KH">PLG_CONTENT_ITPSHARE_KHMER</option>
+                    <option value="kn_IN">PLG_CONTENT_ITPSHARE_KANNADA</option>
+                    <option value="ko_KR">PLG_CONTENT_ITPSHARE_KOREAN</option>
+                    <option value="ku_TR">PLG_CONTENT_ITPSHARE_KURDISH</option>
+                    <option value="la_VA">PLG_CONTENT_ITPSHARE_LATIN</option>
+                    <option value="li_NL">PLG_CONTENT_ITPSHARE_LIMBURGISH</option>
+                    <option value="lt_LT">PLG_CONTENT_ITPSHARE_LITHUANIAN</option>
+                    <option value="lv_LV">PLG_CONTENT_ITPSHARE_LATVIAN</option>
+                    <option value="mg_MG">PLG_CONTENT_ITPSHARE_MALAGASY</option>
+                    <option value="mk_MK">PLG_CONTENT_ITPSHARE_MACEDONIAN</option>
+                    <option value="ml_IN">PLG_CONTENT_ITPSHARE_MALAYalam</option>
+                    <option value="mn_MN">PLG_CONTENT_ITPSHARE_MONGOLIAN</option>
+                    <option value="mr_IN">PLG_CONTENT_ITPSHARE_MARATHI</option>
+                    <option value="ms_MY">PLG_CONTENT_ITPSHARE_MALAY</option>
+                    <option value="mt_MT">PLG_CONTENT_ITPSHARE_MALTESE</option>
+                    <option value="nb_NO">PLG_CONTENT_ITPSHARE_NORWEGIAN_NB</option>
+                    <option value="nn_NO">PLG_CONTENT_ITPSHARE_NORWEGIAN_NN</option>
+                    <option value="ne_NP">PLG_CONTENT_ITPSHARE_NEPALI</option>
+                    <option value="nl_BE">PLG_CONTENT_ITPSHARE_DUTCH_BE</option>
+                    <option value="nl_NL">PLG_CONTENT_ITPSHARE_DUTCH</option>
+                    <option value="pa_IN">PLG_CONTENT_ITPSHARE_PUNJABI</option>
+                    <option value="pl_PL">PLG_CONTENT_ITPSHARE_POLISH</option>
+                    <option value="ps_AF">PLG_CONTENT_ITPSHARE_PASHTO</option>
+                    <option value="pt_BR">PLG_CONTENT_ITPSHARE_PORTUGUESE_BR</option>
+                    <option value="pt_PT">PLG_CONTENT_ITPSHARE_PORTUGUESE_PT</option>
+                    <option value="qu_PE">PLG_CONTENT_ITPSHARE_QUECHUA</option>
+                    <option value="rm_CH">PLG_CONTENT_ITPSHARE_ROMANSH</option>
+                    <option value="ro_RO">PLG_CONTENT_ITPSHARE_ROMANIAN</option>
+                    <option value="ru_RU">PLG_CONTENT_ITPSHARE_RUSSIAN</option>
+                    <option value="sa_IN">PLG_CONTENT_ITPSHARE_SANSKRIT</option>
+                    <option value="se_NO">PLG_CONTENT_ITPSHARE_NORTHERN_SAMI</option>
+                    <option value="sk_SK">PLG_CONTENT_ITPSHARE_SLOVAK</option>
+                    <option value="sl_SI">PLG_CONTENT_ITPSHARE_SLOVENIAN</option>
+                    <option value="so_SO">PLG_CONTENT_ITPSHARE_SOMALI</option>
+                    <option value="sr_RS">PLG_CONTENT_ITPSHARE_SERBIAN</option>
+                    <option value="sv_SE">PLG_CONTENT_ITPSHARE_SWEDISH</option>
+                    <option value="sw_KE">PLG_CONTENT_ITPSHARE_SWAHILI</option>
+                    <option value="sy_SY">PLG_CONTENT_ITPSHARE_SYRIAC</option>
+                    <option value="ta_IN">PLG_CONTENT_ITPSHARE_TAMIL</option>
+                    <option value="te_IN">PLG_CONTENT_ITPSHARE_TELUGU</option>
+                    <option value="tg_TJ">PLG_CONTENT_ITPSHARE_TAJIK</option>
+                    <option value="th_TH">PLG_CONTENT_ITPSHARE_THAI</option>
+                    <option value="tl_PH">PLG_CONTENT_ITPSHARE_FILIPINO</option>
+                    <option value="tl_ST">PLG_CONTENT_ITPSHARE_KLINGON</option>
+                    <option value="tr_TR">PLG_CONTENT_ITPSHARE_TURKISH</option>
+                    <option value="tt_RU">PLG_CONTENT_ITPSHARE_TATAR</option>
+                    <option value="uk_UA">PLG_CONTENT_ITPSHARE_UKRAINIAN</option>
+                    <option value="ur_PK">PLG_CONTENT_ITPSHARE_URDU</option>
+                    <option value="uz_UZ">PLG_CONTENT_ITPSHARE_UZBEK</option>
+                    <option value="vi_VN">PLG_CONTENT_ITPSHARE_VIETNAMESE</option>
+                    <option value="xh_ZA">PLG_CONTENT_ITPSHARE_XHOSA</option>
+                    <option value="yi_DE">PLG_CONTENT_ITPSHARE_YIDDISH</option>
+                    <option value="zu_ZA">PLG_CONTENT_ITPSHARE_ZULU</option>
 		        </field>
 				
 				<field name="spacer4" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_STUMBLEUPON_SETTINGS" />
@@ -254,12 +254,12 @@
                    <option value="1">JSHOW</option>
 				</field>  
 				<field name="stumbleType" type="list" default="1" label="PLG_CONTENT_ITPSHARE_STUMBLEUPON_TYPE" description="PLG_CONTENT_ITPSHARE_STUMBLEUPON_TYPE_DESC" >
-				   <option value="1">Style 1</option>
-				   <option value="2">Style 2</option>
-				   <option value="3">Style 3</option>
-				   <option value="4">Style 4</option>
-				   <option value="5">Style 5</option>
-				   <option value="6">Style 6</option>
+				   <option value="1">PLG_CONTENT_ITPSHARE_BUTTON_1</option>
+                   <option value="2">PLG_CONTENT_ITPSHARE_BUTTON_2</option>
+                   <option value="3">PLG_CONTENT_ITPSHARE_BUTTON_3</option>
+                   <option value="4">PLG_CONTENT_ITPSHARE_BUTTON_4</option>
+                   <option value="5">PLG_CONTENT_ITPSHARE_BUTTON_5</option>
+                   <option value="6">PLG_CONTENT_ITPSHARE_BUTTON_6</option>
 				</field>  
 				
 				<field name="spacer5" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_LINKEDIN_SETTINGS" />
@@ -268,9 +268,9 @@
                    <option value="1">JSHOW</option>
 				</field>
 				<field name="linkedInType" type="list" default="right" label="PLG_CONTENT_ITPSHARE_LINKEDIN_TYPE" description="PLG_CONTENT_ITPSHARE_LINKEDIN_TYPE_DESC" >
-				   <option value="none">Counter None</option>
-				   <option value="top">Counter Top</option>
-				   <option value="right">Counter Right</option>
+				   <option value="none">PLG_CONTENT_ITPSHARE_COUNTER_NONE</option>
+                   <option value="top">PLG_CONTENT_ITPSHARE_COUNTER_TOP</option>
+                   <option value="right">PLG_CONTENT_ITPSHARE_COUNTER_RIGHT</option>
 				</field>  
 		        
                 <field name="spacer6" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_REDDIT_SETTINGS" />
@@ -279,29 +279,29 @@
                    <option value="1">JSHOW</option>
                 </field>
                 <field name="redditType" type="list" default="0" label="PLG_CONTENT_ITPSHARE_REDDIT_STYLE" description="PLG_CONTENT_ITPSHARE_REDDIT_STYLE_DESC" >
-                   <option value="0">Button 1</option>
-                   <option value="1">Button 2</option>
-                   <option value="2">Button 3</option>
-                   <option value="3">Button 4</option>
-                   <option value="4">Button 5</option>
-                   <option value="5">Button 6</option>
-                   <option value="6">Button 7</option>
-                   <option value="7">Button 8</option>
-                   <option value="8">Button 9</option>
-                   <option value="9">Button 10</option>
-                   <option value="10">Button 11</option>
-                   <option value="11">Button 12</option>
-                   <option value="12">Button 13</option>
-                   <option value="13">Button 14</option>
-                   <option value="14">Button 15</option>
-                   <option value="15">Button 16</option>
-                   <option value="16">Button 17</option>
-                   <option value="17">Button 18</option>
-                   <option value="18">Button 19</option>
-                   <option value="19">Button 20</option>
-                   <option value="20">Button 21</option>
-                   <option value="21">Button 22</option>
-                   <option value="22">Button 23</option>
+                   <option value="0">PLG_CONTENT_ITPSHARE_BUTTON_1</option>
+                   <option value="1">PLG_CONTENT_ITPSHARE_BUTTON_2</option>
+                   <option value="2">PLG_CONTENT_ITPSHARE_BUTTON_3</option>
+                   <option value="3">PLG_CONTENT_ITPSHARE_BUTTON_4</option>
+                   <option value="4">PLG_CONTENT_ITPSHARE_BUTTON_5</option>
+                   <option value="5">PLG_CONTENT_ITPSHARE_BUTTON_6</option>
+                   <option value="6">PLG_CONTENT_ITPSHARE_BUTTON_7</option>
+                   <option value="7">PLG_CONTENT_ITPSHARE_BUTTON_8</option>
+                   <option value="8">PLG_CONTENT_ITPSHARE_BUTTON_9</option>
+                   <option value="9">PLG_CONTENT_ITPSHARE_BUTTON_10</option>
+                   <option value="10">PLG_CONTENT_ITPSHARE_BUTTON_11</option>
+                   <option value="11">PLG_CONTENT_ITPSHARE_BUTTON_12</option>
+                   <option value="12">PLG_CONTENT_ITPSHARE_BUTTON_13</option>
+                   <option value="13">PLG_CONTENT_ITPSHARE_BUTTON_14</option>
+                   <option value="14">PLG_CONTENT_ITPSHARE_BUTTON_15</option>
+                   <option value="15">PLG_CONTENT_ITPSHARE_BUTTON_16</option>
+                   <option value="16">PLG_CONTENT_ITPSHARE_BUTTON_17</option>
+                   <option value="17">PLG_CONTENT_ITPSHARE_BUTTON_18</option>
+                   <option value="18">PLG_CONTENT_ITPSHARE_BUTTON_19</option>
+                   <option value="19">PLG_CONTENT_ITPSHARE_BUTTON_20</option>
+                   <option value="20">PLG_CONTENT_ITPSHARE_BUTTON_21</option>
+                   <option value="21">PLG_CONTENT_ITPSHARE_BUTTON_22</option>
+                   <option value="22">PLG_CONTENT_ITPSHARE_BUTTON_23</option>
                 </field>
                 <field name="redditBgColor" type="text" default="" label="PLG_CONTENT_ITPSHARE_REDDIT_BG_COLOR" description="PLG_CONTENT_ITPSHARE_REDDIT_BG_COLOR_DESC" />
                 <field name="redditBorderColor" type="text" default="" label="PLG_CONTENT_ITPSHARE_REDDIT_BORDER_COLOR" description="PLG_CONTENT_ITPSHARE_REDDIT_BORDER_COLOR_DESC" />
@@ -317,81 +317,81 @@
 		        </field>
 		        <field name="plusRenderer" type="list" default="0" label="PLG_CONTENT_ITPSHARE_GOOGLE_ONE_RENDERER" description="PLG_CONTENT_ITPSHARE_GOOGLE_ONE_RENDERER_DESC" >
                    <option value="0">HTML5</option>
-                   <option value="1">Standart</option>
+                   <option value="1">PLG_CONTENT_ITPSHARE_STANDARD</option>
                 </field>
 		        <field name="plusType" type="list" default="medium" label="PLG_CONTENT_ITPSHARE_GOOGLE_ONE_STYLE" description="PLG_CONTENT_ITPSHARE_GOOGLE_ONE_STYLE_DESC" >
-		           <option value="small">Small (15px)</option>
-		           <option value="standart">Standard (24px)</option>
-		           <option value="medium">Medium (20px)</option>
-		           <option value="tall">Tall (60px)</option>
+		           <option value="small">PLG_CONTENT_ITPSHARE_SMALL_15</option>
+                   <option value="standart">PLG_CONTENT_ITPSHARE_STANDARD_24</option>
+                   <option value="medium">PLG_CONTENT_ITPSHARE_MEDIUM_20</option>
+                   <option value="tall">PLG_CONTENT_ITPSHARE_TALL_60</option>
 		        </field>
 		        
 		        <field name="plusAnnotation" type="list" default="" label="PLG_CONTENT_ITPSHARE_GOOGLE_ONE_ANNOTATION" description="PLG_CONTENT_ITPSHARE_GOOGLE_ONE_ANNOTATION_DESC" >
-                   <option value="">Bubble</option>
-                   <option value="inline">Inline</option>
-                   <option value="none">None</option>
+                   <option value="">PLG_CONTENT_ITPSHARE_BUBBLE</option>
+                   <option value="inline">PLG_CONTENT_ITPSHARE_INLINE</option>
+                   <option value="none">PLG_CONTENT_ITPSHARE_NONE</option>
                 </field>
                 
 		        <field name="plusLocale" type="list" default="en" label="PLG_CONTENT_ITPSHARE_LANGUAGE" description="PLG_CONTENT_ITPSHARE_LANGUAGE_DESC" >
-		            <option value="ar">Arabic</option>
-		            <option value="bn">Bengali</option>
-		            <option value="bg">Bulgarian</option>
-		            <option value="ca">Catalan</option>
-		            <option value="zh">Chinese</option>
-		            <option value="zh_CN">Chinese (China)</option>
-		            <option value="zh_HK">Chinese (Hong Kong)</option>
-		            <option value="zh_TW">Chinese (Taiwan)</option>
-		            <option value="hr">Croatian</option>
-		            <option value="cs">Czech</option>
-		            <option value="da">Danish</option>
-		            <option value="nl">Dutch</option>
-		            <option value="en">English</option>
-		            <option value="en_IN">English (India)</option>
-		            <option value="en_IE">English (Ireland)</option>
-		            <option value="en_SG">English (Singapore)</option>
-		            <option value="en_ZA">English (South Africa)</option>
-		            <option value="en_GB">English (United Kingdom)</option>
-		            <option value="fil">Filipino</option>
-		            <option value="fi">Finnish</option>
-		            <option value="fr">French</option>
-		            <option value="de">German</option>
-		            <option value="de_CH">German (Switzerland)</option>
-		            <option value="el">Greek</option>
-		            <option value="gu">Gujarati</option>
-		            <option value="iw">Hebrew</option>
-		            <option value="hi">Hindi</option>
-		            <option value="hu">Hungarian</option>
-		            <option value="in">Indonesian</option>
-		            <option value="it">Italian</option>
-		            <option value="ja">Japanese</option>
-		            <option value="kn">Kannada</option>
-		            <option value="ko">Korean</option>
-		            <option value="lv">Latvian</option>
-		            <option value="ln">Lingala</option>
-		            <option value="lt">Lithuanian</option>
-		            <option value="ms">Malay</option>
-		            <option value="ml">Malayalam</option>
-		            <option value="mr">Marathi</option>
-		            <option value="no">Norwegian</option>
-		            <option value="or">Oriya</option>
-		            <option value="fa">Persian</option>
-		            <option value="pl">Polish</option>
-		            <option value="pt_BR">Portuguese (Brazil)</option>
-		            <option value="pt_PT">Portuguese (Portugal)</option>
-		            <option value="ro">Romanian</option>
-		            <option value="ru">Russian</option>
-		            <option value="sr">Serbian</option>
-		            <option value="sk">Slovak</option>
-		            <option value="sl">Slovenian</option>
-		            <option value="es">Spanish</option>
-		            <option value="sv">Swedish</option>
-		            <option value="gsw">Swiss German</option>
-		            <option value="ta">Tamil</option>
-		            <option value="te">Telugu</option>
-		            <option value="th">Thai</option>
-		            <option value="tr">Turkish</option>
-		            <option value="uk">Ukrainian</option>
-		            <option value="vi">Vietnamese</option>
+		            <option value="ar">PLG_CONTENT_ITPSHARE_ARABIC</option>
+                    <option value="bn">PLG_CONTENT_ITPSHARE_BENGALI</option>
+                    <option value="bg">PLG_CONTENT_ITPSHARE_BULGARIAN</option>
+                    <option value="ca">PLG_CONTENT_ITPSHARE_CATALAN</option>
+                    <option value="zh">PLG_CONTENT_ITPSHARE_CHINESE_ZH</option>
+                    <option value="zh_CN">PLG_CONTENT_ITPSHARE_CHINESE_ZH</option>
+                    <option value="zh_HK">PLG_CONTENT_ITPSHARE_CHINESE_HK</option>
+                    <option value="zh_TW">PLG_CONTENT_ITPSHARE_CHINESE_TW</option>
+                    <option value="hr">PLG_CONTENT_ITPSHARE_CROATIAN</option>
+                    <option value="cs">PLG_CONTENT_ITPSHARE_CZECH</option>
+                    <option value="da">PLG_CONTENT_ITPSHARE_DANISH</option>
+                    <option value="nl">PLG_CONTENT_ITPSHARE_DUTCH</option>
+                    <option value="en">PLG_CONTENT_ITPSHARE_ENGLISH</option>
+                    <option value="en_IN">PLG_CONTENT_ITPSHARE_ENGLISH_IN</option>
+                    <option value="en_IE">PLG_CONTENT_ITPSHARE_ENGLISH_IR</option>
+                    <option value="en_SG">PLG_CONTENT_ITPSHARE_ENGLISH_SG</option>
+                    <option value="en_ZA">PLG_CONTENT_ITPSHARE_ENGLISH_SA</option>
+                    <option value="en_GB">PLG_CONTENT_ITPSHARE_ENGLISH_GB</option>
+                    <option value="fil">PLG_CONTENT_ITPSHARE_FILIPINO</option>
+                    <option value="fi">PLG_CONTENT_ITPSHARE_FINNISH</option>
+                    <option value="fr">PLG_CONTENT_ITPSHARE_FRENCH_FR</option>
+                    <option value="de">PLG_CONTENT_ITPSHARE_GERMAN</option>
+                    <option value="de_CH">PLG_CONTENT_ITPSHARE_GERMAN_CH</option>
+                    <option value="el">PLG_CONTENT_ITPSHARE_GREEK</option>
+                    <option value="gu">PLG_CONTENT_ITPSHARE_GUJARATI</option>
+                    <option value="iw">PLG_CONTENT_ITPSHARE_HEBREW</option>
+                    <option value="hi">PLG_CONTENT_ITPSHARE_HINDI</option>
+                    <option value="hu">PLG_CONTENT_ITPSHARE_HUNGARIAN</option>
+                    <option value="in">PLG_CONTENT_ITPSHARE_INDONESIAN</option>
+                    <option value="it">PLG_CONTENT_ITPSHARE_ITALIAN</option>
+                    <option value="ja">PLG_CONTENT_ITPSHARE_JAPANESE</option>
+                    <option value="kn">PLG_CONTENT_ITPSHARE_KANNADA</option>
+                    <option value="ko">PLG_CONTENT_ITPSHARE_KOREAN</option>
+                    <option value="lv">PLG_CONTENT_ITPSHARE_LATVIAN</option>
+                    <option value="ln">PLG_CONTENT_ITPSHARE_LINGALA</option>
+                    <option value="lt">PLG_CONTENT_ITPSHARE_LITHUANIAN</option>
+                    <option value="ms">PLG_CONTENT_ITPSHARE_MALAY</option>
+                    <option value="ml">PLG_CONTENT_ITPSHARE_MALAYalam</option>
+                    <option value="mr">PLG_CONTENT_ITPSHARE_MARATHI</option>
+                    <option value="no">PLG_CONTENT_ITPSHARE_NORWEGIAN</option>
+                    <option value="or">PLG_CONTENT_ITPSHARE_ORIYA</option>
+                    <option value="fa">PLG_CONTENT_ITPSHARE_PERSIAN</option>
+                    <option value="pl">PLG_CONTENT_ITPSHARE_POLISH</option>
+                    <option value="pt_BR">PLG_CONTENT_ITPSHARE_PORTUGUESE_BR</option>
+                    <option value="pt_PT">PLG_CONTENT_ITPSHARE_PORTUGUESE_PT</option>
+                    <option value="ro">PLG_CONTENT_ITPSHARE_ROMANIAN</option>
+                    <option value="ru">PLG_CONTENT_ITPSHARE_RUSSIAN</option>
+                    <option value="sr">PLG_CONTENT_ITPSHARE_SERBIAN</option>
+                    <option value="sk">PLG_CONTENT_ITPSHARE_SLOVAK</option>
+                    <option value="sl">PLG_CONTENT_ITPSHARE_SLOVENIAN</option>
+                    <option value="es">PLG_CONTENT_ITPSHARE_SPANISH</option>
+                    <option value="sv">PLG_CONTENT_ITPSHARE_SWEDISH</option>
+                    <option value="gsw">PLG_CONTENT_ITPSHARE_GERMAN_SW</option>
+                    <option value="ta">PLG_CONTENT_ITPSHARE_TAMIL</option>
+                    <option value="te">PLG_CONTENT_ITPSHARE_TELUGU</option>
+                    <option value="th">PLG_CONTENT_ITPSHARE_THAI</option>
+                    <option value="tr">PLG_CONTENT_ITPSHARE_TURKISH</option>
+                    <option value="uk">PLG_CONTENT_ITPSHARE_UKRAINIAN</option>
+                    <option value="vi">PLG_CONTENT_ITPSHARE_VIETNAMESE</option>
 		        </field>
 		        
 		        <field name="spacer8" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_PINTEREST_SETTINGS" />
@@ -424,232 +424,253 @@
                 </field>
                 <field name="gsRenderer" type="list" default="0" label="PLG_CONTENT_ITPSHARE_GOOGLE_SHARE_RENDERER" description="PLG_CONTENT_ITPSHARE_GOOGLE_SHARE_RENDERER_DESC" >
                    <option value="0">HTML5</option>
-                   <option value="1">Standart</option>
+                   <option value="1">PLG_CONTENT_ITPSHARE_STANDARD</option>
                 </field>
                 <field name="gsType" type="list" default="0" label="PLG_CONTENT_ITPSHARE_GOOGLE_SHARE_STYLE" description="PLG_CONTENT_ITPSHARE_GOOGLE_SHARE_STYLE_DESC" >
-                   <option value="15">Small (15px)</option>
-                   <option value="0">Standard</option>
-                   <option value="24">Large (20px)</option>
+                   <option value="15">PLG_CONTENT_ITPSHARE_SMALL_15</option>
+                   <option value="0">PLG_CONTENT_ITPSHARE_STANDARD</option>
+                   <option value="24">PLG_CONTENT_ITPSHARE_LARGE_20</option>
                 </field>
                 
                 <field name="gsAnnotation" type="list" default="bubble" label="PLG_CONTENT_ITPSHARE_GOOGLE_SHARE_ANNOTATION" description="PLG_CONTENT_ITPSHARE_GOOGLE_SHARE_ANNOTATION_DESC" >
-                   <option value="bubble">Bubble (horizontal)</option>
-                   <option value="vertical-bubble">Bubble (vertical)</option>
-                   <option value="inline">Inline</option>
-                   <option value="none">None</option>
+                   <option value="bubble">PLG_CONTENT_ITPSHARE_BUBBLE_HORIZONTAL</option>
+                   <option value="vertical-bubble">PLG_CONTENT_ITPSHARE_BUBBLE_VERTICAL</option>
+                   <option value="inline">PLG_CONTENT_ITPSHARE_INLINE</option>
+                   <option value="none">PLG_CONTENT_ITPSHARE_NONE</option>
                 </field>
                 
                 <field name="gsLocale" type="list" default="en" label="PLG_CONTENT_ITPSHARE_LANGUAGE" description="PLG_CONTENT_ITPSHARE_LANGUAGE_DESC" >
-                    <option value="ar">Arabic</option>
-                    <option value="bn">Bengali</option>
-                    <option value="bg">Bulgarian</option>
-                    <option value="ca">Catalan</option>
-                    <option value="zh">Chinese</option>
-                    <option value="zh_CN">Chinese (China)</option>
-                    <option value="zh_HK">Chinese (Hong Kong)</option>
-                    <option value="zh_TW">Chinese (Taiwan)</option>
-                    <option value="hr">Croatian</option>
-                    <option value="cs">Czech</option>
-                    <option value="da">Danish</option>
-                    <option value="nl">Dutch</option>
-                    <option value="en">English</option>
-                    <option value="en_IN">English (India)</option>
-                    <option value="en_IE">English (Ireland)</option>
-                    <option value="en_SG">English (Singapore)</option>
-                    <option value="en_ZA">English (South Africa)</option>
-                    <option value="en_GB">English (United Kingdom)</option>
-                    <option value="fil">Filipino</option>
-                    <option value="fi">Finnish</option>
-                    <option value="fr">French</option>
-                    <option value="de">German</option>
-                    <option value="de_CH">German (Switzerland)</option>
-                    <option value="el">Greek</option>
-                    <option value="gu">Gujarati</option>
-                    <option value="iw">Hebrew</option>
-                    <option value="hi">Hindi</option>
-                    <option value="hu">Hungarian</option>
-                    <option value="in">Indonesian</option>
-                    <option value="it">Italian</option>
-                    <option value="ja">Japanese</option>
-                    <option value="kn">Kannada</option>
-                    <option value="ko">Korean</option>
-                    <option value="lv">Latvian</option>
-                    <option value="ln">Lingala</option>
-                    <option value="lt">Lithuanian</option>
-                    <option value="ms">Malay</option>
-                    <option value="ml">Malayalam</option>
-                    <option value="mr">Marathi</option>
-                    <option value="no">Norwegian</option>
-                    <option value="or">Oriya</option>
-                    <option value="fa">Persian</option>
-                    <option value="pl">Polish</option>
-                    <option value="pt_BR">Portuguese (Brazil)</option>
-                    <option value="pt_PT">Portuguese (Portugal)</option>
-                    <option value="ro">Romanian</option>
-                    <option value="ru">Russian</option>
-                    <option value="sr">Serbian</option>
-                    <option value="sk">Slovak</option>
-                    <option value="sl">Slovenian</option>
-                    <option value="es">Spanish</option>
-                    <option value="sv">Swedish</option>
-                    <option value="gsw">Swiss German</option>
-                    <option value="ta">Tamil</option>
-                    <option value="te">Telugu</option>
-                    <option value="th">Thai</option>
-                    <option value="tr">Turkish</option>
-                    <option value="uk">Ukrainian</option>
-                    <option value="vi">Vietnamese</option>
+                    <option value="ar">PLG_CONTENT_ITPSHARE_ARABIC</option>
+                    <option value="bn">PLG_CONTENT_ITPSHARE_BENGALI</option>
+                    <option value="bg">PLG_CONTENT_ITPSHARE_BULGARIAN</option>
+                    <option value="ca">PLG_CONTENT_ITPSHARE_CATALAN</option>
+                    <option value="zh">PLG_CONTENT_ITPSHARE_CHINESE</option>
+                    <option value="zh_CN">PLG_CONTENT_ITPSHARE_CHINESE_ZH</option>
+                    <option value="zh_HK">PLG_CONTENT_ITPSHARE_CHINESE_HK</option>
+                    <option value="zh_TW">PLG_CONTENT_ITPSHARE_CHINESE_TW</option>
+                    <option value="hr">PLG_CONTENT_ITPSHARE_CROATIAN</option>
+                    <option value="cs">PLG_CONTENT_ITPSHARE_CZECH</option>
+                    <option value="da">PLG_CONTENT_ITPSHARE_DANISH</option>
+                    <option value="nl">PLG_CONTENT_ITPSHARE_DUTCH</option>
+                    <option value="en">PLG_CONTENT_ITPSHARE_ENGLISH</option>
+                    <option value="en_IN">PLG_CONTENT_ITPSHARE_ENGLISH_IN</option>
+                    <option value="en_IE">PLG_CONTENT_ITPSHARE_ENGLISH_IR</option>
+                    <option value="en_SG">PLG_CONTENT_ITPSHARE_ENGLISH_SG</option>
+                    <option value="en_ZA">PLG_CONTENT_ITPSHARE_ENGLISH_SA</option>
+                    <option value="en_GB">PLG_CONTENT_ITPSHARE_ENGLISH_GB</option>
+                    <option value="fil">PLG_CONTENT_ITPSHARE_FILIPINO</option>
+                    <option value="fi">PLG_CONTENT_ITPSHARE_FINNISH</option>
+                    <option value="fr">PLG_CONTENT_ITPSHARE_FRENCH_FR</option>
+                    <option value="de">PLG_CONTENT_ITPSHARE_GERMAN</option>
+                    <option value="de_CH">PLG_CONTENT_ITPSHARE_GERMAN_CH</option>
+                    <option value="el">PLG_CONTENT_ITPSHARE_GREEK</option>
+                    <option value="gu">PLG_CONTENT_ITPSHARE_GUJARATI</option>
+                    <option value="iw">PLG_CONTENT_ITPSHARE_HEBREW</option>
+                    <option value="hi">PLG_CONTENT_ITPSHARE_HINDI</option>
+                    <option value="hu">PLG_CONTENT_ITPSHARE_HUNGARIAN</option>
+                    <option value="in">PLG_CONTENT_ITPSHARE_INDONESIAN</option>
+                    <option value="it">PLG_CONTENT_ITPSHARE_ITALIAN</option>
+                    <option value="ja">PLG_CONTENT_ITPSHARE_JAPANESE</option>
+                    <option value="kn">PLG_CONTENT_ITPSHARE_KANNADA</option>
+                    <option value="ko">PLG_CONTENT_ITPSHARE_KOREAN</option>
+                    <option value="lv">PLG_CONTENT_ITPSHARE_LATVIAN</option>
+                    <option value="ln">PLG_CONTENT_ITPSHARE_LINGALA</option>
+                    <option value="lt">PLG_CONTENT_ITPSHARE_LITHUANIAN</option>
+                    <option value="ms">PLG_CONTENT_ITPSHARE_MALAY</option>
+                    <option value="ml">PLG_CONTENT_ITPSHARE_MALAYalam</option>
+                    <option value="mr">PLG_CONTENT_ITPSHARE_MARATHI</option>
+                    <option value="no">PLG_CONTENT_ITPSHARE_NORWEGIAN</option>
+                    <option value="or">PLG_CONTENT_ITPSHARE_ORIYA</option>
+                    <option value="fa">PLG_CONTENT_ITPSHARE_PERSIAN</option>
+                    <option value="pl">PLG_CONTENT_ITPSHARE_POLISH</option>
+                    <option value="pt_BR">PLG_CONTENT_ITPSHARE_PORTUGUESE_BR</option>
+                    <option value="pt_PT">PLG_CONTENT_ITPSHARE_PORTUGUESE_PT</option>
+                    <option value="ro">PLG_CONTENT_ITPSHARE_ROMANIAN</option>
+                    <option value="ru">PLG_CONTENT_ITPSHARE_RUSSIAN</option>
+                    <option value="sr">PLG_CONTENT_ITPSHARE_SERBIAN</option>
+                    <option value="sk">PLG_CONTENT_ITPSHARE_SLOVAK</option>
+                    <option value="sl">PLG_CONTENT_ITPSHARE_SLOVENIAN</option>
+                    <option value="es">PLG_CONTENT_ITPSHARE_SPANISH</option>
+                    <option value="sv">PLG_CONTENT_ITPSHARE_SWEDISH</option>
+                    <option value="gsw">PLG_CONTENT_ITPSHARE_GERMAN_SW</option>
+                    <option value="ta">PLG_CONTENT_ITPSHARE_TAMIL</option>
+                    <option value="te">PLG_CONTENT_ITPSHARE_TELUGU</option>
+                    <option value="th">PLG_CONTENT_ITPSHARE_THAI</option>
+                    <option value="tr">PLG_CONTENT_ITPSHARE_TURKISH</option>
+                    <option value="uk">PLG_CONTENT_ITPSHARE_UKRAINIAN</option>
+                    <option value="vi">PLG_CONTENT_ITPSHARE_VIETNAMESE</option>
+                </field>
+			</fieldset>
+			
+			<fieldset name="short_url_settings" label="PLG_CONTENT_ITPSHARE_SHORTENER_SETTINGS">
+                <field name="shortener_service" type="list" default="" label="PLG_CONTENT_ITPSHARE_SHORTENER_SERVICE" description="PLG_CONTENT_ITPSHARE_SHORTENER_SERVICE_DESC" >
+                   <option value="">PLG_CONTENT_ITPSHARE_NONE</option>
+                   <option value="google">goo.gl</option>
+                   <option value="bitly">bit.ly</option>
+                   <option value="bitlycom">bitly.com</option>
+                   <option value="jmp">j.mp</option>
+                   <option value="tinycc">tiny.cc</option>
+                </field>
+                <field name="shortener_login" type="text" default="" label="PLG_CONTENT_ITPSHARE_LOGIN" description="PLG_CONTENT_ITPSHARE_LOGIN_DESC"/>
+                <field name="shortener_api_key" type="text" default="" size="80" label="PLG_CONTENT_ITPSHARE_API_KEY" description="PLG_CONTENT_ITPSHARE_API_KEY_DESC"/>
+			</fieldset>
+				
+			<fieldset name="facebook_advanced_settings" label="PLG_CONTENT_ITPSHARE_FACEBOOK_ADVANCED_SETTINGS">
+                <field name="facebookLikeAppId" type="text" default="" label="PLG_CONTENT_ITPSHARE_FACEBOOK_APP_ID" description="PLG_CONTENT_ITPSHARE_FACEBOOK_APP_ID_DESC" />
+                <field name="facebookLikeSend" type="list" default="0" label="PLG_CONTENT_ITPSHARE_FACEBOOK_SEND_BUTTON" description="PLG_CONTENT_ITPSHARE_FACEBOOK_SEND_BUTTON" >
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                <field name="facebookRootDiv" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_FACEBOOK_ROOT" description="PLG_CONTENT_ITPSHARE_FACEBOOK_ROOT_DESC" >
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                 </field>
+                <field name="facebookLoadJsLib" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_LOAD_JS_LIB" description="PLG_CONTENT_ITPSHARE_LOAD_JS_LIB_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+			</fieldset>
+			
+			<fieldset name="additional_code" label="PLG_CONTENT_ITPSHARE_ADDITIONAL_BUTTONS">
+                <field name="ebuttons1" type="textarea" default="" label="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE" description="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
+                <field name="ebuttons2" type="textarea" default="" label="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE" description="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
+                <field name="ebuttons3" type="textarea" default="" label="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE" description="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
+                <field name="ebuttons4" type="textarea" default="" label="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE" description="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
+                <field name="ebuttons5" type="textarea" default="" label="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE" description="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
+			</fieldset>
+			
+			<fieldset name="advanced">
+			    <field name="spacer11" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_JOOMLA_CONTENT" />
+			    <field name="showInArticles" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_SHOW_IN_ARTICLE" description="PLG_CONTENT_ITPSHARE_SHOW_IN_ARTICLE_DESC" >
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                <field name="showInCategories" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_SHOW_IN_CATEGORIES" description="PLG_CONTENT_ITPSHARE_SHOW_IN_CATEGORIES_DESC" >
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
                 </field>
                 
-				</fieldset>
-				
-				<fieldset name="advanced">
-				    <field name="spacer11" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_JOOMLA_CONTENT" />
-				    <field name="showInArticles" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_SHOW_IN_ARTICLE" description="PLG_CONTENT_ITPSHARE_SHOW_IN_ARTICLE_DESC" >
-	                   <option value="0">JNO</option>
-	                   <option value="1">JYES</option>
-	                </field>
-	                <field name="showInCategories" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_SHOW_IN_CATEGORIES" description="PLG_CONTENT_ITPSHARE_SHOW_IN_CATEGORIES_DESC" >
-	                   <option value="0">JNO</option>
-	                   <option value="1">JYES</option>
-	                </field>
-	                
-	                <field name="showInFeatured" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_SHOW_IN_FEATURE" description="PLG_CONTENT_ITPSHARE_SHOW_IN_FEATURE_DESC" >
-                       <option value="0">JNO</option>
-                       <option value="1">JYES</option>
-                    </field>
-	                
-	                <field name="excludeArticles" type="text" default="" size="80" label="PLG_CONTENT_ITPSHARE_EXCLUDE_ARTICLES" description="PLG_CONTENT_ITPSHARE_EXCLUDE_ARTICLES_DESC" />
-	                <field name="excludeCats" type="text" default="" size="80" label="PLG_CONTENT_ITPSHARE_EXCLUDE_CATEGORIES" description="PLG_CONTENT_ITPSHARE_EXCLUDE_CATEGORIES_DESC" />
-	                <field name="includeArticles" type="text" default="" size="80" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_ARITCLES" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_ARITCLES_DESC" />
-	                
-	                <field name="spacer12" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_K2_SETTINGS" />
-                    <field name="k2DisplayInArticles" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_K2_DISPLAY_IN_ARITCLES" description="PLG_CONTENT_ITPSHARE_K2_DISPLAY_IN_ARITCLES_DESC" >
-                       <option value="0">JNO</option>
-                       <option value="1">JYES</option>
-                    </field>
-                    
-                    <field name="k2DisplayInItemlist" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_K2_DISPLAY_IN_CATEGORIES" description="PLG_CONTENT_ITPSHARE_K2_DISPLAY_IN_CATEGORIES_DESC" >
-                       <option value="0">JNO</option>
-                       <option value="1">JYES</option>
-                    </field>
-                    
-                    <field name="spacer13" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_VIRTUEMART_SETTINGS" />
-                    <field name="vmDisplayInDetails" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_DETAILS" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_DETAILS_DESC" >
-                       <option value="0">JNO</option>
-                       <option value="1">JYES</option>
-                    </field>
-                    
-	                <field name="spacer14" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_JEVENTS_SETTINGS" />
-                    <field name="jeDisplayInEvents" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_JEVENT" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_JEVENT_DESC" >
-                       <option value="0">JNO</option>
-                       <option value="1">JYES</option>
-                    </field>
-                    
-                    <field name="spacer15" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_EASYBLOG_SETTINGS" />
-	                <field name="ebDisplayInEntry" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_ENTRY" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_ENTRY_DESC" >
-	                   <option value="0">JNO</option>
-	                   <option value="1">JYES</option>
-	                </field>
-	                <field name="ebDisplayInCategories" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_K2_DISPLAY_IN_CATEGORIES" description="PLG_CONTENT_ITPSHARE_K2_DISPLAY_IN_CATEGORIES_DESC" >
-                       <option value="0">JNO</option>
-                       <option value="1">JYES</option>
-                    </field>
-                    <field name="ebDisplayInTags" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_TAGS" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_TAGS_DESC" >
-	                   <option value="0">JNO</option>
-	                   <option value="1">JYES</option>
-	                </field>
-                    <field name="ebDisplayInLatest" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_LATEST" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_LATEST_DESC" >
-                       <option value="0">JNO</option>
-                       <option value="1">JYES</option>
-                    </field>
-                    
-                    <field name="spacer16" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_MYBLOG_SETTINGS" />
-	                <field name="mbDisplay" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_POST" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_POST_DESC" >
-	                   <option value="0">JNO</option>
-	                   <option value="1">JYES</option>
-	                </field>
-                    
-                    <field name="spacer17" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_VIPPORTFOLIO_SETTINGS" />
-	                <field name="vipportfolio_lineal" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_LINEAL" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_LINEAL_DESC" >
-	                   <option value="0">JNO</option>
-	                   <option value="1">JYES</option>
-	                </field>
-	                
-				    <field name="spacer18" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_FACEBOOK_ADVANCED_SETTINGS" />
-				    <field name="facebookLikeAppId" type="text" default="" label="PLG_CONTENT_ITPSHARE_FACEBOOK_APP_ID" description="PLG_CONTENT_ITPSHARE_FACEBOOK_APP_ID_DESC" />
-				    <field name="facebookLikeSend" type="list" default="0" label="PLG_CONTENT_ITPSHARE_FACEBOOK_SEND_BUTTON" description="PLG_CONTENT_ITPSHARE_FACEBOOK_SEND_BUTTON" >
-	                   <option value="0">JNO</option>
-	                   <option value="1">JYES</option>
-	                </field>
-	                <field name="facebookRootDiv" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_FACEBOOK_ROOT" description="PLG_CONTENT_ITPSHARE_FACEBOOK_ROOT_DESC" >
-	                    <option value="0">JNO</option>
-	                    <option value="1">JYES</option>
-	                 </field>
-	                <field name="facebookLoadJsLib" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_LOAD_JS_LIB" description="PLG_CONTENT_ITPSHARE_LOAD_JS_LIB_DESC">
-	                    <option value="0">JNO</option>
-	                    <option value="1">JYES</option>
-	                </field>
-                            
-	                <field name="spacer19" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_TUMBLR_ADVANCED_SETTINGS" />
-	                <field name="loadTumblrJsLib" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_TUMBLR_LOAD_JS" description="PLG_CONTENT_ITPSHARE_TUMBLR_LOAD_JS_DESC">
-	                    <option value="0">JNO</option>
-	                    <option value="1">JYES</option>
-	                </field>
-	                
-	                <field name="spacer20" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_TWITTER_ADVANCED_SETTINGS" />
-	                <field name="load_twitter_library" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_TWITTER_LOAD_LIBRARY" description="PLG_CONTENT_ITPSHARE_TWITTER_LOAD_LIBRARY_DESC">
-	                    <option value="0">JNO</option>
-	                    <option value="1">JYES</option>
-	                </field>
-	                
-                    <field name="spacer21" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_LINKEDIN_ADVANCED_SETTINGS" />
-	                <field name="load_linkedin_library" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_LINKEDIN_LOAD_LIBRARY" description="PLG_CONTENT_ITPSHARE_LINKEDIN_LOAD_LIBRARY_DESC">
-	                    <option value="0">JNO</option>
-	                    <option value="1">JYES</option>
-	                </field>
-	                
-                    <field name="spacer22" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_GOOGLE_ADVANCED_SETTINGS" />
-                    <field name="loadGoogleJsLib" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_GOOGLE_LOAD_JS" description="PLG_CONTENT_ITPSHARE_GOOGLE_LOAD_JS_DESC">
-                        <option value="0">JNO</option>
-                        <option value="1">JYES</option>
-                    </field>
-                    
-                    <field name="spacer23" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_PINTEREST_ADVANCED_SETTINGS" />
-                    <field name="loadPinterestJsLib" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_PINTEREST_JS" description="PLG_CONTENT_ITPSHARE_PINTEREST_LOAD_JS_DESC">
-                        <option value="0">JNO</option>
-                        <option value="1">JYES</option>
-                    </field>
-                    
-                    <field name="spacer24" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_ITPSHARE_ADVANCED_SETTINGS" />
-                    <field name="loadCss" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_ITPSHARE_LOAD_STYLE_CSS" description="PLG_CONTENT_ITPSHARE_ITPSHARE_LOAD_STYLE_CSS_DESC">
-                        <option value="0">JNO</option>
-                        <option value="1">JYES</option>
-                    </field>
-                    <field name="dynamicLocale" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_ITPSHARE_AUTO_LANGUAGE" description="PLG_CONTENT_ITPSHARE_ITPSHARE_AUTO_LANGUAGE_DESC">
-	                    <option value="0">JNO</option>
-	                    <option value="1">JYES</option>
-	               </field>
-                    
-                    <field name="spacer25" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_SHORTENER_SETTINGS"  />
-	                <field name="shortener_service" type="list" default="" label="PLG_CONTENT_ITPSHARE_SHORTENER_SERVICE" description="PLG_CONTENT_ITPSHARE_SHORTENER_SERVICE_DESC" >
-	                   <option value="">PLG_CONTENT_ITPSHARE_NONE</option>
-	                   <option value="google">goo.gl</option>
-	                   <option value="bitly">bit.ly</option>
-	                   <option value="bitlycom">bitly.com</option>
-	                   <option value="jmp">j.mp</option>
-	                   <option value="tinycc">tiny.cc</option>
-	                </field>
-	                <field name="shortener_login" type="text" default="" label="PLG_CONTENT_ITPSHARE_LOGIN" description="PLG_CONTENT_ITPSHARE_LOGIN_DESC"/>
-	                <field name="shortener_api_key" type="text" default="" size="80" label="PLG_CONTENT_ITPSHARE_API_KEY" description="PLG_CONTENT_ITPSHARE_API_KEY_DESC"/>
-			        
-	                <field name="spacer26" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_ADDITIONAL_BUTTONS" />
-	                <field name="ebuttons1" type="textarea" default="" label="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE" description="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
-			        <field name="ebuttons2" type="textarea" default="" label="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE" description="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
-			        <field name="ebuttons3" type="textarea" default="" label="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE" description="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
-			        <field name="ebuttons4" type="textarea" default="" label="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE" description="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
-			        <field name="ebuttons5" type="textarea" default="" label="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE" description="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
-	            </fieldset>
+                <field name="showInFeatured" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_SHOW_IN_FEATURE" description="PLG_CONTENT_ITPSHARE_SHOW_IN_FEATURE_DESC" >
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                
+                <field name="excludeArticles" type="text" default="" size="80" label="PLG_CONTENT_ITPSHARE_EXCLUDE_ARTICLES" description="PLG_CONTENT_ITPSHARE_EXCLUDE_ARTICLES_DESC" />
+                <field name="excludeCats" type="text" default="" size="80" label="PLG_CONTENT_ITPSHARE_EXCLUDE_CATEGORIES" description="PLG_CONTENT_ITPSHARE_EXCLUDE_CATEGORIES_DESC" />
+                <field name="includeArticles" type="text" default="" size="80" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_ARITCLES" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_ARITCLES_DESC" />
+                
+                <field name="spacer12" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_K2_SETTINGS" />
+                <field name="k2DisplayInArticles" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_K2_DISPLAY_IN_ARITCLES" description="PLG_CONTENT_ITPSHARE_K2_DISPLAY_IN_ARITCLES_DESC" >
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                
+                <field name="k2DisplayInItemlist" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_K2_DISPLAY_IN_CATEGORIES" description="PLG_CONTENT_ITPSHARE_K2_DISPLAY_IN_CATEGORIES_DESC" >
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                
+                <field name="spacer13" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_VIRTUEMART_SETTINGS" />
+                <field name="vmDisplayInDetails" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_DETAILS" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_DETAILS_DESC" >
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                   
+                <field name="spacer14" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_JEVENTS_SETTINGS" />
+                <field name="jeDisplayInEvents" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_JEVENT" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_JEVENT_DESC" >
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                
+                <field name="spacer15" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_EASYBLOG_SETTINGS" />
+                <field name="ebDisplayInEntry" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_ENTRY" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_ENTRY_DESC" >
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                <field name="ebDisplayInCategories" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_K2_DISPLAY_IN_CATEGORIES" description="PLG_CONTENT_ITPSHARE_K2_DISPLAY_IN_CATEGORIES_DESC" >
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                <field name="ebDisplayInTags" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_TAGS" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_TAGS_DESC" >
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+                </field>
+                <field name="ebDisplayInLatest" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_LATEST" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_LATEST_DESC" >
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                   
+                <field name="spacer16" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_MYBLOG_SETTINGS" />
+                <field name="mbDisplay" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_POST" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_POST_DESC" >
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                   
+                <field name="spacer17" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_VIPPORTFOLIO_SETTINGS" />
+                <field name="vipportfolio_lineal" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_LINEAL" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_LINEAL_DESC" >
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                
+                <field name="spacer18" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_ZOO_SETTINGS" />
+                <field name="zoo_display" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_ZOO_DISPLAY_IN_ARTICLE" description="PLG_CONTENT_ITPSHARE_ZOO_DISPLAY_IN_ARTICLE_DESC" >
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                
+                <field name="spacer19" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_JOOMSHOPPING_SETTINGS" />
+                <field name="joomshopping_display" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_JOOMSHOPPING_DISPLAY_IN_DETAILS" description="PLG_CONTENT_ITPSHARE_JOOMSHOPPING_DISPLAY_IN_DETAILS_DESC" >
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                
+                <field name="spacer20" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_HIKASHOP_SETTINGS" />
+                <field name="hikashop_display" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_HIKASHOP_DISPLAY_IN_DETAILS" description="PLG_CONTENT_ITPSHARE_HIKASHOP_DISPLAY_IN_DETAILS_DESC" >
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                
+                <field name="spacer21" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_TUMBLR_ADVANCED_SETTINGS" />
+                <field name="loadTumblrJsLib" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_TUMBLR_LOAD_JS" description="PLG_CONTENT_ITPSHARE_TUMBLR_LOAD_JS_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                
+                <field name="spacer22" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_TWITTER_ADVANCED_SETTINGS" />
+                <field name="load_twitter_library" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_TWITTER_LOAD_LIBRARY" description="PLG_CONTENT_ITPSHARE_TWITTER_LOAD_LIBRARY_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                
+                   <field name="spacer23" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_LINKEDIN_ADVANCED_SETTINGS" />
+                <field name="load_linkedin_library" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_LINKEDIN_LOAD_LIBRARY" description="PLG_CONTENT_ITPSHARE_LINKEDIN_LOAD_LIBRARY_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                
+                <field name="spacer24" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_GOOGLE_ADVANCED_SETTINGS" />
+                <field name="loadGoogleJsLib" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_GOOGLE_LOAD_JS" description="PLG_CONTENT_ITPSHARE_GOOGLE_LOAD_JS_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                
+                <field name="spacer25" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_PINTEREST_ADVANCED_SETTINGS" />
+                <field name="loadPinterestJsLib" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_PINTEREST_JS" description="PLG_CONTENT_ITPSHARE_PINTEREST_LOAD_JS_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                
+                <field name="spacer26" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_ITPSHARE_ADVANCED_SETTINGS" />
+                <field name="loadCss" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_ITPSHARE_LOAD_STYLE_CSS" description="PLG_CONTENT_ITPSHARE_ITPSHARE_LOAD_STYLE_CSS_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="dynamicLocale" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_ITPSHARE_AUTO_LANGUAGE" description="PLG_CONTENT_ITPSHARE_ITPSHARE_AUTO_LANGUAGE_DESC">
+                 <option value="0">JNO</option>
+                 <option value="1">JYES</option>
+               </field>
+                   
+            </fieldset>
 	            
         </fields>
 	</config>

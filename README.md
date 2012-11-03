@@ -5,6 +5,11 @@ ITPShare Plugin for Joomla!
 
 Changelog
 ---------
+v2.4
+---------
+
+* Improved
+
 v2.3
 ----
 * Added some new Twitter languages
