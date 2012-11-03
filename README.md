@@ -8,7 +8,7 @@ Changelog
 
 v2.4
 ----
-* Now works with EasyBlog and MyBlog
+* Now works with ZOO, JoomShopping and HikaShop
 * Improved
 
 v2.3
