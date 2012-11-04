@@ -893,7 +893,7 @@ class plgContentITPShare extends JPlugin {
     
     private function getImage($article, $context) {
         
-    	$result = false;
+    	$result = "";
     	
     	switch($this->currentOption) {
             case "com_content":
@@ -1235,8 +1235,7 @@ class plgContentITPShare extends JPlugin {
             if($params->get("facebookLikeAppId")){
                 $html .= "&amp;appId=" . $params->get("facebookLikeAppId");
             }
-            $html .= '" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:' . $params->get("facebookLikeWidth", "450") . 'px; height:' . $height . 'px;" allowTransparency="true"></iframe>
-        ';
+            $html .= '" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:' . $params->get("facebookLikeWidth", "450") . 'px; height:' . $height . 'px;" allowTransparency="true"></iframe>';
             
         return $html;
     }
