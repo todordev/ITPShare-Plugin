@@ -45,7 +45,7 @@ class plgContentITPShare extends JPlugin {
 	 */
     public function onContentPrepare($context, &$article, &$params, $page = 0) {
 
-        if (!$article OR !isset($this->params)) { return; };            
+        if (!$article OR ($article AND !property_exists($article, 'id')) OR !isset($this->params)) { return; };            
         
         $app = JFactory::getApplication();
         /** @var $app JSite **/
