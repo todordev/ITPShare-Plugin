@@ -459,7 +459,7 @@
                    <option value="one">PLG_CONTENT_ITPSHARE_ONE_IMAGE</option>
                    <option value="any">PLG_CONTENT_ITPSHARE_ANY_IMAGE</option>
                 </field>
-                <field name="pinterestType" type="list" default="horizontal" label="PLG_CONTENT_ITPSHARE_PINTEREST_TYPE" description="PLG_CONTENT_ITPSHARE_PINTEREST_TYPE_DESC" >
+                <field name="pinterestType" type="list" default="none" label="PLG_CONTENT_ITPSHARE_PINTEREST_TYPE" description="PLG_CONTENT_ITPSHARE_PINTEREST_TYPE_DESC" >
                    <option value="none">PLG_CONTENT_ITPSHARE_NOT_SHOWN</option>
                    <option value="above">PLG_CONTENT_ITPSHARE_ABOVE_BUTTON</option>
                    <option value="beside">PLG_CONTENT_ITPSHARE_BESIDE_BUTTON</option>
