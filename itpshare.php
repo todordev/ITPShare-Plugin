@@ -32,6 +32,7 @@ class plgContentITPShare extends JPlugin {
     private $currentView    = "";
     private $currentTask    = "";
     private $currentOption  = "";
+    private $currentLayout  = "";
     
     private $imgPattern     = '/src="([^"]*)"/i';
     
@@ -67,6 +68,7 @@ class plgContentITPShare extends JPlugin {
         $this->currentOption  = $app->input->getCmd("option");
         $this->currentView    = $app->input->getCmd("view");
         $this->currentTask    = $app->input->getCmd("task");
+        $this->currentLayout  = $app->input->getCmd("layout");
         
         // Get locale code automatically
         if($this->params->get("dynamicLocale", 0)) {
@@ -136,10 +138,6 @@ class plgContentITPShare extends JPlugin {
                 $result = $this->isJEventsRestricted($article, $context);
                 break;
 
-            case "com_easyblog":
-                $result = $this->isEasyBlogRestricted($article, $context);
-                break;
-                
             case "com_vipportfolio":
                 $result = $this->isVipPortfolioRestricted($article, $context);
                 break;
@@ -195,24 +193,6 @@ class plgContentITPShare extends JPlugin {
         $showInFeatured   = $this->params->get('showInFeatured');
         if(!$showInFeatured AND (strcmp("featured", $this->currentView) == 0)){
             return true;
-        }
-        
-        if(
-            ($showInCategories AND ($this->currentView == "category") )
-        OR 
-            ($showInFeatured AND ($this->currentView == "featured") )
-            ) {
-            $articleData        = $this->getArticle($article);
-            $article->id        = JArrayHelper::getValue($articleData, 'id');
-            $article->catid     = JArrayHelper::getValue($articleData, 'catid');
-            $article->title     = JArrayHelper::getValue($articleData, 'title');
-            $article->images    = JArrayHelper::getValue($articleData, 'images');
-            $article->slug      = JArrayHelper::getValue($articleData, 'slug');
-            $article->catslug   = JArrayHelper::getValue($articleData, 'catslug');
-        }
-        
-        if(empty($article->id)) {
-            return true;            
         }
         
         // Exclude articles
@@ -271,22 +251,40 @@ class plgContentITPShare extends JPlugin {
             return true;
         }
         
-        if(strcmp("item", $this->currentView) == 0) {
-            
-            // Fix the issue with media tab
-            $itemVideo = $params->get("itemVideo");
-            static $itemVideoExists = 1;
-            
-            if($itemVideo AND ($itemVideoExists == 1) ) {
-                $itemVideoExists -= 1;
+        $displayInArticles     = $this->params->get('k2DisplayInArticles', 0);
+        if(!$displayInArticles AND (strcmp("item", $this->currentView) == 0)){
+            return true;
+        }
+        
+        // Exclude articles
+        $excludeArticles = $this->params->get('k2_exclude_articles');
+        if(!empty($excludeArticles)){
+            $excludeArticles = explode(',', $excludeArticles);
+        }
+        settype($excludeArticles, 'array');
+        JArrayHelper::toInteger($excludeArticles);
+        
+        // Exluded categories
+        $excludedCats           = $this->params->get('k2_exclude_cats');
+        if(!empty($excludedCats)){
+            $excludedCats = explode(',', $excludedCats);
+        }
+        settype($excludedCats, 'array');
+        JArrayHelper::toInteger($excludedCats);
+        
+        // Included Articles
+        $includedArticles = $this->params->get('k2_include_articles');
+        if(!empty($includedArticles)){
+            $includedArticles = explode(',', $includedArticles);
+        }
+        settype($includedArticles, 'array');
+        JArrayHelper::toInteger($includedArticles);
+        
+        if(!in_array($article->id, $includedArticles)) {
+            // Check exluded articles
+            if(in_array($article->id, $excludeArticles) OR in_array($article->catid, $excludedCats)){
                 return true;
             }
-            
-            $displayInArticles     = $this->params->get('k2DisplayInArticles', 0);
-            if(!$displayInArticles){
-                return true;
-            }
-            
         }
         
         $this->prepareK2Object($article, $params);
@@ -440,53 +438,6 @@ class plgContentITPShare extends JPlugin {
         return false;
     }
     
-    /**
-     * 
-     * It's a method that verify restriction for the component "com_easyblog"
-     * @param object $article
-     * @param string $context
-     */
-	private function isEasyBlogRestricted(&$article, $context) {
-        $allowedViews = array("categories", "entry", "latest", "tags");   
-        // Check for correct context
-        if(strpos($context, "easyblog") === false) {
-           return true;
-        }
-        
-        // Only put buttons in allowed views
-        if(!in_array($this->currentView, $allowedViews)) {
-        	return true;
-        }
-        
-   		// Verify the option for displaying in view "categories"
-        $displayInCategories     = $this->params->get('ebDisplayInCategories', 0);
-        if(!$displayInCategories AND (strcmp("categories", $this->currentView) == 0)){
-            return true;
-        }
-        
-   		// Verify the option for displaying in view "latest"
-        $displayInLatest     = $this->params->get('ebDisplayInLatest', 0);
-        if(!$displayInLatest AND (strcmp("latest", $this->currentView) == 0)){
-            return true;
-        }
-        
-		// Verify the option for displaying in view "entry"
-        $displayInEntry     = $this->params->get('ebDisplayInEntry', 0);
-        if(!$displayInEntry AND (strcmp("entry", $this->currentView) == 0)){
-            return true;
-        }
-        
-	    // Verify the option for displaying in view "tags"
-        $displayInTags     = $this->params->get('ebDisplayInTags', 0);
-        if(!$displayInTags AND (strcmp("tags", $this->currentView) == 0)){
-            return true;
-        }
-        
-        $this->prepareEasyBlogObject($article);
-        
-        return false;
-    }
-    
 	/**
      * 
      * It's a method that verify restriction for the component "com_joomshopping"
@@ -568,18 +519,6 @@ class plgContentITPShare extends JPlugin {
             
     }
     
-    private function prepareEasyBlogObject(&$article) {
-        
-        $article->image_intro = "";
-        $matches = array();
-            
-        preg_match( $this->imgPattern, $article->content, $matches ) ;
-        if(isset($matches[1])) {
-            $article->image_intro = JArrayHelper::getValue($matches, 1, "");
-        }
-            
-    }
-    
     private function prepareVirtuemartObject(&$article) {
         
         $article->image_intro = "";
@@ -638,7 +577,7 @@ class plgContentITPShare extends JPlugin {
         $article->image_intro = "";
         $article->id          = null;
         
-        $url = JURI::getInstance();
+        $url = clone JURI::getInstance();
         
         // Get the URI
         $itemURI = $url->getPath();
@@ -648,20 +587,24 @@ class plgContentITPShare extends JPlugin {
         $article->link = $itemURI;
         
         // Get product id
-        $config = JFactory::getConfig();
-        $sef    = $config->get("sef");
-        if(!$config->get("sef")) {
-            $urlQuery = $url->getQuery();
-            parse_str($urlQuery, $itemURL);
-            $article->id = JArrayHelper::getValue($itemURL, "cid");
-        } else {
-            // Get alias
-            $itemURL     = $url->toString();
-            $itemURL     = parse_url($itemURL);
-            $path        = JArrayHelper::getValue($itemURL, "path");
-            $urlParts    = explode("/", $path);
-            $itemAlias   = array_pop($urlParts);
-            $article->id = intval($itemAlias);
+        $app         = JFactory::getApplication();
+        $router      = $app->getRouter();
+        $parsed      = $router->parse($url);
+        $menuItemId  = JArrayHelper::getValue($parsed, "Itemid");
+        
+        $article->id = JArrayHelper::getValue($parsed, "cid");
+        
+        // Get product id from menu item
+        if(!$article->id AND !empty($menuItemId)) {
+            $menu           = $app->getMenu();
+            $menuItem       = $menu->getItem($menuItemId);
+            $menuParams     = $menuItem->params;
+            $productIds     = $menuItem->params->get("product_id");
+            
+            if(!empty($productIds)) {
+                $article->id = array_shift($productIds);
+            }
+            
         }
         
         if(!empty($article->id)) {
@@ -778,10 +721,6 @@ class plgContentITPShare extends JPlugin {
                 
                 break;
 
-            case "com_easyblog":
-            	$uri	= EasyBlogRouter::getRoutedURL( 'index.php?option=com_easyblog&view=entry&id=' . $article->id , false , false );
-                break;
-
             case "com_vipportfolio":
                 $uri = JRoute::_($article->link, false);
                 break;
@@ -861,10 +800,6 @@ class plgContentITPShare extends JPlugin {
                 
                 break;   
 
-            case "com_easyblog":
-                $title= $article->title;
-                break;
-           
             case "com_vipportfolio":
                 $title = $article->title;
                 break;
@@ -916,7 +851,7 @@ class plgContentITPShare extends JPlugin {
         	// Using contect because the context show us it is com_myblog
     	    // $this->currentOption contains value "com_content" 
         	case "com_myblog":
-        	    $result = $article->image_intro;
+        	    $result = str_replace("//", "/", $article->image_intro);
         	    break;
 
             case "com_k2":
@@ -929,10 +864,6 @@ class plgContentITPShare extends JPlugin {
                 $result = JURI::root().$article->image_intro;
                 break;
             
-            case "com_easyblog":
-                $result = JURI::root().$article->image_intro;
-                break;
-                
             case "com_vipportfolio":
                 $result = JURI::root().$article->image_intro;
                 break;
@@ -958,47 +889,6 @@ class plgContentITPShare extends JPlugin {
         
     }
     
-    /**
-     * 
-     * Load an information about article, if missing, on the view 'category' and 'featured'
-     * @param object $article
-     */
-    private function getArticle(&$article) {
-        
-        $db = JFactory::getDbo();
-        /** @var $db JDatabaseMySQLi **/
-        
-        $query = "
-            SELECT 
-                `#__content`.`id`,
-                `#__content`.`catid`,
-                `#__content`.`alias`,
-                `#__content`.`title`,
-                `#__content`.`images`,
-                `#__categories`.`alias` as category_alias
-                
-            FROM
-                `#__content`
-            INNER JOIN
-                `#__categories`
-            ON
-                `#__content`.`catid`=`#__categories`.`id`
-            WHERE
-                `#__content`.`introtext` SOUNDS LIKE " . $db->quote($article->text); 
-        
-        $db->setQuery($query);
-        $result = $db->loadAssoc();
-        
-        if(!empty($result)) {
-            $result['slug']     = $result['alias'] ? $result['id'].':'.$result['alias'] : $result['id'];
-            $result['catslug']  = $result['category_alias'] ? $result['catid'].':'.$result['category_alias'] : $result['catid'];
-        } else {
-            $result = array();
-        }
-        
-        return $result;
-    }
-    
 	/**
      * A method that make a long url to short url
      * 
@@ -1014,19 +904,26 @@ class plgContentITPShare extends JPlugin {
             "api_key"   => $this->params->get("shortener_api_key"),
             "service"   => $this->params->get("shortener_service"),
         );
-        $shortUrl 	= new ItpSharePluginShortUrl($link, $options);
-        $shortLink  = $shortUrl->getUrl();
         
-        if(!$shortLink) {
-        	// Add logger
-            JLog::addLogger(
-                array(
-                    'text_file' => 'error.php',
-                 )
-            );
-            
-            JLog::add($shortUrl->getError(), JLog::ERROR);
-            $shortLink = $link;
+        try {
+        
+            $shortUrl  = new ItpSharePluginShortUrl($link,$options);
+            $shortLink = $shortUrl->getUrl();
+        
+            // Get original link
+            if(!$shortLink) {
+                $shortLink = $link;
+            }
+        
+        } catch(Exception $e) {
+        
+            JLog::add($e->getMessage());
+        
+            // Get original link
+            if(!$shortLink) {
+                $shortLink = $link;
+            }
+        
         }
         
         return $shortLink;
@@ -1235,6 +1132,11 @@ class plgContentITPShare extends JPlugin {
             if($params->get("facebookLikeAppId")){
                 $html .= "&amp;appId=" . $params->get("facebookLikeAppId");
             }
+            
+            if($params->get("facebookKidDirectedSite")){
+                $html .= '&amp;kid_directed_site=true';
+            }
+            
             $html .= '" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:' . $params->get("facebookLikeWidth", "450") . 'px; height:' . $height . 'px;" allowTransparency="true"></iframe>
         ';
             
@@ -1271,14 +1173,19 @@ class plgContentITPShare extends JPlugin {
         href="' . $url . '" 
         layout="' . $layout . '" 
         show_faces="' . $faces . '" 
-        width="' . $params->get("facebookLikeWidth","450") . '" 
-        colorscheme="' . $params->get("facebookLikeColor","light") . '"
-        send="' . $params->get("facebookLikeSend",0). '" 
-        action="' . $params->get("facebookLikeAction",'like') . '" ';
+        width="' . $params->get("facebookLikeWidth", "450") . '" 
+        colorscheme="' . $params->get("facebookLikeColor", "light") . '"
+        send="' . $params->get("facebookLikeSend", 0). '" 
+        action="' . $params->get("facebookLikeAction", 'like') . '" ';
 
         if($params->get("facebookLikeFont")){
-            $html .= 'font="' . $params->get("facebookLikeFont") . '"';
+            $html .= ' font="' . $params->get("facebookLikeFont") . '"';
         }
+        
+        if($params->get("facebookKidDirectedSite")){
+            $html .= ' kid_directed_site="true"';
+        }
+        
         $html .= '></fb:like>
         ';
         
@@ -1323,6 +1230,10 @@ class plgContentITPShare extends JPlugin {
                 
         if($params->get("facebookLikeFont")){
             $html .= ' data-font="' . $params->get("facebookLikeFont") . '" ';
+        }
+        
+        if($params->get("facebookKidDirectedSite")){
+            $html .= ' data-kid-directed-site="true"';
         }
         
         $html .= '></div>';
@@ -1506,18 +1417,35 @@ class plgContentITPShare extends JPlugin {
         $html = "";
         if($params->get("pinterestButton")) {
             
-            $media = "";
-            if(!empty($image)) {
-                $media = "&amp;media=" . rawurlencode($image);
+            $html .= '<div class="itp-share-pinterest">';
+            
+            if(strcmp("one", $this->params->get('pinterestImages', "one")) == 0) {
+                
+                $media = "";
+                if(!empty($image)) {
+                    $media = "&amp;media=" . rawurlencode($image);
+                }
+                
+                $html .= '<a href="http://pinterest.com/pin/create/button/?url=' . rawurlencode($url) . $media. '&amp;description=' . rawurlencode($title) . '" data-pin-do="buttonPin" data-pin-config="'.$params->get("pinterestType", "beside").'"><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a>';
+            } else {
+                $html .= '<a href="//pinterest.com/pin/create/button/" data-pin-do="buttonBookmark" ><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a>';
             }
             
-            $html .= '<div class="itp-share-pinterest">';
-            $html .= '<a href="http://pinterest.com/pin/create/button/?url=' . rawurlencode($url) . $media. '&amp;description=' . rawurlencode($title) . '" class="pin-it-button" count-layout="'.$params->get("pinterestType", "horizontal").'"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="'.JText::_("PLG_CONTENT_ITPSHARE_PIN_IT").'" /></a>';
             $html .= '</div>';
             
             // Load the JS library
             if($params->get("loadPinterestJsLib")) {
-                $html .= '<script src="//assets.pinterest.com/js/pinit.js"></script>';
+                $html .= '
+<script type="text/javascript">
+    (function(d){
+      var f = d.getElementsByTagName("SCRIPT")[0], p = d.createElement("SCRIPT");
+      p.type = "text/javascript";
+      p.async = true;
+      p.src = "//assets.pinterest.com/js/pinit.js";
+      f.parentNode.insertBefore(p, f);
+    }(document));
+</script>
+';
             }
         }
         

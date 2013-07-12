@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="2.5" type="plugin" group="content" method="upgrade">
+<extension version="3.1" type="plugin" group="content" method="upgrade">
     <name>PLG_CONTENT_ITPSHARE</name>
     <author>Todor Iliev</author>
     <creationDate>January, 2011</creationDate>
@@ -7,7 +7,7 @@
     <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
     <authorEmail>todor@itprism.com</authorEmail>
     <authorUrl>http://itprism.com</authorUrl>
-    <version>2.4</version>
+    <version>2.5</version>
     <description>PLG_CONTENT_ITPSHARE_DESC</description>
     
     <languages  folder="language">
@@ -33,26 +33,37 @@
 				   <option value="1">PLG_CONTENT_ITPSHARE_TOP</option>
 				   <option value="2">PLG_CONTENT_ITPSHARE_BOTTOM</option>
 				</field>
-
-				<field name="spacer1" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_TWITTER_SETTINGS" />
-				<field name="twitterButton" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_TWITTER_BUTTON" description="PLG_CONTENT_ITPSHARE_TWITTER_BUTTON_DESC" >
-				   <option value="0">JHIDE</option>
-				   <option value="1">JSHOW</option>
-				</field>
-				<field name="twitterName" type="text" default="" size="80" label="PLG_CONTENT_ITPSHARE_TWITTER_NAME" description="PLG_CONTENT_ITPSHARE_TWITTER_NAME_DESC" />
-				<field name="twitterRecommend" type="text" default="" size="80" label="PLG_CONTENT_ITPSHARE_TWITTER_RECOMMEND" description="PLG_CONTENT_ITPSHARE_TWITTER_RECOMMEND_DESC" />
-				<field name="twitterHashtag" type="text" default="" size="80" label="PLG_CONTENT_ITPSHARE_TWITTER_HASHTAGS" description="PLG_CONTENT_ITPSHARE_TWITTER_HASHTAGS_DESC" />
-				<field name="twitterSize" type="list" default="small" label="PLG_CONTENT_ITPSHARE_TWITTER_SIZE" description="PLG_CONTENT_ITPSHARE_TWITTER_SIZE_DESC" >
+                
+                <field name="loadCss" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_ITPSHARE_LOAD_STYLE_CSS" description="PLG_CONTENT_ITPSHARE_ITPSHARE_LOAD_STYLE_CSS_DESC" class="btn-group">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="dynamicLocale" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_ITPSHARE_AUTO_LANGUAGE" description="PLG_CONTENT_ITPSHARE_ITPSHARE_AUTO_LANGUAGE_DESC" class="btn-group">
+                 <option value="0">JNO</option>
+                 <option value="1">JYES</option>
+               </field>
+                
+			</fieldset>
+			
+            <fieldset name="twitter_section" label="PLG_CONTENT_ITPSHARE_TWITTER_SETTINGS">
+                <field name="twitterButton" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_DISPLAY_BUTTON" description="PLG_CONTENT_ITPSHARE_DISPLAY_BUTTON_DESC" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                <field name="twitterName" type="text" default="" size="80" label="PLG_CONTENT_ITPSHARE_TWITTER_NAME" description="PLG_CONTENT_ITPSHARE_TWITTER_NAME_DESC" />
+                <field name="twitterRecommend" type="text" default="" size="80" label="PLG_CONTENT_ITPSHARE_TWITTER_RECOMMEND" description="PLG_CONTENT_ITPSHARE_TWITTER_RECOMMEND_DESC" />
+                <field name="twitterHashtag" type="text" default="" size="80" label="PLG_CONTENT_ITPSHARE_TWITTER_HASHTAGS" description="PLG_CONTENT_ITPSHARE_TWITTER_HASHTAGS_DESC" />
+                <field name="twitterSize" type="list" default="small" label="PLG_CONTENT_ITPSHARE_TWITTER_SIZE" description="PLG_CONTENT_ITPSHARE_TWITTER_SIZE_DESC" >
                    <option value="small">PLG_CONTENT_ITPSHARE_SMALL</option>
                    <option value="large">PLG_CONTENT_ITPSHARE_LARGE</option>
                 </field>
-				<field name="twitterCounter" type="list" default="horizontal" label="PLG_CONTENT_ITPSHARE_TWITTER_COUNTER" description="PLG_CONTENT_ITPSHARE_TWITTER_COUNTER_DESC" >
-				   <option value="none">JHIDE</option>
-				   <option value="vertical">PLG_CONTENT_ITPSHARE_VERTICAL</option>
-				   <option value="horizontal">PLG_CONTENT_ITPSHARE_HORIZONTAL</option>
-				</field>
-				<field name="twitterLanguage" type="list" default="en" label="PLG_CONTENT_ITPSHARE_TWITTER_LANGUAGE" description="PLG_CONTENT_ITPSHARE_TWITTER_LANGUAGE_DESC" >
-				   <option value="ar">PLG_CONTENT_ITPSHARE_ARABIC</option>
+                <field name="twitterCounter" type="list" default="horizontal" label="PLG_CONTENT_ITPSHARE_TWITTER_COUNTER" description="PLG_CONTENT_ITPSHARE_TWITTER_COUNTER_DESC" >
+                   <option value="none">JHIDE</option>
+                   <option value="vertical">PLG_CONTENT_ITPSHARE_VERTICAL</option>
+                   <option value="horizontal">PLG_CONTENT_ITPSHARE_HORIZONTAL</option>
+                </field>
+                <field name="twitterLanguage" type="list" default="en" label="PLG_CONTENT_ITPSHARE_TWITTER_LANGUAGE" description="PLG_CONTENT_ITPSHARE_TWITTER_LANGUAGE_DESC" >
+                   <option value="ar">PLG_CONTENT_ITPSHARE_ARABIC</option>
                    <option value="eu">PLG_CONTENT_ITPSHARE_BASQUE</option>
                    <option value="ca">PLG_CONTENT_ITPSHARE_CATALAN</option>
                    <option value="zh-cn">PLG_CONTENT_ITPSHARE_CHINESE_ZH</option>
@@ -84,14 +95,20 @@
                    <option value="th">PLG_CONTENT_ITPSHARE_THAI</option>
                    <option value="tr">PLG_CONTENT_ITPSHARE_TURKISH</option>
                    <option value="jp">PLG_CONTENT_ITPSHARE_JAPANESE</option>
-				</field>
-				<field name="spacer2" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_TUMBLR_SETTINGS" />
-		        <field name="tumblrButton" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_TUMBLR_BUTTON" description="PLG_CONTENT_ITPSHARE_TUMBLR_BUTTON_DESC" >
-		           <option value="0">JHIDE</option>
-                   <option value="1">JSHOW</option>
-		        </field>
-		        <field name="tumblrType" type="list" default="0" label="PLG_CONTENT_ITPSHARE_TUMBLR_TYPE" description="PLG_CONTENT_ITPSHARE_TUMBLR_TYPE_DESC" >
-		           <option value="0">PLG_CONTENT_ITPSHARE_BUTTON_1</option>
+                </field>
+                <field name="load_twitter_library" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_TWITTER_LOAD_LIBRARY" description="PLG_CONTENT_ITPSHARE_TWITTER_LOAD_LIBRARY_DESC" class="btn-group">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+            </fieldset>
+            
+            <fieldset name="thumblr_section" label="PLG_CONTENT_ITPSHARE_TUMBLR_SETTINGS">
+                <field name="tumblrButton" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_DISPLAY_BUTTON" description="PLG_CONTENT_ITPSHARE_DISPLAY_BUTTON_DESC" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                <field name="tumblrType" type="list" default="0" label="PLG_CONTENT_ITPSHARE_TUMBLR_TYPE" description="PLG_CONTENT_ITPSHARE_TUMBLR_TYPE_DESC" >
+                   <option value="0">PLG_CONTENT_ITPSHARE_BUTTON_1</option>
                    <option value="1">PLG_CONTENT_ITPSHARE_BUTTON_2</option>
                    <option value="2">PLG_CONTENT_ITPSHARE_BUTTON_3</option>
                    <option value="3">PLG_CONTENT_ITPSHARE_BUTTON_4</option>
@@ -99,47 +116,52 @@
                    <option value="5">PLG_CONTENT_ITPSHARE_BUTTON_6</option>
                    <option value="6">PLG_CONTENT_ITPSHARE_BUTTON_7</option>
                    <option value="7">PLG_CONTENT_ITPSHARE_BUTTON_8</option>
-		        </field>
-		        
-				<field name="spacer3" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_FACEBOOK_SETTINGS" />
-				<field name="facebookLikeButton" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_FACEBOOK_BUTTON" description="PLG_CONTENT_ITPSHARE_FACEBOOK_BUTTON_DESC" >
-				   <option value="0">JHIDE</option>
-                   <option value="1">JSHOW</option>
-				</field>
-				<field name="facebookLikeRenderer" type="list" default="2" label="PLG_CONTENT_ITPSHARE_FACEBOOK_RENDERER" description="PLG_CONTENT_ITPSHARE_FACEBOOK_RENDERER_DESC" >
-				   <option value="0">iframe</option>
-				   <option value="1">XFBML</option>
-				   <option value="2">HTML5</option>
-				</field>
-		        <field name="facebookLikeAction" type="list" default="like" label="PLG_CONTENT_ITPSHARE_FACEBOOK_TEXT" description="PLG_CONTENT_ITPSHARE_FACEBOOK_TEXT_DESC" >
-		           <option value="like">PLG_CONTENT_ITPSHARE_LIKE</option>
+                </field>
+                <field name="loadTumblrJsLib" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_TUMBLR_LOAD_JS" description="PLG_CONTENT_ITPSHARE_TUMBLR_LOAD_JS_DESC" class="btn-group">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+            </fieldset>
+            
+            <fieldset name="facebook_like_section" label="PLG_CONTENT_ITPSHARE_FACEBOOK_SETTINGS">
+                <field name="facebookLikeButton" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_DISPLAY_BUTTON" description="PLG_CONTENT_ITPSHARE_DISPLAY_BUTTON_DESC" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                <field name="facebookLikeRenderer" type="list" default="2" label="PLG_CONTENT_ITPSHARE_FACEBOOK_RENDERER" description="PLG_CONTENT_ITPSHARE_FACEBOOK_RENDERER_DESC" >
+                   <option value="0">iframe</option>
+                   <option value="1">XFBML</option>
+                   <option value="2">HTML5</option>
+                </field>
+                <field name="facebookLikeAction" type="list" default="like" label="PLG_CONTENT_ITPSHARE_FACEBOOK_TEXT" description="PLG_CONTENT_ITPSHARE_FACEBOOK_TEXT_DESC" >
+                   <option value="like">PLG_CONTENT_ITPSHARE_LIKE</option>
                    <option value="recommend">PLG_CONTENT_ITPSHARE_RECOMMEND</option>
-		        </field>
-				<field name="facebookLikeType" type="list" default="button_count" label="PLG_CONTENT_ITPSHARE_FACEBOOK_TYPE" description="PLG_CONTENT_ITPSHARE_FACEBOOK_TYPE_DESC" >
-					<option value="standard">PLG_CONTENT_ITPSHARE_STANDARD</option>
+                </field>
+                <field name="facebookLikeType" type="list" default="button_count" label="PLG_CONTENT_ITPSHARE_FACEBOOK_TYPE" description="PLG_CONTENT_ITPSHARE_FACEBOOK_TYPE_DESC" >
+                    <option value="standard">PLG_CONTENT_ITPSHARE_STANDARD</option>
                     <option value="box_count">PLG_CONTENT_ITPSHARE_BOX_COUNT</option>
                     <option value="button_count">PLG_CONTENT_ITPSHARE_BUTTON_COUNT</option>
-				</field>
-				<field name="facebookLikeFaces" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_FACEBOOK_FACES" description="PLG_CONTENT_ITPSHARE_FACEBOOK_FACES_DESC" >
-				   <option value="0">JHIDE</option>
+                </field>
+                <field name="facebookLikeFaces" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_FACEBOOK_FACES" description="PLG_CONTENT_ITPSHARE_FACEBOOK_FACES_DESC" class="btn-group">
+                   <option value="0">JHIDE</option>
                    <option value="1">JSHOW</option>
-				</field>
-				<field name="facebookLikeColor" type="list" default="light" label="PLG_CONTENT_ITPSHARE_FACEBOOK_FONT" description="PLG_CONTENT_ITPSHARE_FACEBOOK_FONT_DESC" >
-				   <option value="light">PLG_CONTENT_ITPSHARE_LIGHT</option>
+                </field>
+                <field name="facebookLikeColor" type="list" default="light" label="PLG_CONTENT_ITPSHARE_FACEBOOK_FONT" description="PLG_CONTENT_ITPSHARE_FACEBOOK_FONT_DESC" >
+                   <option value="light">PLG_CONTENT_ITPSHARE_LIGHT</option>
                    <option value="dark">PLG_CONTENT_ITPSHARE_DARK</option>
-				</field>
-				<field name="facebookLikeFont" type="list" default="" label="Facebook Like Font" description="The font to display in the button. Options: 'arial', 'lucida grande', 'segoe ui', 'tahoma', 'trebuchet ms', 'verdana' " >
-		           <option value=""></option>
-		            <option value="arial">arial</option>
-		            <option value="lucida grande">lucida grande</option>
-		            <option value="segoe ui">segoe ui</option>
-		            <option value="tahoma">tahoma</option>
-		            <option value="trebuchet ms">trebuchet ms</option>
-		            <option value="verdana">verdana</option>
-		        </field>
-				<field name="facebookLikeWidth" type="text" default="90" label="PLG_CONTENT_ITPSHARE_FACEBOOK_WIDTH" description="PLG_CONTENT_ITPSHARE_FACEBOOK_WIDTH_DESC" />
-		        <field name="fbLocale" type="list" default="en_US" label="PLG_CONTENT_ITPSHARE_LANGUAGE" description="PLG_CONTENT_ITPSHARE_LANGUAGE_DESC">
-		            <option value="af_ZA">PLG_CONTENT_ITPSHARE_AFRIKAANS</option>
+                </field>
+                <field name="facebookLikeFont" type="list" default="" label="Facebook Like Font" description="The font to display in the button. Options: 'arial', 'lucida grande', 'segoe ui', 'tahoma', 'trebuchet ms', 'verdana' " >
+                   <option value=""></option>
+                    <option value="arial">arial</option>
+                    <option value="lucida grande">lucida grande</option>
+                    <option value="segoe ui">segoe ui</option>
+                    <option value="tahoma">tahoma</option>
+                    <option value="trebuchet ms">trebuchet ms</option>
+                    <option value="verdana">verdana</option>
+                </field>
+                <field name="facebookLikeWidth" type="text" default="90" label="PLG_CONTENT_ITPSHARE_FACEBOOK_WIDTH" description="PLG_CONTENT_ITPSHARE_FACEBOOK_WIDTH_DESC" />
+                <field name="fbLocale" type="list" default="en_US" label="PLG_CONTENT_ITPSHARE_LANGUAGE" description="PLG_CONTENT_ITPSHARE_LANGUAGE_DESC">
+                    <option value="af_ZA">PLG_CONTENT_ITPSHARE_AFRIKAANS</option>
                     <option value="ar_AR">PLG_CONTENT_ITPSHARE_ARABIC</option>
                     <option value="sq_AL">PLG_CONTENT_ITPSHARE_ALBANIAN</option>
                     <option value="ay_BO">PLG_CONTENT_ITPSHARE_AYMARA</option>
@@ -246,37 +268,63 @@
                     <option value="xh_ZA">PLG_CONTENT_ITPSHARE_XHOSA</option>
                     <option value="yi_DE">PLG_CONTENT_ITPSHARE_YIDDISH</option>
                     <option value="zu_ZA">PLG_CONTENT_ITPSHARE_ZULU</option>
-		        </field>
-				
-				<field name="spacer4" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_STUMBLEUPON_SETTINGS" />
-				<field name="stumbleButton" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_STUMBLEUPON_BUTTON" description="PLG_CONTENT_ITPSHARE_STUMBLEUPON_BUTTON_DESC" >
-				   <option value="0">JHIDE</option>
-                   <option value="1">JSHOW</option>
-				</field>  
-				<field name="stumbleType" type="list" default="1" label="PLG_CONTENT_ITPSHARE_STUMBLEUPON_TYPE" description="PLG_CONTENT_ITPSHARE_STUMBLEUPON_TYPE_DESC" >
-				   <option value="1">PLG_CONTENT_ITPSHARE_BUTTON_1</option>
+                </field>
+                
+                <field name="facebookKidDirectedSite" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_FACEBOOK_KID_DIRECTED_SITE" description="PLG_CONTENT_ITPSHARE_FACEBOOK_KID_DIRECTED_SITE_DESC" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                
+                <field name="facebookLikeAppId" type="text" default="" label="PLG_CONTENT_ITPSHARE_FACEBOOK_APP_ID" description="PLG_CONTENT_ITPSHARE_FACEBOOK_APP_ID_DESC" />
+                <field name="facebookLikeSend" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_FACEBOOK_SEND_BUTTON" description="PLG_CONTENT_ITPSHARE_FACEBOOK_SEND_BUTTON_DESC" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                <field name="facebookRootDiv" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_FACEBOOK_ROOT" description="PLG_CONTENT_ITPSHARE_FACEBOOK_ROOT_DESC" class="btn-group">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                 </field>
+                <field name="facebookLoadJsLib" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_LOAD_JS_LIB" description="PLG_CONTENT_ITPSHARE_LOAD_JS_LIB_DESC" class="btn-group">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+            </fieldset>
+            
+            <fieldset name="stumbleupon_section" label="PLG_CONTENT_ITPSHARE_STUMBLEUPON_SETTINGS">
+                <field name="stumbleButton" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_DISPLAY_BUTTON" description="PLG_CONTENT_ITPSHARE_DISPLAY_BUTTON_DESC" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>  
+                <field name="stumbleType" type="list" default="1" label="PLG_CONTENT_ITPSHARE_STUMBLEUPON_TYPE" description="PLG_CONTENT_ITPSHARE_STUMBLEUPON_TYPE_DESC" >
+                   <option value="1">PLG_CONTENT_ITPSHARE_BUTTON_1</option>
                    <option value="2">PLG_CONTENT_ITPSHARE_BUTTON_2</option>
                    <option value="3">PLG_CONTENT_ITPSHARE_BUTTON_3</option>
                    <option value="4">PLG_CONTENT_ITPSHARE_BUTTON_4</option>
                    <option value="5">PLG_CONTENT_ITPSHARE_BUTTON_5</option>
                    <option value="6">PLG_CONTENT_ITPSHARE_BUTTON_6</option>
-				</field>  
-				
-				<field name="spacer5" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_LINKEDIN_SETTINGS" />
-				<field name="linkedInButton" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_LINKEDIN_BUTTON" description="PLG_CONTENT_ITPSHARE_LINKEDIN_BUTTON_DESC" >
-				   <option value="0">JHIDE</option>
-                   <option value="1">JSHOW</option>
-				</field>
-				<field name="linkedInType" type="list" default="right" label="PLG_CONTENT_ITPSHARE_LINKEDIN_TYPE" description="PLG_CONTENT_ITPSHARE_LINKEDIN_TYPE_DESC" >
-				   <option value="none">PLG_CONTENT_ITPSHARE_COUNTER_NONE</option>
+                </field>  
+            </fieldset>
+            
+            <fieldset name="linkedin_section" label="PLG_CONTENT_ITPSHARE_LINKEDIN_SETTINGS">
+                <field name="linkedInButton" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_DISPLAY_BUTTON" description="PLG_CONTENT_ITPSHARE_DISPLAY_BUTTON_DESC" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                <field name="linkedInType" type="list" default="right" label="PLG_CONTENT_ITPSHARE_LINKEDIN_TYPE" description="PLG_CONTENT_ITPSHARE_LINKEDIN_TYPE_DESC" >
+                   <option value="none">PLG_CONTENT_ITPSHARE_COUNTER_NONE</option>
                    <option value="top">PLG_CONTENT_ITPSHARE_COUNTER_TOP</option>
                    <option value="right">PLG_CONTENT_ITPSHARE_COUNTER_RIGHT</option>
-				</field>  
-		        
-                <field name="spacer6" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_REDDIT_SETTINGS" />
-                <field name="redditButton" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_REDDIT_BUTTON" description="PLG_CONTENT_ITPSHARE_REDDIT_BUTTON_DESC" >
-                   <option value="0">JHIDE</option>
-                   <option value="1">JSHOW</option>
+                </field>  
+                <field name="load_linkedin_library" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_LINKEDIN_LOAD_LIBRARY" description="PLG_CONTENT_ITPSHARE_LINKEDIN_LOAD_LIBRARY_DESC" class="btn-group">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+            </fieldset>
+            
+            <fieldset name="reddit_section" label="PLG_CONTENT_ITPSHARE_REDDIT_SETTINGS">
+                <field name="redditButton" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_DISPLAY_BUTTON" description="PLG_CONTENT_ITPSHARE_DISPLAY_BUTTON_DESC" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
                 </field>
                 <field name="redditType" type="list" default="0" label="PLG_CONTENT_ITPSHARE_REDDIT_STYLE" description="PLG_CONTENT_ITPSHARE_REDDIT_STYLE_DESC" >
                    <option value="0">PLG_CONTENT_ITPSHARE_BUTTON_1</option>
@@ -305,35 +353,36 @@
                 </field>
                 <field name="redditBgColor" type="text" default="" label="PLG_CONTENT_ITPSHARE_REDDIT_BG_COLOR" description="PLG_CONTENT_ITPSHARE_REDDIT_BG_COLOR_DESC" />
                 <field name="redditBorderColor" type="text" default="" label="PLG_CONTENT_ITPSHARE_REDDIT_BORDER_COLOR" description="PLG_CONTENT_ITPSHARE_REDDIT_BORDER_COLOR_DESC" />
-                <field name="redditNewTab" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_REDDIT_NEW_TAB" description="PLG_CONTENT_ITPSHARE_REDDIT_NEW_TAB_DESC" >
+                <field name="redditNewTab" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_REDDIT_NEW_TAB" description="PLG_CONTENT_ITPSHARE_REDDIT_NEW_TAB_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
                 </field>
-                
-                <field name="spacer7" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_GOOGLE_ONE_SETTINGS" />
-		        <field name="plusButton" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_GOOGLE_ONE_BUTTON" description="PLG_CONTENT_ITPSHARE_GOOGLE_ONE_BUTTON_DESC" >
-		           <option value="0">JHIDE</option>
-                   <option value="1">JSHOW</option>
-		        </field>
-		        <field name="plusRenderer" type="list" default="0" label="PLG_CONTENT_ITPSHARE_GOOGLE_ONE_RENDERER" description="PLG_CONTENT_ITPSHARE_GOOGLE_ONE_RENDERER_DESC" >
+            </fieldset>
+            
+            <fieldset name="google_one_section" label="PLG_CONTENT_ITPSHARE_GOOGLE_ONE_SETTINGS">
+                <field name="plusButton" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_DISPLAY_BUTTON" description="PLG_CONTENT_ITPSHARE_DISPLAY_BUTTON_DESC" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                <field name="plusRenderer" type="list" default="0" label="PLG_CONTENT_ITPSHARE_GOOGLE_ONE_RENDERER" description="PLG_CONTENT_ITPSHARE_GOOGLE_ONE_RENDERER_DESC" >
                    <option value="0">HTML5</option>
                    <option value="1">PLG_CONTENT_ITPSHARE_STANDARD</option>
                 </field>
-		        <field name="plusType" type="list" default="medium" label="PLG_CONTENT_ITPSHARE_GOOGLE_ONE_STYLE" description="PLG_CONTENT_ITPSHARE_GOOGLE_ONE_STYLE_DESC" >
-		           <option value="small">PLG_CONTENT_ITPSHARE_SMALL_15</option>
+                <field name="plusType" type="list" default="medium" label="PLG_CONTENT_ITPSHARE_GOOGLE_ONE_STYLE" description="PLG_CONTENT_ITPSHARE_GOOGLE_ONE_STYLE_DESC" >
+                   <option value="small">PLG_CONTENT_ITPSHARE_SMALL_15</option>
                    <option value="standart">PLG_CONTENT_ITPSHARE_STANDARD_24</option>
                    <option value="medium">PLG_CONTENT_ITPSHARE_MEDIUM_20</option>
                    <option value="tall">PLG_CONTENT_ITPSHARE_TALL_60</option>
-		        </field>
-		        
-		        <field name="plusAnnotation" type="list" default="" label="PLG_CONTENT_ITPSHARE_GOOGLE_ONE_ANNOTATION" description="PLG_CONTENT_ITPSHARE_GOOGLE_ONE_ANNOTATION_DESC" >
+                </field>
+                
+                <field name="plusAnnotation" type="list" default="" label="PLG_CONTENT_ITPSHARE_GOOGLE_ONE_ANNOTATION" description="PLG_CONTENT_ITPSHARE_GOOGLE_ONE_ANNOTATION_DESC" >
                    <option value="">PLG_CONTENT_ITPSHARE_BUBBLE</option>
                    <option value="inline">PLG_CONTENT_ITPSHARE_INLINE</option>
                    <option value="none">PLG_CONTENT_ITPSHARE_NONE</option>
                 </field>
                 
-		        <field name="plusLocale" type="list" default="en" label="PLG_CONTENT_ITPSHARE_LANGUAGE" description="PLG_CONTENT_ITPSHARE_LANGUAGE_DESC" >
-		            <option value="ar">PLG_CONTENT_ITPSHARE_ARABIC</option>
+                <field name="plusLocale" type="list" default="en" label="PLG_CONTENT_ITPSHARE_LANGUAGE" description="PLG_CONTENT_ITPSHARE_LANGUAGE_DESC" >
+                    <option value="ar">PLG_CONTENT_ITPSHARE_ARABIC</option>
                     <option value="bn">PLG_CONTENT_ITPSHARE_BENGALI</option>
                     <option value="bg">PLG_CONTENT_ITPSHARE_BULGARIAN</option>
                     <option value="ca">PLG_CONTENT_ITPSHARE_CATALAN</option>
@@ -392,23 +441,39 @@
                     <option value="tr">PLG_CONTENT_ITPSHARE_TURKISH</option>
                     <option value="uk">PLG_CONTENT_ITPSHARE_UKRAINIAN</option>
                     <option value="vi">PLG_CONTENT_ITPSHARE_VIETNAMESE</option>
-		        </field>
-		        
-		        <field name="spacer8" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_PINTEREST_SETTINGS" />
-                <field name="pinterestButton" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_PINTEREST_BUTTON" description="PLG_CONTENT_ITPSHARE_PINTEREST_BUTTON_DESC" >
-                   <option value="0">JHIDE</option>
-                   <option value="1">JSHOW</option>
-                </field>
-                <field name="pinterestType" type="list" default="horizontal" label="PLG_CONTENT_ITPSHARE_PINTEREST_TYPE" description="PLG_CONTENT_ITPSHARE_PINTEREST_TYPE_DESC" >
-                   <option value="none">PLG_CONTENT_ITPSHARE_NONE</option>
-                   <option value="horizontal">PLG_CONTENT_ITPSHARE_HORIZONTAL</option>
-                   <option value="vertical">PLG_CONTENT_ITPSHARE_VERTICAL</option>
                 </field>
                 
-                <field name="spacer9" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_BUFFER_SETTINGS" />
-                <field name="bufferButton" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_BUFFER_BUTTON" description="PLG_CONTENT_ITPSHARE_BUFFER_BUTTON_DESC" >
-                   <option value="0">JHIDE</option>
-                   <option value="1">JSHOW</option>
+                <field name="loadGoogleJsLib" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_GOOGLE_LOAD_JS" description="PLG_CONTENT_ITPSHARE_GOOGLE_LOAD_JS_DESC" class="btn-group">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                
+            </fieldset>
+            
+            <fieldset name="pinterest_section" label="PLG_CONTENT_ITPSHARE_PINTEREST_SETTINGS">
+                <field name="pinterestButton" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_DISPLAY_BUTTON" description="PLG_CONTENT_ITPSHARE_DISPLAY_BUTTON_DESC" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                <field name="pinterestImages" type="list" default="one" label="PLG_CONTENT_ITPSHARE_PINTEREST_IMAGES" description="PLG_CONTENT_ITPSHARE_PINTEREST_IMAGES_DESC" >
+                   <option value="one">PLG_CONTENT_ITPSHARE_ONE_IMAGE</option>
+                   <option value="any">PLG_CONTENT_ITPSHARE_ANY_IMAGE</option>
+                </field>
+                <field name="pinterestType" type="list" default="horizontal" label="PLG_CONTENT_ITPSHARE_PINTEREST_TYPE" description="PLG_CONTENT_ITPSHARE_PINTEREST_TYPE_DESC" >
+                   <option value="none">PLG_CONTENT_ITPSHARE_NOT_SHOWN</option>
+                   <option value="above">PLG_CONTENT_ITPSHARE_ABOVE_BUTTON</option>
+                   <option value="beside">PLG_CONTENT_ITPSHARE_BESIDE_BUTTON</option>
+                </field>
+                <field name="loadPinterestJsLib" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_PINTEREST_JS" description="PLG_CONTENT_ITPSHARE_PINTEREST_LOAD_JS_DESC" class="btn-group">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+            </fieldset>
+            
+            <fieldset name="buffer_section" label="PLG_CONTENT_ITPSHARE_BUFFER_SETTINGS">
+                <field name="bufferButton" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_DISPLAY_BUTTON" description="PLG_CONTENT_ITPSHARE_DISPLAY_BUTTON_DESC" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
                 </field>
                 <field name="bufferType" type="list" default="horizontal" label="PLG_CONTENT_ITPSHARE_BUFFER_TYPE" description="PLG_CONTENT_ITPSHARE_BUFFER_TYPE_DESC" >
                    <option value="none">PLG_CONTENT_ITPSHARE_NONE</option>
@@ -416,11 +481,12 @@
                    <option value="vertical">PLG_CONTENT_ITPSHARE_VERTICAL</option>
                 </field>
                 <field name="bufferTwitterName" type="text" default="" size="80" label="PLG_CONTENT_ITPSHARE_BUFFER_USERNAME" description="PLG_CONTENT_ITPSHARE_BUFFER_USERNAME_DESC" />
-                
-                <field name="spacer10" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_GOOGLE_SHARE_SETTINGS" />
-                <field name="gsButton" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_GOOGLE_SHARE_BUTTON" description="PLG_CONTENT_ITPSHARE_GOOGLE_SHARE_BUTTON" >
-                   <option value="0">JHIDE</option>
-                   <option value="1">JSHOW</option>
+            </fieldset>
+            
+            <fieldset name="google_share_section" label="PLG_CONTENT_ITPSHARE_GOOGLE_SHARE_SETTINGS">
+                <field name="gsButton" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_DISPLAY_BUTTON" description="PLG_CONTENT_ITPSHARE_DISPLAY_BUTTON_DESC" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
                 </field>
                 <field name="gsRenderer" type="list" default="0" label="PLG_CONTENT_ITPSHARE_GOOGLE_SHARE_RENDERER" description="PLG_CONTENT_ITPSHARE_GOOGLE_SHARE_RENDERER_DESC" >
                    <option value="0">HTML5</option>
@@ -500,8 +566,8 @@
                     <option value="uk">PLG_CONTENT_ITPSHARE_UKRAINIAN</option>
                     <option value="vi">PLG_CONTENT_ITPSHARE_VIETNAMESE</option>
                 </field>
-			</fieldset>
-			
+            </fieldset>
+            
 			<fieldset name="short_url_settings" label="PLG_CONTENT_ITPSHARE_SHORTENER_SETTINGS">
                 <field name="shortener_service" type="list" default="" label="PLG_CONTENT_ITPSHARE_SHORTENER_SERVICE" description="PLG_CONTENT_ITPSHARE_SHORTENER_SERVICE_DESC" >
                    <option value="">PLG_CONTENT_ITPSHARE_NONE</option>
@@ -515,42 +581,26 @@
                 <field name="shortener_api_key" type="text" default="" size="80" label="PLG_CONTENT_ITPSHARE_API_KEY" description="PLG_CONTENT_ITPSHARE_API_KEY_DESC"/>
 			</fieldset>
 				
-			<fieldset name="facebook_advanced_settings" label="PLG_CONTENT_ITPSHARE_FACEBOOK_ADVANCED_SETTINGS">
-                <field name="facebookLikeAppId" type="text" default="" label="PLG_CONTENT_ITPSHARE_FACEBOOK_APP_ID" description="PLG_CONTENT_ITPSHARE_FACEBOOK_APP_ID_DESC" />
-                <field name="facebookLikeSend" type="list" default="0" label="PLG_CONTENT_ITPSHARE_FACEBOOK_SEND_BUTTON" description="PLG_CONTENT_ITPSHARE_FACEBOOK_SEND_BUTTON" >
-                   <option value="0">JNO</option>
-                   <option value="1">JYES</option>
-                </field>
-                <field name="facebookRootDiv" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_FACEBOOK_ROOT" description="PLG_CONTENT_ITPSHARE_FACEBOOK_ROOT_DESC" >
-                    <option value="0">JNO</option>
-                    <option value="1">JYES</option>
-                 </field>
-                <field name="facebookLoadJsLib" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_LOAD_JS_LIB" description="PLG_CONTENT_ITPSHARE_LOAD_JS_LIB_DESC">
-                    <option value="0">JNO</option>
-                    <option value="1">JYES</option>
-                </field>
-			</fieldset>
-			
 			<fieldset name="additional_code" label="PLG_CONTENT_ITPSHARE_ADDITIONAL_BUTTONS">
-                <field name="ebuttons1" type="textarea" default="" label="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE" description="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
-                <field name="ebuttons2" type="textarea" default="" label="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE" description="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
-                <field name="ebuttons3" type="textarea" default="" label="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE" description="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
-                <field name="ebuttons4" type="textarea" default="" label="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE" description="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
-                <field name="ebuttons5" type="textarea" default="" label="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE" description="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
+                <field name="ebuttons1" type="textarea" default="" label="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE" description="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" class="span6" cols="50" rows="10" filter="raw" />
+                <field name="ebuttons2" type="textarea" default="" label="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE" description="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" class="span6" cols="50" rows="10" filter="raw" />
+                <field name="ebuttons3" type="textarea" default="" label="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE" description="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" class="span6" cols="50" rows="10" filter="raw" />
+                <field name="ebuttons4" type="textarea" default="" label="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE" description="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" class="span6" cols="50" rows="10" filter="raw" />
+                <field name="ebuttons5" type="textarea" default="" label="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE" description="PLG_CONTENT_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" class="span6" cols="50" rows="10" filter="raw" />
 			</fieldset>
 			
 			<fieldset name="advanced">
 			    <field name="spacer11" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_JOOMLA_CONTENT" />
-			    <field name="showInArticles" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_SHOW_IN_ARTICLE" description="PLG_CONTENT_ITPSHARE_SHOW_IN_ARTICLE_DESC" >
+			    <field name="showInArticles" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_SHOW_IN_ARTICLE" description="PLG_CONTENT_ITPSHARE_SHOW_IN_ARTICLE_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
                 </field>
-                <field name="showInCategories" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_SHOW_IN_CATEGORIES" description="PLG_CONTENT_ITPSHARE_SHOW_IN_CATEGORIES_DESC" >
+                <field name="showInCategories" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_SHOW_IN_CATEGORIES" description="PLG_CONTENT_ITPSHARE_SHOW_IN_CATEGORIES_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
                 </field>
                 
-                <field name="showInFeatured" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_SHOW_IN_FEATURE" description="PLG_CONTENT_ITPSHARE_SHOW_IN_FEATURE_DESC" >
+                <field name="showInFeatured" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_SHOW_IN_FEATURE" description="PLG_CONTENT_ITPSHARE_SHOW_IN_FEATURE_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
                 </field>
@@ -560,116 +610,70 @@
                 <field name="includeArticles" type="text" default="" size="80" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_ARITCLES" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_ARITCLES_DESC" />
                 
                 <field name="spacer12" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_K2_SETTINGS" />
-                <field name="k2DisplayInArticles" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_K2_DISPLAY_IN_ARITCLES" description="PLG_CONTENT_ITPSHARE_K2_DISPLAY_IN_ARITCLES_DESC" >
+                <field name="k2DisplayInArticles" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_K2_DISPLAY_IN_ARITCLES" description="PLG_CONTENT_ITPSHARE_K2_DISPLAY_IN_ARITCLES_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
                 </field>
                 
-                <field name="k2DisplayInItemlist" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_K2_DISPLAY_IN_CATEGORIES" description="PLG_CONTENT_ITPSHARE_K2_DISPLAY_IN_CATEGORIES_DESC" >
+                <field name="k2DisplayInItemlist" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_K2_DISPLAY_IN_CATEGORIES" description="PLG_CONTENT_ITPSHARE_K2_DISPLAY_IN_CATEGORIES_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
                 </field>
                 
+                <field name="k2_exclude_articles" type="text" default="" size="80"
+                    label="PLG_CONTENT_ITPSHARE_EXCLUDE_ARTICLES"
+                    description="PLG_CONTENT_ITPSHARE_EXCLUDE_ARTICLES_DESC" />
+                        
+                <field name="k2_exclude_cats" type="text" default="" size="80"
+                    label="PLG_CONTENT_ITPSHARE_EXCLUDE_CATEGORIES"
+                    description="PLG_CONTENT_ITPSHARE_EXCLUDE_CATEGORIES_DESC" />
+                        
+                <field name="k2_include_articles" type="text" default="" size="80"
+                    label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_ARITCLES"
+                    description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_ARITCLES_DESC" />
+                    
                 <field name="spacer13" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_VIRTUEMART_SETTINGS" />
-                <field name="vmDisplayInDetails" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_DETAILS" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_DETAILS_DESC" >
+                <field name="vmDisplayInDetails" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_DETAILS" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_DETAILS_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
                 </field>
                    
                 <field name="spacer14" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_JEVENTS_SETTINGS" />
-                <field name="jeDisplayInEvents" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_JEVENT" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_JEVENT_DESC" >
+                <field name="jeDisplayInEvents" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_JEVENT" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_JEVENT_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
                 </field>
                 
-                <field name="spacer15" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_EASYBLOG_SETTINGS" />
-                <field name="ebDisplayInEntry" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_ENTRY" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_ENTRY_DESC" >
-                   <option value="0">JNO</option>
-                   <option value="1">JYES</option>
-                </field>
-                <field name="ebDisplayInCategories" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_K2_DISPLAY_IN_CATEGORIES" description="PLG_CONTENT_ITPSHARE_K2_DISPLAY_IN_CATEGORIES_DESC" >
-                   <option value="0">JNO</option>
-                   <option value="1">JYES</option>
-                </field>
-                <field name="ebDisplayInTags" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_TAGS" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_TAGS_DESC" >
-                <option value="0">JNO</option>
-                <option value="1">JYES</option>
-                </field>
-                <field name="ebDisplayInLatest" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_LATEST" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_LATEST_DESC" >
-                   <option value="0">JNO</option>
-                   <option value="1">JYES</option>
-                </field>
-                   
                 <field name="spacer16" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_MYBLOG_SETTINGS" />
-                <field name="mbDisplay" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_POST" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_POST_DESC" >
+                <field name="mbDisplay" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_POST" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_POST_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
                 </field>
                    
                 <field name="spacer17" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_VIPPORTFOLIO_SETTINGS" />
-                <field name="vipportfolio_lineal" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_LINEAL" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_LINEAL_DESC" >
+                <field name="vipportfolio_lineal" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_LINEAL" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_LINEAL_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
                 </field>
                 
                 <field name="spacer18" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_ZOO_SETTINGS" />
-                <field name="zoo_display" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_ZOO_DISPLAY_IN_ARTICLE" description="PLG_CONTENT_ITPSHARE_ZOO_DISPLAY_IN_ARTICLE_DESC" >
+                <field name="zoo_display" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_ZOO_DISPLAY_IN_ARTICLE" description="PLG_CONTENT_ITPSHARE_ZOO_DISPLAY_IN_ARTICLE_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
                 </field>
                 
                 <field name="spacer19" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_JOOMSHOPPING_SETTINGS" />
-                <field name="joomshopping_display" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_JOOMSHOPPING_DISPLAY_IN_DETAILS" description="PLG_CONTENT_ITPSHARE_JOOMSHOPPING_DISPLAY_IN_DETAILS_DESC" >
+                <field name="joomshopping_display" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_JOOMSHOPPING_DISPLAY_IN_DETAILS" description="PLG_CONTENT_ITPSHARE_JOOMSHOPPING_DISPLAY_IN_DETAILS_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
                 </field>
                 
                 <field name="spacer20" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_HIKASHOP_SETTINGS" />
-                <field name="hikashop_display" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_HIKASHOP_DISPLAY_IN_DETAILS" description="PLG_CONTENT_ITPSHARE_HIKASHOP_DISPLAY_IN_DETAILS_DESC" >
+                <field name="hikashop_display" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_HIKASHOP_DISPLAY_IN_DETAILS" description="PLG_CONTENT_ITPSHARE_HIKASHOP_DISPLAY_IN_DETAILS_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
                 </field>
                 
-                <field name="spacer21" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_TUMBLR_ADVANCED_SETTINGS" />
-                <field name="loadTumblrJsLib" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_TUMBLR_LOAD_JS" description="PLG_CONTENT_ITPSHARE_TUMBLR_LOAD_JS_DESC">
-                    <option value="0">JNO</option>
-                    <option value="1">JYES</option>
-                </field>
-                
-                <field name="spacer22" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_TWITTER_ADVANCED_SETTINGS" />
-                <field name="load_twitter_library" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_TWITTER_LOAD_LIBRARY" description="PLG_CONTENT_ITPSHARE_TWITTER_LOAD_LIBRARY_DESC">
-                    <option value="0">JNO</option>
-                    <option value="1">JYES</option>
-                </field>
-                
-                   <field name="spacer23" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_LINKEDIN_ADVANCED_SETTINGS" />
-                <field name="load_linkedin_library" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_LINKEDIN_LOAD_LIBRARY" description="PLG_CONTENT_ITPSHARE_LINKEDIN_LOAD_LIBRARY_DESC">
-                    <option value="0">JNO</option>
-                    <option value="1">JYES</option>
-                </field>
-                
-                <field name="spacer24" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_GOOGLE_ADVANCED_SETTINGS" />
-                <field name="loadGoogleJsLib" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_GOOGLE_LOAD_JS" description="PLG_CONTENT_ITPSHARE_GOOGLE_LOAD_JS_DESC">
-                    <option value="0">JNO</option>
-                    <option value="1">JYES</option>
-                </field>
-                
-                <field name="spacer25" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_PINTEREST_ADVANCED_SETTINGS" />
-                <field name="loadPinterestJsLib" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_PINTEREST_JS" description="PLG_CONTENT_ITPSHARE_PINTEREST_LOAD_JS_DESC">
-                    <option value="0">JNO</option>
-                    <option value="1">JYES</option>
-                </field>
-                
-                <field name="spacer26" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_ITPSHARE_ADVANCED_SETTINGS" />
-                <field name="loadCss" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_ITPSHARE_LOAD_STYLE_CSS" description="PLG_CONTENT_ITPSHARE_ITPSHARE_LOAD_STYLE_CSS_DESC">
-                    <option value="0">JNO</option>
-                    <option value="1">JYES</option>
-                </field>
-                <field name="dynamicLocale" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_ITPSHARE_AUTO_LANGUAGE" description="PLG_CONTENT_ITPSHARE_ITPSHARE_AUTO_LANGUAGE_DESC">
-                 <option value="0">JNO</option>
-                 <option value="1">JYES</option>
-               </field>
-                   
             </fieldset>
 	            
         </fields>
