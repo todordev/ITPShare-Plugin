@@ -1417,7 +1417,11 @@ class plgContentITPShare extends JPlugin {
         $html = "";
         if($params->get("pinterestButton")) {
             
-            $html .= '<div class="itp-share-pinterest">';
+            $bubblePosition = $params->get("pinterestType", "beside");
+            
+            $divClass = (strcmp("above", $bubblePosition) == 0) ? "itp-share-pinterest-above" : "itp-share-pinterest";
+            
+            $html .= '<div class="'.$divClass.'">';
             
             if(strcmp("one", $this->params->get('pinterestImages', "one")) == 0) {
                 
