@@ -1,7 +1,7 @@
 <?php
 /**
- * @package		 ITPrism Plugins
- * @subpackage	 ITPShare
+ * @package		 ITPShare
+ * @subpackage	 Plugins
  * @author       Todor Iliev
  * @copyright    Copyright (C) 2010 Todor Iliev <todor@itprism.com>. All rights reserved.
  * @license      http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -19,8 +19,8 @@ jimport('joomla.plugin.plugin');
 /**
  * ITPShare Plugin
  *
- * @package		ITPrism Plugins
- * @subpackage	Social
+ * @package		ITPShare
+ * @subpackage	Plugins
  */
 class plgContentITPShare extends JPlugin {
     
@@ -46,50 +46,14 @@ class plgContentITPShare extends JPlugin {
 	 */
     public function onContentPrepare($context, &$article, &$params, $page = 0) {
 
-        if (!$article OR !isset($this->params)) { return; };            
-        
-        $app = JFactory::getApplication();
-        /** @var $app JSite **/
-
-        if($app->isAdmin()) {
+        // Check for correct trigger
+        if(strcmp("on_content_prepare", $this->params->get("trigger_place")) != 0) {
             return;
         }
-
-        $doc     = JFactory::getDocument();
-        /**  @var $doc JDocumentHtml **/
         
-        // Check document type
-        $docType = $doc->getType();
-        if(strcmp("html", $docType) != 0){
-            return;
-        }
-       
-        // Get request data
-        $this->currentOption  = $app->input->getCmd("option");
-        $this->currentView    = $app->input->getCmd("view");
-        $this->currentTask    = $app->input->getCmd("task");
-        $this->currentLayout  = $app->input->getCmd("layout");
-        
-        // Get locale code automatically
-        if($this->params->get("dynamicLocale", 0)) {
-            $lang         = JFactory::getLanguage();
-            $locale       = $lang->getTag();
-            $this->locale = str_replace("-","_",$locale);
-        }
-        
-        if($this->isRestricted($article, $context, $params)) {
-        	return;
-        }
-        
-        if($this->params->get("loadCss")) {
-            $doc->addStyleSheet(JURI::root() . "plugins/content/itpshare/style.css");
-        }
-        
-        // Load language file
-        $this->loadLanguage();
         
         // Generate content
-		$content      = $this->getContent($article, $context);
+        $content      = $this->processGenerating($context, $article, $params, $page = 0);
         $position     = $this->params->get('position');
         
         switch($position){
@@ -104,7 +68,100 @@ class plgContentITPShare extends JPlugin {
                 break;
         }
         
-        return;
+    }
+    
+    /**
+     * Add social buttons into the article before content.
+     *
+     * @param	string	The context of the content being passed to the plugin.
+     * @param	object	The article object.  Note $article->text is also available
+     * @param	object	The article params
+     * @param	int		The 'page' number
+     */
+    public function onContentBeforeDisplay($context, &$article, &$params, $page = 0) {
+    
+        // Check for correct trigger
+        if(strcmp("on_content_before_display", $this->params->get("trigger_place")) != 0) {
+            return "";
+        }
+    
+        return $this->processGenerating($context, $article, $params, $page = 0);
+    }
+    
+    /**
+     * Add social buttons into the article after content.
+     *
+     * @param	string	The context of the content being passed to the plugin.
+     * @param	object	The article object.  Note $article->text is also available
+     * @param	object	The article params
+     * @param	int		The 'page' number
+     */
+    public function onContentAfterDisplay($context, &$article, &$params, $page = 0) {
+    
+        // Check for correct trigger
+        if(strcmp("on_content_after_display", $this->params->get("trigger_place")) != 0) {
+            return "";
+        }
+        
+        return $this->processGenerating($context, $article, $params, $page = 0);
+    }
+    
+    /**
+     * Execute the process of buttons generating.
+     * 
+     * @param string    $context
+     * @param object    $article
+     * @param JRegistry $params
+     * @param number    $page
+     * @return NULL|string
+     */
+    private function processGenerating($context, &$article, &$params, $page = 0) {
+        
+        if (!$article OR !isset($this->params)) { return null; };
+        
+        $app = JFactory::getApplication();
+        /** @var $app JSite **/
+        
+        if($app->isAdmin()) {
+            return null;
+        }
+        
+        $doc     = JFactory::getDocument();
+        /**  @var $doc JDocumentHtml **/
+        
+        // Check document type
+        $docType = $doc->getType();
+        if(strcmp("html", $docType) != 0){
+            return null;
+        }
+        
+        // Get request data
+        $this->currentOption  = $app->input->getCmd("option");
+        $this->currentView    = $app->input->getCmd("view");
+        $this->currentTask    = $app->input->getCmd("task");
+        $this->currentLayout  = $app->input->getCmd("layout");
+        
+        if($this->isRestricted($article, $context, $params)) {
+            return null;
+        }
+        
+        // Get locale code automatically
+        if($this->params->get("dynamicLocale", 0)) {
+            $lang         = JFactory::getLanguage();
+            $locale       = $lang->getTag();
+            $this->locale = str_replace("-","_",$locale);
+        }
+        
+        if($this->params->get("loadCss")) {
+            $doc->addStyleSheet(JURI::root() . "plugins/content/itpshare/style.css");
+        }
+        
+        // Load language file
+        $this->loadLanguage();
+        
+        // Generate and return content
+        return $this->getContent($article, $context);
+        
     }
     
     private function isRestricted($article, $context, $params) {
@@ -153,6 +210,10 @@ class plgContentITPShare extends JPlugin {
             case "com_hikashop":
                 $result = $this->isHikaShopRestricted($article, $context);
                 break; 
+
+            case "com_vipquotes":
+                $result = $this->isVipQuotesRestricted($article, $context);
+                break;
                 
             default:
                 $result = true;
@@ -293,8 +354,8 @@ class plgContentITPShare extends JPlugin {
     }
     
     /**
-     * 
      * Do verifications for JEvent extension
+     * 
      * @param jIcalEventRepeat $article
      * @param string $context
      */
@@ -320,6 +381,38 @@ class plgContentITPShare extends JPlugin {
             return true;
         }
         
+        return false;
+    }
+    
+    /**
+     * Do verification for Vip Quotes extension. Is it restricted?
+     *
+     * @param ojbect $article
+     * @param string $context
+     */
+    private function isVipQuotesRestricted(&$article, $context) {
+    
+        // Check for correct context
+        if(strpos($context, "com_vipquotes") === false) {
+            return true;
+        }
+    
+        // Display only in view 'quote'
+        $allowedViews = array("author", "quote");
+        if(!in_array($this->currentView, $allowedViews)) {
+            return true;
+        }
+    
+        $displayOnViewQuote     = $this->params->get('vipquotes_display_quote', 0);
+        if(!$displayOnViewQuote){
+            return true;
+        }
+        
+        $displayOnViewAuthor     = $this->params->get('vipquotes_display_author', 0);
+        if(!$displayOnViewAuthor){
+            return true;
+        }
+    
         return false;
     }
     
@@ -737,6 +830,10 @@ class plgContentITPShare extends JPlugin {
                 $uri = $article->link;
                 break;
                 
+            case "com_vipquotes":
+                $uri = $article->link;
+                break;
+                
             default:
                 $uri = "";
                 break;   
@@ -817,6 +914,11 @@ class plgContentITPShare extends JPlugin {
             case "com_hikashop":
                 $title = $article->title;
                 break;
+                
+            case "com_vipquotes":
+                $title = $article->title;
+                break;
+                
             default:
                 $title = "";
                 break;   
@@ -828,7 +930,7 @@ class plgContentITPShare extends JPlugin {
     
     private function getImage($article, $context) {
         
-    	$result = false;
+    	$result = "";
     	
     	switch($this->currentOption) {
             case "com_content":
@@ -840,7 +942,7 @@ class plgContentITPShare extends JPlugin {
             	    
             		if(!empty($article->images)) {
             		    $images = json_decode($article->images);
-            		    if(isset($images->image_intro) AND !empty($images->image_intro)) {
+            		    if(!empty($images->image_intro)) {
             		        $result = JURI::root().$images->image_intro;
             		    }
             		}
@@ -851,7 +953,9 @@ class plgContentITPShare extends JPlugin {
         	// Using contect because the context show us it is com_myblog
     	    // $this->currentOption contains value "com_content" 
         	case "com_myblog":
-        	    $result = str_replace("//", "/", $article->image_intro);
+        	    if(!empty($article->image_intro)) {
+        	       $result = str_replace("//", "/", $article->image_intro);
+        	    }
         	    break;
 
             case "com_k2":
@@ -861,15 +965,21 @@ class plgContentITPShare extends JPlugin {
                 break;
                 
             case "com_virtuemart":
-                $result = JURI::root().$article->image_intro;
+                if(!empty($article->image_intro)) {
+                    $result = JURI::root().$article->image_intro;
+                }
                 break;
             
             case "com_vipportfolio":
-                $result = JURI::root().$article->image_intro;
+    	        if(!empty($article->image_intro)) {
+                    $result = JURI::root().$article->image_intro;
+                }
                 break;
                 
             case "com_jshopping":
-                $result = $article->image_intro;
+                if(!empty($article->image_intro)) {
+                    $result = $article->image_intro;
+                }
                 break;
                 
             case "com_zoo":
@@ -877,7 +987,19 @@ class plgContentITPShare extends JPlugin {
                 break;
                 
             case "com_hikashop":
-                $result = JURI::root().$article->image_intro;
+                    
+                if(!empty($article->image_intro)) {
+                    $result = JURI::root().$article->image_intro;
+                }
+                
+                break;
+                
+            case "com_vipquotes":
+                
+                if(!empty($article->image_intro)) {
+                    $result = JURI::root().$article->image_intro;
+                }
+                
                 break;
                 
             default:

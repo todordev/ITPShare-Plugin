@@ -2,12 +2,12 @@
 <extension version="3.1" type="plugin" group="content" method="upgrade">
     <name>PLG_CONTENT_ITPSHARE</name>
     <author>Todor Iliev</author>
-    <creationDate>January, 2011</creationDate>
     <copyright>Copyright (C) 2010 Todor Iliev ( ITPrism.com ). All rights reserved.</copyright>
     <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
     <authorEmail>todor@itprism.com</authorEmail>
     <authorUrl>http://itprism.com</authorUrl>
-    <version>2.5</version>
+    <version>2.6</version>
+    <creationDate>01 August, 2013</creationDate>
     <description>PLG_CONTENT_ITPSHARE_DESC</description>
     
     <languages  folder="language">
@@ -28,6 +28,13 @@
     <config>
 		<fields name="params">
 			<fieldset name="basic">
+            
+                <field name="trigger_place" type="list" default="on_content_prepare" label="PLG_CONTENT_ITPSHARE_METHOD_GENERATIONG" description="PLG_CONTENT_ITPSHARE_METHOD_GENERATIONG_DESC" >
+                   <option value="on_content_prepare">onContentPrepare</option>
+                   <option value="on_content_before_display">onContentBeforeDisplay</option>
+                   <option value="on_content_after_display">onContentAfterDisplay</option>
+                </field>
+                
 				<field name="position" type="list" default="2" label="PLG_CONTENT_ITPSHARE_POSITION" description="PLG_CONTENT_ITPSHARE_POSITION_DESC" >
 				   <option value="0">PLG_CONTENT_ITPSHARE_BOTH</option>
 				   <option value="1">PLG_CONTENT_ITPSHARE_TOP</option>
@@ -590,7 +597,7 @@
 			</fieldset>
 			
 			<fieldset name="advanced">
-			    <field name="spacer11" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_JOOMLA_CONTENT" />
+			    <field name="spacer1" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_JOOMLA_CONTENT" />
 			    <field name="showInArticles" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_SHOW_IN_ARTICLE" description="PLG_CONTENT_ITPSHARE_SHOW_IN_ARTICLE_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
@@ -609,7 +616,7 @@
                 <field name="excludeCats" type="text" default="" size="80" label="PLG_CONTENT_ITPSHARE_EXCLUDE_CATEGORIES" description="PLG_CONTENT_ITPSHARE_EXCLUDE_CATEGORIES_DESC" />
                 <field name="includeArticles" type="text" default="" size="80" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_ARITCLES" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_ARITCLES_DESC" />
                 
-                <field name="spacer12" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_K2_SETTINGS" />
+                <field name="spacer2" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_K2_SETTINGS" />
                 <field name="k2DisplayInArticles" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_K2_DISPLAY_IN_ARITCLES" description="PLG_CONTENT_ITPSHARE_K2_DISPLAY_IN_ARITCLES_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
@@ -632,48 +639,57 @@
                     label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_ARITCLES"
                     description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_ARITCLES_DESC" />
                     
-                <field name="spacer13" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_VIRTUEMART_SETTINGS" />
+                <field name="spacer3" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_VIRTUEMART_SETTINGS" />
                 <field name="vmDisplayInDetails" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_DETAILS" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_DETAILS_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
                 </field>
                    
-                <field name="spacer14" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_JEVENTS_SETTINGS" />
+                <field name="spacer4" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_JEVENTS_SETTINGS" />
                 <field name="jeDisplayInEvents" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_JEVENT" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_JEVENT_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
                 </field>
                 
-                <field name="spacer16" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_MYBLOG_SETTINGS" />
+                <field name="spacer5" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_MYBLOG_SETTINGS" />
                 <field name="mbDisplay" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_POST" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_POST_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
                 </field>
                    
-                <field name="spacer17" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_VIPPORTFOLIO_SETTINGS" />
+                <field name="spacer6" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_VIPPORTFOLIO_SETTINGS" />
                 <field name="vipportfolio_lineal" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_LINEAL" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_LINEAL_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
                 </field>
                 
-                <field name="spacer18" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_ZOO_SETTINGS" />
+                <field name="spacer7" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_ZOO_SETTINGS" />
                 <field name="zoo_display" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_ZOO_DISPLAY_IN_ARTICLE" description="PLG_CONTENT_ITPSHARE_ZOO_DISPLAY_IN_ARTICLE_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
                 </field>
                 
-                <field name="spacer19" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_JOOMSHOPPING_SETTINGS" />
+                <field name="spacer8" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_JOOMSHOPPING_SETTINGS" />
                 <field name="joomshopping_display" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_JOOMSHOPPING_DISPLAY_IN_DETAILS" description="PLG_CONTENT_ITPSHARE_JOOMSHOPPING_DISPLAY_IN_DETAILS_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
                 </field>
                 
-                <field name="spacer20" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_HIKASHOP_SETTINGS" />
+                <field name="spacer9" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_HIKASHOP_SETTINGS" />
                 <field name="hikashop_display" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_HIKASHOP_DISPLAY_IN_DETAILS" description="PLG_CONTENT_ITPSHARE_HIKASHOP_DISPLAY_IN_DETAILS_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
                 </field>
                 
+                <field name="spacer10" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_VIPQUOTES_SETTINGS" />
+                <field name="vipquotes_display_quote" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_VIPQUOTES_DISPLAY_ON_QUOTE" description="PLG_CONTENT_ITPSHARE_VIPQUOTES_DISPLAY_ON_QUOTE_DESC" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                <field name="vipquotes_display_author" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_VIPQUOTES_DISPLAY_ON_AUTHOR" description="PLG_CONTENT_ITPSHARE_VIPQUOTES_DISPLAY_ON_AUTHOR_DESC" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
             </fieldset>
 	            
         </fields>

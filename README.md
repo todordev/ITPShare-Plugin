@@ -1,10 +1,16 @@
 ITPShare Plugin for Joomla! 
 ==========================
-( Version 2.5 )
+( Version 2.6 )
 - - -
 
 Changelog
 ---------
+
+###v2.6
+
+* Added two Joomla! events. Now, the extension can be triggered via onContentPrepare, onContentBeforeDisplay and onContentAfterDisplay.
+* Added support for Vip Quotes.
+* Improved
 
 ###v2.5
 
