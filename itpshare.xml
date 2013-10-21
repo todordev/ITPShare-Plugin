@@ -2,13 +2,19 @@
 <extension version="3.1" type="plugin" group="content" method="upgrade">
     <name>PLG_CONTENT_ITPSHARE</name>
     <author>Todor Iliev</author>
-    <copyright>Copyright (C) 2010 Todor Iliev ( ITPrism.com ). All rights reserved.</copyright>
+    <copyright>Copyright (C) 2013 Todor Iliev ( ITPrism.com ). All rights reserved.</copyright>
     <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
     <authorEmail>todor@itprism.com</authorEmail>
     <authorUrl>http://itprism.com</authorUrl>
-    <version>2.6</version>
-    <creationDate>01 August, 2013</creationDate>
-    <description>PLG_CONTENT_ITPSHARE_DESC</description>
+    <version>2.7</version>
+    <creationDate>21 October, 2013</creationDate>
+    <description><![CDATA[
+    <p><a href="http://itprism.com/free-joomla-extensions/social-marketing-seo/socialmedia-multi-share" target="_blank">ITPShare</a> is an extension that adds republish buttons, widgets or goodies on your site. There are social plugins of Twitter, Facebook, LinkedIn, Stumbleupon, Google Plus, Google Share, Thumblr, Pinterest, BufferApp,... It will help you to find more readers for your publications.</p>
+    <p><a href='http://itprism.com/help/30-itpshare-documentation-faq' target='_blank'>Read documentation</a> that will help you to setup the extensions.</p>
+    <p>Invest in the extension improvement. You can <a href="http://itprism.com/sponsorship" target="_blank">sponsor the extension via SMS, PayPal or Bitcoin</a>.</p>
+    <p><a href="http://itprism.com/" target="_blank">Subscribe for the newsletter</a> to receive information about updates and new ITPrism extensions.</p>
+    <p>Please, <a href="http://extensions.joomla.org/extensions/social-web/social-share/social-multi-share/15665" target="_blank">vote for the extension</a> on Joomla! Extensions Directory</p>
+    ]]></description>
     
     <languages  folder="language">
         <language tag="en-GB">en-GB/en-GB.plg_content_itpshare.ini</language>
@@ -639,24 +645,36 @@
                     label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_ARITCLES"
                     description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_ARITCLES_DESC" />
                     
-                <field name="spacer3" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_VIRTUEMART_SETTINGS" />
+                <field name="spacer3" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_EASYBLOG_SETTINGS" />
+                <field name="ebDisplayInEntry" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_ENTRY" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_ENTRY_DESC" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                <field name="ebDisplayInCategories" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_K2_DISPLAY_IN_CATEGORIES" description="PLG_CONTENT_ITPSHARE_K2_DISPLAY_IN_CATEGORIES_DESC" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                <field name="ebDisplayInTags" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_TAGS" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_TAGS_DESC" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                <field name="ebDisplayInLatest" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_LATEST" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_LATEST_DESC" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                
+                <field name="spacer4" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_VIRTUEMART_SETTINGS" />
                 <field name="vmDisplayInDetails" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_DETAILS" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_DETAILS_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
                 </field>
                    
-                <field name="spacer4" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_JEVENTS_SETTINGS" />
+                <field name="spacer5" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_JEVENTS_SETTINGS" />
                 <field name="jeDisplayInEvents" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_JEVENT" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_JEVENT_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
                 </field>
                 
-                <field name="spacer5" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_MYBLOG_SETTINGS" />
-                <field name="mbDisplay" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_POST" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_POST_DESC" class="btn-group">
-                   <option value="0">JNO</option>
-                   <option value="1">JYES</option>
-                </field>
-                   
                 <field name="spacer6" type="spacer" class="text" label="PLG_CONTENT_ITPSHARE_VIPPORTFOLIO_SETTINGS" />
                 <field name="vipportfolio_lineal" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_DISPLAY_IN_LINEAL" description="PLG_CONTENT_ITPSHARE_DISPLAY_IN_LINEAL_DESC" class="btn-group">
                    <option value="0">JNO</option>

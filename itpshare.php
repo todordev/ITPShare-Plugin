@@ -3,12 +3,8 @@
  * @package		 ITPShare
  * @subpackage	 Plugins
  * @author       Todor Iliev
- * @copyright    Copyright (C) 2010 Todor Iliev <todor@itprism.com>. All rights reserved.
+ * @copyright    Copyright (C) 2013 Todor Iliev <todor@itprism.com>. All rights reserved.
  * @license      http://www.gnu.org/copyleft/gpl.html GNU/GPL
- * ITPShare is free software. This version may have been modified pursuant
- * to the GNU General Public License, and as distributed it includes or
- * is derivative of works licensed under the GNU General Public License or
- * other free or open source software licenses.
  */
 
 // no direct access
@@ -37,46 +33,59 @@ class plgContentITPShare extends JPlugin {
     private $imgPattern     = '/src="([^"]*)"/i';
     
     /**
-     * Add social buttons into the article
+     * Put social buttons into the article
      *
 	 * @param	string	The context of the content being passed to the plugin.
 	 * @param	object	The article object.  Note $article->text is also available
 	 * @param	object	The article params
 	 * @param	int		The 'page' number
+	 * 
+	 * @return void
 	 */
     public function onContentPrepare($context, &$article, &$params, $page = 0) {
 
+        if (!$article OR !isset($this->params)) { return; }
+        
         // Check for correct trigger
         if(strcmp("on_content_prepare", $this->params->get("trigger_place")) != 0) {
             return;
         }
         
-        
         // Generate content
         $content      = $this->processGenerating($context, $article, $params, $page = 0);
+        
+        // If there is no result, return void.
+        if(is_null($content)) { return; }
+        
         $position     = $this->params->get('position');
         
         switch($position){
-            case 1:
+            
+            case 1: // Top
                 $article->text = $content . $article->text;
                 break;
-            case 2:
+                
+            case 2: // Bottom
                 $article->text = $article->text . $content;
                 break;
-            default:
+                
+            default: // Both
                 $article->text = $content . $article->text . $content;
                 break;
+                
         }
         
     }
     
-    /**
+     /**
      * Add social buttons into the article before content.
      *
      * @param	string	The context of the content being passed to the plugin.
      * @param	object	The article object.  Note $article->text is also available
      * @param	object	The article params
      * @param	int		The 'page' number
+     * 
+     * @return string
      */
     public function onContentBeforeDisplay($context, &$article, &$params, $page = 0) {
     
@@ -85,7 +94,13 @@ class plgContentITPShare extends JPlugin {
             return "";
         }
     
-        return $this->processGenerating($context, $article, $params, $page = 0);
+        // Generate content
+        $content = $this->processGenerating($context, $article, $params, $page = 0);
+        
+        // If there is no result, return empty string.
+        if(is_null($content)) { return ""; }
+        
+        return $content;
     }
     
     /**
@@ -95,6 +110,8 @@ class plgContentITPShare extends JPlugin {
      * @param	object	The article object.  Note $article->text is also available
      * @param	object	The article params
      * @param	int		The 'page' number
+     * 
+     * @return string
      */
     public function onContentAfterDisplay($context, &$article, &$params, $page = 0) {
     
@@ -102,8 +119,14 @@ class plgContentITPShare extends JPlugin {
         if(strcmp("on_content_after_display", $this->params->get("trigger_place")) != 0) {
             return "";
         }
+    
+        // Generate content
+        $content = $this->processGenerating($context, $article, $params, $page = 0);
         
-        return $this->processGenerating($context, $article, $params, $page = 0);
+        // If there is no result, return empty string.
+        if(is_null($content)) { return ""; }
+        
+        return $content;
     }
     
     /**
@@ -116,8 +139,6 @@ class plgContentITPShare extends JPlugin {
      * @return NULL|string
      */
     private function processGenerating($context, &$article, &$params, $page = 0) {
-        
-        if (!$article OR !isset($this->params)) { return null; };
         
         $app = JFactory::getApplication();
         /** @var $app JSite **/
@@ -170,19 +191,9 @@ class plgContentITPShare extends JPlugin {
     	
     	switch($this->currentOption) {
             case "com_content":
-            	
-            	// It's an implementation of "com_myblog"
-            	// I don't know why but $option contains "com_content" for a value
-            	// I hope it will be fixed in the future versions of "com_myblog"
-            	if(strcmp($context, "com_myblog") != 0) {
-                    $result = $this->isContentRestricted($article, $context);
-	                break;
-            	} 
-	                
-            case "com_myblog":
-                $result = $this->isMyBlogRestricted($article, $context);
+                $result = $this->isContentRestricted($article, $context);
                 break;
-                    
+	                
             case "com_k2":
                 $result = $this->isK2Restricted($article, $context, $params);
                 break;
@@ -195,6 +206,10 @@ class plgContentITPShare extends JPlugin {
                 $result = $this->isJEventsRestricted($article, $context);
                 break;
 
+            case "com_easyblog":
+                $result = $this->isEasyBlogRestricted($article, $context);
+                break;
+                
             case "com_vipportfolio":
                 $result = $this->isVipPortfolioRestricted($article, $context);
                 break;
@@ -233,7 +248,7 @@ class plgContentITPShare extends JPlugin {
     private function isContentRestricted(&$article, $context) {
         
         // Check for correct context
-        if(strpos($context, "com_content") === false) {
+        if(false === strpos($context, "com_content")) {
            return true;
         }
         
@@ -354,6 +369,83 @@ class plgContentITPShare extends JPlugin {
     }
     
     /**
+     *
+     * It's a method that verify restriction for the component "com_easyblog"
+     * @param object $article
+     * @param string $context
+     */
+    private function isEasyBlogRestricted(&$article, $context) {
+        
+        $allowedViews = array("categories", "entry", "latest", "tags");
+        // Check for correct context
+        if(strpos($context, "easyblog") === false) {
+            return true;
+        }
+         
+        // Only put buttons in allowed views
+        if(!in_array($this->currentView, $allowedViews)) {
+            return true;
+        }
+         
+        // Verify the option for displaying in view "categories"
+        $displayInCategories     = $this->params->get('ebDisplayInCategories', 0);
+        if(!$displayInCategories AND (strcmp("categories", $this->currentView) == 0)){
+            return true;
+        }
+         
+        // Verify the option for displaying in view "latest"
+        $displayInLatest     = $this->params->get('ebDisplayInLatest', 0);
+        if(!$displayInLatest AND (strcmp("latest", $this->currentView) == 0)){
+            return true;
+        }
+         
+        // Verify the option for displaying in view "entry"
+        $displayInEntry     = $this->params->get('ebDisplayInEntry', 0);
+        if(!$displayInEntry AND (strcmp("entry", $this->currentView) == 0)){
+            return true;
+        }
+         
+        // Verify the option for displaying in view "tags"
+        $displayInTags     = $this->params->get('ebDisplayInTags', 0);
+        if(!$displayInTags AND (strcmp("tags", $this->currentView) == 0)){
+            return true;
+        }
+         
+        $this->prepareEasyBlogObject($article);
+         
+        return false;
+    }
+    
+    private function prepareEasyBlogObject(&$article) {
+    
+        $article->image_intro = "";
+        $matches = array();
+    
+        preg_match( $this->imgPattern, $article->content, $matches ) ;
+        if(isset($matches[1])) {
+            $article->image_intro = JArrayHelper::getValue($matches, 1, "");
+        }
+    
+    }
+    
+    /**
+     *
+     * Prepare some elements of the K2 object
+     * @param object $article
+     * @param JRegistry $params
+     */
+    private function prepareK2Object(&$article, $params) {
+    
+        if(empty($article->metadesc)) {
+            $introtext         = strip_tags($article->introtext);
+            $metaDescLimit     = $params->get("metaDescLimit", 150);
+            $article->metadesc = substr($introtext, 0, $metaDescLimit);
+        }
+    
+    }
+    
+    
+    /**
      * Do verifications for JEvent extension
      * 
      * @param jIcalEventRepeat $article
@@ -434,7 +526,7 @@ class plgContentITPShare extends JPlugin {
             return true;
         }
         
-        // Display content only in the view "productdetails"
+        // Only display content in the view "productdetails"
         $displayInDetails     = $this->params->get('vmDisplayInDetails', 0);
         if(!$displayInDetails){
             return true;
@@ -447,35 +539,8 @@ class plgContentITPShare extends JPlugin {
     }
     
 	/**
+     * It's a method that verify restriction for the component "com_vipportfolio".
      * 
-     * It's a method that verify restriction for the component "com_myblog"
-     * @param object $article
-     * @param string $context
-     */
-	private function isMyBlogRestricted(&$article, $context) {
-
-        // Check for correct context
-        if(strpos($context, "myblog") === false) {
-           return true;
-        }
-        
-	    // Display content only in the task "view"
-        if(strcmp("view", $this->currentTask) != 0){
-            return true;
-        }
-        
-        if(!$this->params->get('mbDisplay', 0)){
-            return true;
-        }
-        
-        $this->prepareMyBlogObject($article);
-        
-        return false;
-    }
-    
-	/**
-     * 
-     * It's a method that verify restriction for the component "com_vipportfolio"
      * @param object $article
      * @param string $context
      */
@@ -496,8 +561,8 @@ class plgContentITPShare extends JPlugin {
     }
     
 	/**
+     * It's a method that verify restriction for the component "com_zoo". 
      * 
-     * It's a method that verify restriction for the component "com_zoo"
      * @param object $article
      * @param string $context
      */
@@ -521,7 +586,7 @@ class plgContentITPShare extends JPlugin {
         }
         
         // A little hack used to prevent multiple displaying of buttons, becaues
-        // if there is more than one textares the buttons will be displayed in everyone.
+        // if there are more than one textares the buttons will be displayed in everyone.
         static $numbers = 0;
         if($numbers == 1) {
             return true;
@@ -532,8 +597,8 @@ class plgContentITPShare extends JPlugin {
     }
     
 	/**
+     * It's a method that verify restriction for the component "com_joomshopping".
      * 
-     * It's a method that verify restriction for the component "com_joomshopping"
      * @param object $article
      * @param string $context
      */
@@ -582,34 +647,6 @@ class plgContentITPShare extends JPlugin {
         $this->prepareHikashopObject($article);
         
         return false;
-    }
-    
-	/**
-     * 
-     * Prepare some elements of the K2 object
-     * @param object $article
-     * @param JRegistry $params
-     */
-    private function prepareK2Object(&$article, $params) {
-        
-        if(empty($article->metadesc)) {
-            $introtext         = strip_tags($article->introtext);
-            $metaDescLimit     = $params->get("metaDescLimit", 150);
-            $article->metadesc = substr($introtext, 0, $metaDescLimit);
-        }
-            
-    }
-    
-    private function prepareMyBlogObject(&$article) {
-        
-        $article->image_intro = "";
-        $matches = array();
-            
-        preg_match( $this->imgPattern, $article->fulltext, $matches ) ;
-        if(isset($matches[1])) {
-            $article->image_intro = JArrayHelper::getValue($matches, 1, "");
-        }
-            
     }
     
     private function prepareVirtuemartObject(&$article) {
@@ -766,7 +803,7 @@ class plgContentITPShare extends JPlugin {
         $html .= $this->getGoogleShare($this->params, $url);
         
         // Get extra buttons
-        $html   .= $this->getExtraButtons($this->params, $url, $title);
+        $html   .= $this->getExtraButtons($title, $url, $this->params);
         
         $html .= '
         </div>
@@ -784,19 +821,8 @@ class plgContentITPShare extends JPlugin {
         
         switch($this->currentOption) {
             case "com_content":
-            	
-            	// It's an implementation of "com_myblog"
-            	// I don't know why but $option contains "com_content" for a value
-            	// I hope it will be fixed in the future versions of "com_myblog"
-            	if(strcmp($context, "com_myblog") != 0) {
-                	$uri = JRoute::_(ContentHelperRoute::getArticleRoute($article->slug, $article->catslug), false);
-                	break;
-            	}
-            	
-            case "com_myblog":
-                $uri = $article->permalink;
+            	$uri = JRoute::_(ContentHelperRoute::getArticleRoute($article->slug, $article->catslug), false);
                 break;    
-                
                 
             case "com_k2":
                 $uri = $article->link;
@@ -814,6 +840,10 @@ class plgContentITPShare extends JPlugin {
                 
                 break;
 
+            case "com_easyblog":
+                $uri	= EasyBlogRouter::getRoutedURL( 'index.php?option=com_easyblog&view=entry&id=' . $article->id , false , false );
+                break;
+                
             case "com_vipportfolio":
                 $uri = JRoute::_($article->link, false);
                 break;
@@ -862,17 +892,7 @@ class plgContentITPShare extends JPlugin {
         
         switch($this->currentOption) {
             case "com_content":
-            	
-            	// It's an implementation of "com_myblog"
-            	// I don't know why but $option contains "com_content" for a value
-            	// I hope it will be fixed in the future versions of "com_myblog"
-            	if(strcmp($context, "com_myblog") != 0) {
-            		$title= $article->title;
-            		break;
-            	}
-                
-            case "com_myblog":
-                $title= $article->title;
+            	$title= $article->title;
                 break;    
                 
             case "com_k2":
@@ -895,7 +915,11 @@ class plgContentITPShare extends JPlugin {
                     }
                 };
                 
-                break;   
+                break; 
+
+            case "com_easyblog":
+                $title= $article->title;
+                break;
 
             case "com_vipportfolio":
                 $title = $article->title;
@@ -934,34 +958,22 @@ class plgContentITPShare extends JPlugin {
     	
     	switch($this->currentOption) {
             case "com_content":
-            	
-            	// It's an implementation of "com_myblog"
-            	// I don't know why but $option contains "com_content" for a value
-            	// I hope it will be fixed in the future versions of "com_myblog"
-            	if(strcmp($context, "com_myblog") != 0) {
-            	    
-            		if(!empty($article->images)) {
-            		    $images = json_decode($article->images);
-            		    if(!empty($images->image_intro)) {
-            		        $result = JURI::root().$images->image_intro;
-            		    }
-            		}
-            		 
-	                break;
-            	} 
-            	
-        	// Using contect because the context show us it is com_myblog
-    	    // $this->currentOption contains value "com_content" 
-        	case "com_myblog":
-        	    if(!empty($article->image_intro)) {
-        	       $result = str_replace("//", "/", $article->image_intro);
-        	    }
-        	    break;
+        		if(!empty($article->images)) {
+        		    $images = json_decode($article->images);
+        		    if(!empty($images->image_intro)) {
+        		        $result = JURI::root().$images->image_intro;
+        		    }
+        		}
+                break;
 
             case "com_k2":
     	        if(!empty($article->imageSmall)) {
     		        $result = JURI::root().$article->imageSmall;
         		}
+                break;
+                
+            case "com_easyblog":
+                $result = JURI::root().$article->image_intro;
                 break;
                 
             case "com_virtuemart":
@@ -1062,7 +1074,7 @@ class plgContentITPShare extends JPlugin {
      * 
      * @return string
      */
-    private function getExtraButtons($params, $url, $title) {
+    private function getExtraButtons($title, $url, &$params) {
         
         $html  = "";
         // Extra buttons
