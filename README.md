@@ -8,7 +8,7 @@ Changelog
 
 ###v2.8
 * Added support for User Ideas.
-* 
+* Improved.
 
 ###v2.7
 * Added support for EasyBlog.
