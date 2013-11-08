@@ -230,6 +230,10 @@ class plgContentITPShare extends JPlugin {
                 $result = $this->isVipQuotesRestricted($article, $context);
                 break;
                 
+            case "com_userideas":
+                $result = $this->isUserIdeasRestricted($article, $context);
+                break;
+                
             default:
                 $result = true;
                 break;   
@@ -516,6 +520,33 @@ class plgContentITPShare extends JPlugin {
     
         return false;
     }
+    
+    /**
+     * Do verification for UserIdeas extension. Is it restricted?
+     *
+     * @param ojbect $article
+     * @param string $context
+     */
+    private function isUserIdeasRestricted(&$article, $context) {
+    
+        // Check for correct context
+        if(strpos($context, "com_userideas") === false) {
+            return true;
+        }
+    
+        // Display only in view 'details'
+        if(strcmp($this->currentView, "details") != 0) {
+            return true;
+        }
+    
+        $displayOnViewDetails  = $this->params->get('userideas_display_details', 0);
+        if(!$displayOnViewDetails){
+            return true;
+        }
+    
+        return false;
+    }
+    
     
     /**
      * 
@@ -873,6 +904,10 @@ class plgContentITPShare extends JPlugin {
                 $uri = $article->link;
                 break;
                 
+            case "com_userideas":
+                $uri = JRoute::_($article->link, false);;
+                break;
+                
             default:
                 $uri = "";
                 break;   
@@ -951,7 +986,11 @@ class plgContentITPShare extends JPlugin {
             case "com_vipquotes":
                 $title = $article->title;
                 break;
-                
+
+            case "com_userideas":
+                $title = $article->title;
+                break;
+                    
             default:
                 $title = "";
                 break;   

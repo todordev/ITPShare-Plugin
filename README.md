@@ -1,10 +1,14 @@
 ITPShare Plugin for Joomla! 
 ==========================
-( Version 2.7 )
+( Version 2.8 )
 - - -
 
 Changelog
 ---------
+
+###v2.8
+* Added support for User Ideas.
+* 
 
 ###v2.7
 * Added support for EasyBlog.
