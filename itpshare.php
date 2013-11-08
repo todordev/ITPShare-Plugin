@@ -77,7 +77,7 @@ class plgContentITPShare extends JPlugin {
         
     }
     
-     /**
+    /**
      * Add social buttons into the article before content.
      *
      * @param	string	The context of the content being passed to the plugin.
@@ -174,7 +174,7 @@ class plgContentITPShare extends JPlugin {
         }
         
         if($this->params->get("loadCss")) {
-            $doc->addStyleSheet(JURI::root() . "plugins/content/itpshare/style.css");
+            $doc->addStyleSheet(JUri::root() . "plugins/content/itpshare/style.css");
         }
         
         // Load language file
@@ -302,7 +302,17 @@ class plgContentITPShare extends JPlugin {
             }
         }
         
+        $this->prepareContent($article);
+        
         return false;
+    }
+    
+    private function prepareContent(&$article) {
+    
+        if((strcmp($this->currentView, "category") == 0) AND empty($article->catslug)) {
+            $article->catslug = $article->id . ":".$article->alias;
+        }
+    
     }
     
     /**
@@ -369,8 +379,24 @@ class plgContentITPShare extends JPlugin {
     }
     
     /**
-     *
-     * It's a method that verify restriction for the component "com_easyblog"
+     * Prepare some elements of the K2 object.
+     * 
+     * @param object $article
+     * @param JRegistry $params
+     */
+    private function prepareK2Object(&$article, $params) {
+    
+        if(empty($article->metadesc)) {
+            $introtext         = strip_tags($article->introtext);
+            $metaDescLimit     = $params->get("metaDescLimit", 150);
+            $article->metadesc = substr($introtext, 0, $metaDescLimit);
+        }
+    
+    }
+    
+    /**
+     * It's a method that verify restriction for the component "com_easyblog".
+     * 
      * @param object $article
      * @param string $context
      */
@@ -429,24 +455,7 @@ class plgContentITPShare extends JPlugin {
     }
     
     /**
-     *
-     * Prepare some elements of the K2 object
-     * @param object $article
-     * @param JRegistry $params
-     */
-    private function prepareK2Object(&$article, $params) {
-    
-        if(empty($article->metadesc)) {
-            $introtext         = strip_tags($article->introtext);
-            $metaDescLimit     = $params->get("metaDescLimit", 150);
-            $article->metadesc = substr($introtext, 0, $metaDescLimit);
-        }
-    
-    }
-    
-    
-    /**
-     * Do verifications for JEvent extension
+     * Do verifications for JEvent extension.
      * 
      * @param jIcalEventRepeat $article
      * @param string $context
@@ -526,7 +535,7 @@ class plgContentITPShare extends JPlugin {
             return true;
         }
         
-        // Only display content in the view "productdetails"
+        // Only display content in the view "productdetails".
         $displayInDetails     = $this->params->get('vmDisplayInDetails', 0);
         if(!$displayInDetails){
             return true;
@@ -536,6 +545,32 @@ class plgContentITPShare extends JPlugin {
         $this->prepareVirtuemartObject($article);
         
         return false;
+    }
+    
+    private function prepareVirtuemartObject(&$article) {
+    
+        $article->image_intro = "";
+    
+        if(!empty($article->id)) {
+    
+            $db = JFactory::getDbo();
+            /** @var $db JDatabaseMySQLi **/
+    
+            $query = $db->getQuery(true);
+    
+            $query
+            ->select("#__virtuemart_medias.file_url")
+            ->from("#__virtuemart_medias")
+            ->join("RIGHT", "#__virtuemart_product_medias ON #__virtuemart_product_medias.virtuemart_media_id = #__virtuemart_medias.virtuemart_media_id")
+            ->where("#__virtuemart_product_medias.virtuemart_product_id=" . (int)$article->id);
+    
+            $db->setQuery($query, 0, 1);
+            $fileURL = $db->loadResult();
+            if(!empty($fileURL)) {
+                $article->image_intro = $fileURL;
+            }
+    
+        }
     }
     
 	/**
@@ -620,6 +655,33 @@ class plgContentITPShare extends JPlugin {
         return false;
     }
     
+    private function prepareJoomShoppingObject(&$article) {
+    
+        $article->image_intro = "";
+    
+        if(!empty($article->product_id)) {
+    
+            $db = JFactory::getDbo();
+            /** @var $db JDatabaseMySQLi **/
+    
+            $query = $db->getQuery(true);
+    
+            $query
+            ->select("image_name")
+            ->from("#__jshopping_products_images")
+            ->where("product_id=" . (int)$article->product_id)
+            ->order("ordering");
+    
+            $db->setQuery($query, 0, 1);
+            $imageName = $db->loadResult();
+            if(!empty($imageName)) {
+                $config = JSFactory::getConfig();
+                $article->image_intro = $config->image_product_live_path."/".$imageName;
+            }
+    
+        }
+    }
+    
 	/**
      * 
      * It's a method that verify restriction for the component "com_hikashop"
@@ -649,65 +711,12 @@ class plgContentITPShare extends JPlugin {
         return false;
     }
     
-    private function prepareVirtuemartObject(&$article) {
-        
-        $article->image_intro = "";
-        
-        if(!empty($article->id)) {
-            
-            $db = JFactory::getDbo();
-            /** @var $db JDatabaseMySQLi **/
-            
-            $query = $db->getQuery(true);
-            
-            $query
-                ->select("#__virtuemart_medias.file_url")
-                ->from("#__virtuemart_medias")
-                ->join("RIGHT", "#__virtuemart_product_medias ON #__virtuemart_product_medias.virtuemart_media_id = #__virtuemart_medias.virtuemart_media_id")
-                ->where("#__virtuemart_product_medias.virtuemart_product_id=" . (int)$article->id);
-              
-            $db->setQuery($query, 0, 1);
-            $fileURL = $db->loadResult();
-            if(!empty($fileURL)) {
-                $article->image_intro = $fileURL;
-            }
-            
-        }
-    }
-    
-    private function prepareJoomShoppingObject(&$article) {
-        
-        $article->image_intro = "";
-        
-        if(!empty($article->product_id)) {
-            
-            $db = JFactory::getDbo();
-            /** @var $db JDatabaseMySQLi **/
-            
-            $query = $db->getQuery(true);
-            
-            $query
-                ->select("image_name")
-                ->from("#__jshopping_products_images")
-                ->where("product_id=" . (int)$article->product_id)
-                ->order("ordering");
-              
-            $db->setQuery($query, 0, 1);
-            $imageName = $db->loadResult();
-            if(!empty($imageName)) {
-                $config = JSFactory::getConfig();
-                $article->image_intro = $config->image_product_live_path."/".$imageName;
-            }
-            
-        }
-    }
-    
     private function prepareHikashopObject(&$article) {
         
         $article->image_intro = "";
         $article->id          = null;
         
-        $url = clone JURI::getInstance();
+        $url = clone JUri::getInstance();
         
         // Get the URI
         $itemURI = $url->getPath();
@@ -1038,6 +1047,8 @@ class plgContentITPShare extends JPlugin {
             "api_key"   => $this->params->get("shortener_api_key"),
             "service"   => $this->params->get("shortener_service"),
         );
+        
+        $shortLink = "";
         
         try {
         
@@ -1564,7 +1575,7 @@ class plgContentITPShare extends JPlugin {
                     $media = "&amp;media=" . rawurlencode($image);
                 }
                 
-                $html .= '<a href="http://pinterest.com/pin/create/button/?url=' . rawurlencode($url) . $media. '&amp;description=' . rawurlencode($title) . '" data-pin-do="buttonPin" data-pin-config="'.$params->get("pinterestType", "beside").'"><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a>';
+                $html .= '<a href="//pinterest.com/pin/create/button/?url=' . rawurlencode($url) . $media. '&amp;description=' . rawurlencode($title) . '" data-pin-do="buttonPin" data-pin-config="'.$params->get("pinterestType", "beside").'"><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a>';
             } else {
                 $html .= '<a href="//pinterest.com/pin/create/button/" data-pin-do="buttonBookmark" ><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a>';
             }
