@@ -44,7 +44,7 @@ class plgContentITPShare extends JPlugin {
 	 */
     public function onContentPrepare($context, &$article, &$params, $page = 0) {
 
-        if (!$article OR !isset($this->params)) { return; }
+        if (!$article OR !isset($this->params) OR empty($article->text)) { return; }
         
         // Check for correct trigger
         if(strcmp("on_content_prepare", $this->params->get("trigger_place")) != 0) {
@@ -119,7 +119,7 @@ class plgContentITPShare extends JPlugin {
         if(strcmp("on_content_after_display", $this->params->get("trigger_place")) != 0) {
             return "";
         }
-    
+        
         // Generate content
         $content = $this->processGenerating($context, $article, $params, $page = 0);
         
@@ -611,16 +611,10 @@ class plgContentITPShare extends JPlugin {
      * @param string $context
      */
 	private function isVipPortfolioRestricted(&$article, $context) {
-
+	    
         // Check for correct context
-        if(strpos($context, "com_vipportfolio") === false) {
+        if(false === strpos($context, "com_vipportfolio.details")) {
            return true;
-        }
-        
-	    // Verify the option for displaying in layout "lineal"
-        $displayInLineal     = $this->params->get('vipportfolio_lineal', 0);
-        if(!$displayInLineal){
-            return true;
         }
         
         return false;
@@ -1032,7 +1026,7 @@ class plgContentITPShare extends JPlugin {
             
             case "com_vipportfolio":
     	        if(!empty($article->image_intro)) {
-                    $result = JURI::root().$article->image_intro;
+                    $result = $article->image_intro;
                 }
                 break;
                 
