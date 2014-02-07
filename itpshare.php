@@ -1050,8 +1050,8 @@ class plgContentITPShare extends JPlugin {
                 
             case "com_vipquotes":
                 
-                if(!empty($article->image)) {
-                    $result = JURI::root().$article->image;
+                if(!empty($article->image_intro)) {
+                    $result = $article->image_intro;
                 }
                 
                 break;
