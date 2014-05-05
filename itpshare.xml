@@ -2,12 +2,12 @@
 <extension version="3.2" type="plugin" group="content" method="upgrade">
     <name>PLG_CONTENT_ITPSHARE</name>
     <author>Todor Iliev</author>
-    <copyright>Copyright (C) 2013 Todor Iliev ( ITPrism.com ). All rights reserved.</copyright>
+    <copyright>Copyright (C) 2014 Todor Iliev ( ITPrism.com ). All rights reserved.</copyright>
     <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
     <authorEmail>todor@itprism.com</authorEmail>
     <authorUrl>http://itprism.com</authorUrl>
-    <version>2.8</version>
-    <creationDate>08 November, 2013</creationDate>
+    <version>2.9</version>
+    <creationDate>05 May, 2014</creationDate>
     <description><![CDATA[
     <p><a href="http://itprism.com/free-joomla-extensions/social-marketing-seo/socialmedia-multi-share" target="_blank">ITPShare</a> is an extension that adds republish buttons, widgets or goodies on your site. There are social plugins of Twitter, Facebook, LinkedIn, Stumbleupon, Google Plus, Google Share, Thumblr, Pinterest, BufferApp,... It will help you to find more readers for your publications.</p>
     <p><a href='http://itprism.com/help/30-itpshare-documentation-faq' target='_blank'>Read documentation</a> that will help you to setup the extensions.</p>
@@ -16,17 +16,14 @@
     <p>Please, <a href="http://extensions.joomla.org/extensions/social-web/social-share/social-multi-share/15665" target="_blank">vote for the extension</a> on Joomla! Extensions Directory</p>
     ]]></description>
     
-    <languages  folder="language">
-        <language tag="en-GB">en-GB/en-GB.plg_content_itpshare.ini</language>
-        <language tag="en-GB">en-GB/en-GB.plg_content_itpshare.sys.ini</language>
-    </languages> 
-    
     <files>
         <filename plugin="itpshare">itpshare.php</filename>
         <filename>index.html</filename>
         <filename>shorturl.php</filename>
 		<filename>style.css</filename>
 		<filename>README.md</filename>
+
+        <folder>language</folder>
     </files>
     
     <help url="PLG_CONTENT_ITPSHARE_HELP_URL"/>
@@ -37,6 +34,7 @@
             
                 <field name="trigger_place" type="list" default="on_content_prepare" label="PLG_CONTENT_ITPSHARE_METHOD_GENERATIONG" description="PLG_CONTENT_ITPSHARE_METHOD_GENERATIONG_DESC" >
                    <option value="on_content_prepare">onContentPrepare</option>
+                   <option value="on_content_prepare_indicator">onContentPrepare {itpshare}</option>
                    <option value="on_content_before_display">onContentBeforeDisplay</option>
                    <option value="on_content_after_display">onContentAfterDisplay</option>
                 </field>
@@ -154,17 +152,18 @@
                     <option value="standard">PLG_CONTENT_ITPSHARE_STANDARD</option>
                     <option value="box_count">PLG_CONTENT_ITPSHARE_BOX_COUNT</option>
                     <option value="button_count">PLG_CONTENT_ITPSHARE_BUTTON_COUNT</option>
+                    <option value="button">PLG_CONTENT_ITPSHARE_BUTTON</option>
                 </field>
                 <field name="facebookLikeFaces" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_FACEBOOK_FACES" description="PLG_CONTENT_ITPSHARE_FACEBOOK_FACES_DESC" class="btn-group">
                    <option value="0">JHIDE</option>
                    <option value="1">JSHOW</option>
                 </field>
-                <field name="facebookLikeColor" type="list" default="light" label="PLG_CONTENT_ITPSHARE_FACEBOOK_FONT" description="PLG_CONTENT_ITPSHARE_FACEBOOK_FONT_DESC" >
+                <field name="facebookLikeColor" type="list" default="light" label="PLG_CONTENT_ITPSHARE_FACEBOOK_COLOR" description="PLG_CONTENT_ITPSHARE_FACEBOOK_COLOR_DESC" >
                    <option value="light">PLG_CONTENT_ITPSHARE_LIGHT</option>
                    <option value="dark">PLG_CONTENT_ITPSHARE_DARK</option>
                 </field>
-                <field name="facebookLikeFont" type="list" default="" label="Facebook Like Font" description="The font to display in the button. Options: 'arial', 'lucida grande', 'segoe ui', 'tahoma', 'trebuchet ms', 'verdana' " >
-                   <option value=""></option>
+                <field name="facebookLikeFont" type="list" default="" label="PLG_CONTENT_ITPSHARE_FACEBOOK_FONT" description="PLG_CONTENT_ITPSHARE_FACEBOOK_FONT_DESC" >
+                    <option value="">PLG_CONTENT_ITPSHARE_DEFAULT</option>
                     <option value="arial">arial</option>
                     <option value="lucida grande">lucida grande</option>
                     <option value="segoe ui">segoe ui</option>
@@ -238,7 +237,7 @@
                     <option value="lv_LV">PLG_CONTENT_ITPSHARE_LATVIAN</option>
                     <option value="mg_MG">PLG_CONTENT_ITPSHARE_MALAGASY</option>
                     <option value="mk_MK">PLG_CONTENT_ITPSHARE_MACEDONIAN</option>
-                    <option value="ml_IN">PLG_CONTENT_ITPSHARE_MALAYalam</option>
+                    <option value="ml_IN">PLG_CONTENT_ITPSHARE_MALAYALAM</option>
                     <option value="mn_MN">PLG_CONTENT_ITPSHARE_MONGOLIAN</option>
                     <option value="mr_IN">PLG_CONTENT_ITPSHARE_MARATHI</option>
                     <option value="ms_MY">PLG_CONTENT_ITPSHARE_MALAY</option>
@@ -289,7 +288,7 @@
                 </field>
                 
                 <field name="facebookLikeAppId" type="text" default="" label="PLG_CONTENT_ITPSHARE_FACEBOOK_APP_ID" description="PLG_CONTENT_ITPSHARE_FACEBOOK_APP_ID_DESC" />
-                <field name="facebookLikeSend" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_FACEBOOK_SEND_BUTTON" description="PLG_CONTENT_ITPSHARE_FACEBOOK_SEND_BUTTON_DESC" class="btn-group">
+                <field name="facebookLikeShare" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_FACEBOOK_SHARE_BUTTON" description="PLG_CONTENT_ITPSHARE_FACEBOOK_SHARE_BUTTON_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
                 </field>
@@ -327,7 +326,28 @@
                    <option value="none">PLG_CONTENT_ITPSHARE_COUNTER_NONE</option>
                    <option value="top">PLG_CONTENT_ITPSHARE_COUNTER_TOP</option>
                    <option value="right">PLG_CONTENT_ITPSHARE_COUNTER_RIGHT</option>
-                </field>  
+                </field>
+                <field name="linkedInLocale" type="list" default="en_US" label="PLG_CONTENT_ITPSHARE_LANGUAGE" description="PLG_CONTENT_ITPSHARE_LANGUAGE_DESC">
+                    <option value="en_US">PLG_CONTENT_ITPSHARE_ENGLISH</option>
+                    <option value="es_LA">PLG_CONTENT_ITPSHARE_SPANISH</option>
+                    <option value="de_DE">PLG_CONTENT_ITPSHARE_GERMAN</option>
+                    <option value="fr_FR">PLG_CONTENT_ITPSHARE_FRENCH</option>
+                    <option value="ru_RU">PLG_CONTENT_ITPSHARE_RUSSIAN</option>
+                    <option value="it_IT">PLG_CONTENT_ITPSHARE_ITALIAN</option>
+                    <option value="pt_BR">PLG_CONTENT_ITPSHARE_PORTUGUESE</option>
+                    <option value="ro_RO">PLG_CONTENT_ITPSHARE_ROMANIAN</option>
+                    <option value="tr_TR">PLG_CONTENT_ITPSHARE_TURKISH</option>
+                    <option value="ja_JP">PLG_CONTENT_ITPSHARE_JAPANESE</option>
+                    <option value="id_ID">PLG_CONTENT_ITPSHARE_INDONESIAN</option>
+                    <option value="ms_MY">PLG_CONTENT_ITPSHARE_MALAY</option>
+                    <option value="ko_KR">PLG_CONTENT_ITPSHARE_KOREAN</option>
+                    <option value="sv_SE">PLG_CONTENT_ITPSHARE_SWEDISH</option>
+                    <option value="cs_CZ">PLG_CONTENT_ITPSHARE_CZECH</option>
+                    <option value="nl_NL">PLG_CONTENT_ITPSHARE_DUTCH</option>
+                    <option value="pl_PL">PLG_CONTENT_ITPSHARE_POLISH</option>
+                    <option value="no_NO">PLG_CONTENT_ITPSHARE_NORWEGIAN</option>
+                    <option value="da_DK">PLG_CONTENT_ITPSHARE_DANISH</option>
+                </field>
                 <field name="load_linkedin_library" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_LINKEDIN_LOAD_LIBRARY" description="PLG_CONTENT_ITPSHARE_LINKEDIN_LOAD_LIBRARY_DESC" class="btn-group">
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>

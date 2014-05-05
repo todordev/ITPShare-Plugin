@@ -1,10 +1,17 @@
 ITPShare Plugin for Joomla! 
 ==========================
-( Version 2.8 )
+( Version 2.9 )
 - - -
 
 Changelog
 ---------
+
+###v2.9
+* Replaced the option for "Send" button with an option for displaying "Share" button.
+* Added new button type "Button".
+* Added language option to LinkedIn button
+* Added option buttons to be added on a custom location in the content, using indicator {itpshare}.
+* Improved
 
 ###v2.8
 * Added support for User Ideas.
@@ -22,7 +29,7 @@ Changelog
 
 ###v2.5
 * Removed EasyBlog support
-* Added options for exluding and including K2 categories and articles.
+* Added options for excluding and including K2 categories and articles.
 * Fixed Pinterest button
 * Added option "Kid Directed Site" to Facebook like button
 * Improved 
@@ -33,7 +40,7 @@ Changelog
 
 ###v2.3
 * Added some new Twitter languages
-* Added ablility to be used on 'https'-Domain (SSL)
+* Added ability to be used on 'https'-Domain (SSL)
 * Removed the Digg and ReTwittMe buttons. Those services do not work anymore.
 * Updated the code of buttons SumbpleUpon, Facebook, Pinterest, BufferApp.
 * Fixed the Pinterest button
