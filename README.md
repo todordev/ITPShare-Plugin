@@ -1,10 +1,28 @@
 ITPShare Plugin for Joomla! 
 ==========================
-( Version 2.9 )
+( Version 2.10 )
 - - -
+
+ITPShare is an extension that adds republish buttons, widgets or goodies on your site. There are social plugins of Twitter, Facebook, LinkedIn, Stumbleupon, Google Plus, Google Share, Thumblr, Pinterest, BufferApp,... It will help you to find more readers for your publications.
+
+##Documentation
+You can find documentation on following pages.
+
+[Documentation and FAQ](http://itprism.com/help/30-itpshare-documentation-faq)
+
+##Download
+You can [download ITPShare] (http://itprism.com/free-joomla-extensions/social-marketing-seo/socialmedia-multi-share) from the website of ITPrism.
+
+##License
+ITPShare is under [GPLv3 license] (http://www.gnu.org/licenses/gpl-3.0.en.html).
 
 Changelog
 ---------
+
+###v2.10
+* Removed Facebook renderer. Now it generates HTML5 code.
+* Removed Google One and Share renderer. Now it generates HTML5 code.
+* Improved Pinterest. Added options Large and Colour.
 
 ###v2.9
 * Replaced the option for "Send" button with an option for displaying "Share" button.

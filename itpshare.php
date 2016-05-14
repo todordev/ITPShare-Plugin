@@ -1,16 +1,17 @@
 <?php
 /**
- * @package         ITPShare
- * @subpackage      Plugins
+ * @package         ITPrism Plugins
+ * @subpackage      ITPShare
  * @author          Todor Iliev
- * @copyright       Copyright (C) 2014 Todor Iliev <todor@itprism.com>. All rights reserved.
- * @license         http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @copyright       Copyright (C) 2016 Todor Iliev <todor@itprism.com>. All rights reserved.
+ * @license         http://www.gnu.org/licenses/gpl-3.0.en.html GNU/GPLv3
  */
+
+use Joomla\Registry\Registry;
+use Joomla\Utilities\ArrayHelper;
 
 // no direct access
 defined('_JEXEC') or die;
-
-jimport('joomla.plugin.plugin');
 
 /**
  * ITPShare Plugin
@@ -20,16 +21,15 @@ jimport('joomla.plugin.plugin');
  */
 class plgContentITPShare extends JPlugin
 {
+    protected static $loaded = array();
 
-    private $locale = "en_US";
-    private $fbLocale = "en_US";
-    private $plusLocale = "en";
-    private $gshareLocale = "en";
-    private $twitterLocale = "en";
-    private $currentView = "";
-    private $currentTask = "";
-    private $currentOption = "";
-    private $currentLayout = "";
+    private $locale = 'en_US';
+    private $fbLocale = 'en_US';
+    private $gshareLocale = 'en';
+    private $currentView = '';
+    private $currentTask = '';
+    private $currentOption = '';
+    private $currentLayout = '';
 
     private $imgPattern = '/src="([^"]*)"/i';
 
@@ -37,23 +37,23 @@ class plgContentITPShare extends JPlugin
      * Put social buttons into the article
      *
      * @param    string    $context The context of the content being passed to the plugin.
-     * @param    object    $article The article object.  Note $article->text is also available
-     * @param    JRegistry $params  The article params
+     * @param    stdClass    $article The article object.  Note $article->text is also available
+     * @param    Registry $params  The article params
      * @param    int       $page    The 'page' number
      *
      * @return void
      */
     public function onContentPrepare($context, &$article, &$params, $page = 0)
     {
-        if (!$article OR !isset($this->params) OR empty($article->text)) {
+        if (!$article or !isset($this->params) or empty($article->text)) {
             return;
         }
 
-        $options = array("on_content_prepare", "on_content_prepare_indicator");
-        $option  = $this->params->get("trigger_place");
+        $options = array('on_content_prepare', 'on_content_prepare_indicator');
+        $option  = $this->params->get('trigger_place');
 
         // Check for correct trigger
-        if (!in_array($option, $options)) {
+        if (!in_array($option, $options, true)) {
             return;
         }
 
@@ -61,26 +61,22 @@ class plgContentITPShare extends JPlugin
         $content = $this->processGenerating($context, $article, $params, $page = 0);
 
         // If there is no result, return void.
-        if (is_null($content)) {
+        if ($content === null) {
             return;
         }
 
-        if(strcmp($option, "on_content_prepare_indicator") == 0) {
-
-            $article->text = str_replace("{itpshare}", $content, $article->text);
-
+        if (strcmp($option, 'on_content_prepare_indicator') === 0) {
+            $article->text = str_replace('{itpshare}', $content, $article->text);
         } else {
-
             $position = $this->params->get('position');
-
+            
             switch ($position) {
-
                 case 1: // Top
                     $article->text = $content . $article->text;
                     break;
 
                 case 2: // Bottom
-                    $article->text = $article->text . $content;
+                    $article->text .= $content;
                     break;
 
                 default: // Both
@@ -96,8 +92,8 @@ class plgContentITPShare extends JPlugin
      * Add social buttons into the article before content.
      *
      * @param    string    $context The context of the content being passed to the plugin.
-     * @param    object    $article The article object.  Note $article->text is also available
-     * @param    JRegistry $params  The article params
+     * @param    stdClass    $article The article object.  Note $article->text is also available
+     * @param    Registry $params  The article params
      * @param    int       $page    The 'page' number
      *
      * @return string
@@ -105,16 +101,16 @@ class plgContentITPShare extends JPlugin
     public function onContentBeforeDisplay($context, &$article, &$params, $page = 0)
     {
         // Check for correct trigger
-        if (strcmp("on_content_before_display", $this->params->get("trigger_place")) != 0) {
-            return "";
+        if (strcmp('on_content_before_display', $this->params->get('trigger_place')) !== 0) {
+            return '';
         }
 
         // Generate content
         $content = $this->processGenerating($context, $article, $params, $page = 0);
 
         // If there is no result, return empty string.
-        if (is_null($content)) {
-            return "";
+        if ($content === null) {
+            return '';
         }
 
         return $content;
@@ -124,8 +120,8 @@ class plgContentITPShare extends JPlugin
      * Add social buttons into the article after content.
      *
      * @param    string    $context The context of the content being passed to the plugin.
-     * @param    object    $article The article object.  Note $article->text is also available
-     * @param    JRegistry $params  The article params
+     * @param    stdClass    $article The article object.  Note $article->text is also available
+     * @param    Registry $params  The article params
      * @param    int       $page    The 'page' number
      *
      * @return string
@@ -133,16 +129,16 @@ class plgContentITPShare extends JPlugin
     public function onContentAfterDisplay($context, &$article, &$params, $page = 0)
     {
         // Check for correct trigger
-        if (strcmp("on_content_after_display", $this->params->get("trigger_place")) != 0) {
-            return "";
+        if (strcmp('on_content_after_display', $this->params->get('trigger_place')) !== 0) {
+            return '';
         }
 
         // Generate content
         $content = $this->processGenerating($context, $article, $params, $page = 0);
 
         // If there is no result, return empty string.
-        if (is_null($content)) {
-            return "";
+        if ($content === null) {
+            return '';
         }
 
         return $content;
@@ -152,50 +148,49 @@ class plgContentITPShare extends JPlugin
      * Execute the process of buttons generating.
      *
      * @param string    $context
-     * @param object    $article
-     * @param JRegistry $params
+     * @param stdClass    $article
+     * @param Registry $params
      * @param int       $page
      *
      * @return NULL|string
      */
     private function processGenerating($context, &$article, &$params, $page = 0)
     {
-
         $app = JFactory::getApplication();
-        /** @var $app JSite * */
+        /** @var $app JApplicationSite */
 
         if ($app->isAdmin()) {
             return null;
         }
 
         $doc = JFactory::getDocument();
-        /**  @var $doc JDocumentHtml * */
+        /**  @var $doc JDocumentHtml */
 
         // Check document type
         $docType = $doc->getType();
-        if (strcmp("html", $docType) != 0) {
+        if (strcmp('html', $docType) !== 0) {
             return null;
         }
 
         // Get request data
-        $this->currentOption = $app->input->getCmd("option");
-        $this->currentView   = $app->input->getCmd("view");
-        $this->currentTask   = $app->input->getCmd("task");
-        $this->currentLayout = $app->input->getCmd("layout");
+        $this->currentOption = $app->input->getCmd('option');
+        $this->currentView   = $app->input->getCmd('view');
+        $this->currentTask   = $app->input->getCmd('task');
+        $this->currentLayout = $app->input->getCmd('layout');
 
         if ($this->isRestricted($article, $context, $params)) {
             return null;
         }
 
         // Get locale code automatically
-        if ($this->params->get("dynamicLocale", 0)) {
+        if ($this->params->get('dynamicLocale', 0)) {
             $lang         = JFactory::getLanguage();
             $locale       = $lang->getTag();
-            $this->locale = str_replace("-", "_", $locale);
+            $this->locale = str_replace('-', '_', $locale);
         }
 
-        if ($this->params->get("loadCss")) {
-            $doc->addStyleSheet(JUri::root() . "plugins/content/itpshare/style.css");
+        if ($this->params->get('loadCss')) {
+            $doc->addStyleSheet(JUri::root() . 'plugins/content/itpshare/style.css');
         }
 
         // Load language file
@@ -208,49 +203,48 @@ class plgContentITPShare extends JPlugin
 
     private function isRestricted($article, $context, $params)
     {
-
         switch ($this->currentOption) {
-            case "com_content":
+            case 'com_content':
                 $result = $this->isContentRestricted($article, $context);
                 break;
 
-            case "com_k2":
+            case 'com_k2':
                 $result = $this->isK2Restricted($article, $context, $params);
                 break;
 
-            case "com_virtuemart":
+            case 'com_virtuemart':
                 $result = $this->isVirtuemartRestricted($article, $context);
                 break;
 
-            case "com_jevents":
+            case 'com_jevents':
                 $result = $this->isJEventsRestricted($article, $context);
                 break;
 
-            case "com_easyblog":
+            case 'com_easyblog':
                 $result = $this->isEasyBlogRestricted($article, $context);
                 break;
 
-            case "com_vipportfolio":
+            case 'com_vipportfolio':
                 $result = $this->isVipPortfolioRestricted($context);
                 break;
 
-            case "com_zoo":
+            case 'com_zoo':
                 $result = $this->isZooRestricted($context);
                 break;
 
-            case "com_jshopping":
+            case 'com_jshopping':
                 $result = $this->isJoomShoppingRestricted($article, $context);
                 break;
 
-            case "com_hikashop":
+            case 'com_hikashop':
                 $result = $this->isHikaShopRestricted($article, $context);
                 break;
 
-            case "com_vipquotes":
+            case 'com_vipquotes':
                 $result = $this->isVipQuotesRestricted($context);
                 break;
 
-            case "com_userideas":
+            case 'com_userideas':
                 $result = $this->isUserIdeasRestricted($context);
                 break;
 
@@ -264,67 +258,66 @@ class plgContentITPShare extends JPlugin
     }
 
     /**
-     * Checks allowed articles, exluded categories/articles,... for component COM_CONTENT
+     * Checks allowed articles, excluded categories/articles,... for component COM_CONTENT
      *
-     * @param object $article
+     * @param stdClass $article
      * @param string $context
      *
      * @return bool
      */
     private function isContentRestricted(&$article, $context)
     {
-
         // Check for correct context
-        if (false === strpos($context, "com_content")) {
+        if (false === strpos($context, 'com_content')) {
             return true;
         }
 
         /** Check for selected views, which will display the buttons. **/
         /** If there is a specific set and do not match, return an empty string.**/
         $showInArticles = $this->params->get('showInArticles');
-        if (!$showInArticles AND (strcmp("article", $this->currentView) == 0)) {
+        if (!$showInArticles and (strcmp('article', $this->currentView) === 0)) {
             return true;
         }
 
-        // Will be displayed in view "categories"?
+        // Will be displayed in view 'categories'?
         $showInCategories = $this->params->get('showInCategories');
-        if (!$showInCategories AND (strcmp("category", $this->currentView) == 0)) {
+        if (!$showInCategories and (strcmp('category', $this->currentView) === 0)) {
             return true;
         }
 
-        // Will be displayed in view "featured"?
+        // Will be displayed in view 'featured'?
         $showInFeatured = $this->params->get('showInFeatured');
-        if (!$showInFeatured AND (strcmp("featured", $this->currentView) == 0)) {
+        if (!$showInFeatured and (strcmp('featured', $this->currentView) === 0)) {
             return true;
         }
 
         // Exclude articles
         $excludeArticles = $this->params->get('excludeArticles');
-        if (!empty($excludeArticles)) {
+        if ($excludeArticles !== null and $excludeArticles !== '') {
             $excludeArticles = explode(',', $excludeArticles);
         }
         settype($excludeArticles, 'array');
-        JArrayHelper::toInteger($excludeArticles);
+        ArrayHelper::toInteger($excludeArticles);
 
-        // Exluded categories
+        // Excluded categories
         $excludedCats = $this->params->get('excludeCats');
-        if (!empty($excludedCats)) {
+        if ($excludedCats !== null and $excludedCats !== '') {
             $excludedCats = explode(',', $excludedCats);
         }
         settype($excludedCats, 'array');
-        JArrayHelper::toInteger($excludedCats);
+        ArrayHelper::toInteger($excludedCats);
 
         // Included Articles
         $includedArticles = $this->params->get('includeArticles');
-        if (!empty($includedArticles)) {
+        if ($includedArticles !== null and $includedArticles !== '') {
             $includedArticles = explode(',', $includedArticles);
         }
         settype($includedArticles, 'array');
-        JArrayHelper::toInteger($includedArticles);
+        ArrayHelper::toInteger($includedArticles);
 
-        if (!in_array($article->id, $includedArticles)) {
-            // Check exluded articles
-            if (in_array($article->id, $excludeArticles) OR in_array($article->catid, $excludedCats)) {
+        if (!in_array((int)$article->id, $includedArticles, true)) {
+            // Check excluded articles
+            if (in_array((int)$article->id, $excludeArticles, true) or in_array((int)$article->catid, $excludedCats, true)) {
                 return true;
             }
         }
@@ -336,27 +329,24 @@ class plgContentITPShare extends JPlugin
 
     private function prepareContent(&$article)
     {
-
-        if ((strcmp($this->currentView, "category") == 0) AND empty($article->catslug)) {
-            $article->catslug = $article->id . ":" . $article->alias;
+        if ((strcmp($this->currentView, 'category') === 0) and empty($article->catslug)) {
+            $article->catslug = $article->id . ':' . $article->alias;
         }
-
     }
 
     /**
      * This method does verification for K2 restrictions
      *
-     * @param jIcalEventRepeat $article
+     * @param stdClass $article
      * @param string           $context
-     * @param JRegistry        $params
+     * @param Registry        $params
      *
      * @return bool
      */
     private function isK2Restricted(&$article, $context, $params)
     {
-
         // Check for correct context
-        if (strpos($context, "com_k2") === false) {
+        if (strpos($context, 'com_k2') === false) {
             return true;
         }
 
@@ -365,42 +355,42 @@ class plgContentITPShare extends JPlugin
         }
 
         $displayInItemlist = $this->params->get('k2DisplayInItemlist', 0);
-        if (!$displayInItemlist AND (strcmp("itemlist", $this->currentView) == 0)) {
+        if (!$displayInItemlist and (strcmp('itemlist', $this->currentView) === 0)) {
             return true;
         }
 
         $displayInArticles = $this->params->get('k2DisplayInArticles', 0);
-        if (!$displayInArticles AND (strcmp("item", $this->currentView) == 0)) {
+        if (!$displayInArticles and (strcmp('item', $this->currentView) === 0)) {
             return true;
         }
 
         // Exclude articles
         $excludeArticles = $this->params->get('k2_exclude_articles');
-        if (!empty($excludeArticles)) {
+        if ($excludeArticles !== null and $excludeArticles !== '') {
             $excludeArticles = explode(',', $excludeArticles);
         }
         settype($excludeArticles, 'array');
-        JArrayHelper::toInteger($excludeArticles);
+        ArrayHelper::toInteger($excludeArticles);
 
         // Exluded categories
         $excludedCats = $this->params->get('k2_exclude_cats');
-        if (!empty($excludedCats)) {
+        if ($excludedCats !== null and $excludedCats !== '') {
             $excludedCats = explode(',', $excludedCats);
         }
         settype($excludedCats, 'array');
-        JArrayHelper::toInteger($excludedCats);
+        ArrayHelper::toInteger($excludedCats);
 
         // Included Articles
         $includedArticles = $this->params->get('k2_include_articles');
-        if (!empty($includedArticles)) {
+        if ($includedArticles !== null and $includedArticles !== '') {
             $includedArticles = explode(',', $includedArticles);
         }
         settype($includedArticles, 'array');
-        JArrayHelper::toInteger($includedArticles);
+        ArrayHelper::toInteger($includedArticles);
 
-        if (!in_array($article->id, $includedArticles)) {
+        if (!in_array((int)$article->id, $includedArticles, true)) {
             // Check excluded articles
-            if (in_array($article->id, $excludeArticles) OR in_array($article->catid, $excludedCats)) {
+            if (in_array((int)$article->id, $excludeArticles, true) or in_array((int)$article->catid, $excludedCats, true)) {
                 return true;
             }
         }
@@ -413,18 +403,16 @@ class plgContentITPShare extends JPlugin
     /**
      * Prepare some elements of the K2 object.
      *
-     * @param object    $article
-     * @param JRegistry $params
+     * @param stdClass $article
+     * @param Registry $params
      */
     private function prepareK2Object(&$article, $params)
     {
-
         if (empty($article->metadesc)) {
             $introtext         = strip_tags($article->introtext);
-            $metaDescLimit     = $params->get("metaDescLimit", 150);
+            $metaDescLimit     = $params->get('metaDescLimit', 150);
             $article->metadesc = substr($introtext, 0, $metaDescLimit);
         }
-
     }
 
     /**
@@ -437,39 +425,38 @@ class plgContentITPShare extends JPlugin
      */
     private function isEasyBlogRestricted(&$article, $context)
     {
-
-        $allowedViews = array("categories", "entry", "latest", "tags");
+        $allowedViews = array('categories', 'entry', 'latest', 'tags');
         // Check for correct context
-        if (strpos($context, "easyblog") === false) {
+        if (strpos($context, 'easyblog') === false) {
             return true;
         }
 
         // Only put buttons in allowed views
-        if (!in_array($this->currentView, $allowedViews)) {
+        if (!in_array($this->currentView, $allowedViews, true)) {
             return true;
         }
 
-        // Verify the option for displaying in view "categories"
+        // Verify the option for displaying in view 'categories'
         $displayInCategories = $this->params->get('ebDisplayInCategories', 0);
-        if (!$displayInCategories AND (strcmp("categories", $this->currentView) == 0)) {
+        if (!$displayInCategories and (strcmp('categories', $this->currentView) === 0)) {
             return true;
         }
 
-        // Verify the option for displaying in view "latest"
+        // Verify the option for displaying in view 'latest'
         $displayInLatest = $this->params->get('ebDisplayInLatest', 0);
-        if (!$displayInLatest AND (strcmp("latest", $this->currentView) == 0)) {
+        if (!$displayInLatest and (strcmp('latest', $this->currentView) === 0)) {
             return true;
         }
 
-        // Verify the option for displaying in view "entry"
+        // Verify the option for displaying in view 'entry'
         $displayInEntry = $this->params->get('ebDisplayInEntry', 0);
-        if (!$displayInEntry AND (strcmp("entry", $this->currentView) == 0)) {
+        if (!$displayInEntry and (strcmp('entry', $this->currentView) === 0)) {
             return true;
         }
 
-        // Verify the option for displaying in view "tags"
+        // Verify the option for displaying in view 'tags'
         $displayInTags = $this->params->get('ebDisplayInTags', 0);
-        if (!$displayInTags AND (strcmp("tags", $this->currentView) == 0)) {
+        if (!$displayInTags and (strcmp('tags', $this->currentView) === 0)) {
             return true;
         }
 
@@ -480,15 +467,13 @@ class plgContentITPShare extends JPlugin
 
     private function prepareEasyBlogObject(&$article)
     {
-
-        $article->image_intro = "";
+        $article->image_intro = '';
         $matches              = array();
 
         preg_match($this->imgPattern, $article->content, $matches);
-        if (isset($matches[1])) {
-            $article->image_intro = JArrayHelper::getValue($matches, 1, "");
+        if (array_key_exists(1, $matches)) {
+            $article->image_intro = ArrayHelper::getValue($matches, 1, '');
         }
-
     }
 
     /**
@@ -501,19 +486,18 @@ class plgContentITPShare extends JPlugin
      */
     private function isJEventsRestricted(&$article, $context)
     {
-
         // Display buttons only in the description
-        if (!is_a($article, "jIcalEventRepeat")) {
+        if (!is_a($article, 'jIcalEventRepeat')) {
             return true;
         };
 
         // Check for correct context
-        if (strpos($context, "com_jevents") === false) {
+        if (strpos($context, 'com_jevents') === false) {
             return true;
         }
 
         // Display only in task 'icalrepeat.detail'
-        if (strcmp("icalrepeat.detail", $this->currentTask) != 0) {
+        if (strcmp('icalrepeat.detail', $this->currentTask) !== 0) {
             return true;
         }
 
@@ -534,15 +518,14 @@ class plgContentITPShare extends JPlugin
      */
     private function isVipQuotesRestricted($context)
     {
-
         // Check for correct context
-        if (strpos($context, "com_vipquotes") === false) {
+        if (strpos($context, 'com_vipquotes') === false) {
             return true;
         }
 
         // Display only in view 'quote'
-        $allowedViews = array("author", "quote");
-        if (!in_array($this->currentView, $allowedViews)) {
+        $allowedViews = array('author', 'quote');
+        if (!in_array($this->currentView, $allowedViews, true)) {
             return true;
         }
 
@@ -568,14 +551,13 @@ class plgContentITPShare extends JPlugin
      */
     private function isUserIdeasRestricted($context)
     {
-
         // Check for correct context
-        if (strpos($context, "com_userideas") === false) {
+        if (strpos($context, 'com_userideas') === false) {
             return true;
         }
 
         // Display only in view 'details'
-        if (strcmp($this->currentView, "details") != 0) {
+        if (strcmp($this->currentView, 'details') !== 0) {
             return true;
         }
 
@@ -599,18 +581,17 @@ class plgContentITPShare extends JPlugin
      */
     private function isVirtuemartRestricted(&$article, $context)
     {
-
         // Check for correct context
-        if (strpos($context, "com_virtuemart") === false) {
+        if (strpos($context, 'com_virtuemart') === false) {
             return true;
         }
 
-        // Display content only in the view "productdetails"
-        if (strcmp("productdetails", $this->currentView) != 0) {
+        // Display content only in the view 'productdetails'
+        if (strcmp('productdetails', $this->currentView) !== 0) {
             return true;
         }
 
-        // Only display content in the view "productdetails".
+        // Only display content in the view 'productdetails'.
         $displayInDetails = $this->params->get('vmDisplayInDetails', 0);
         if (!$displayInDetails) {
             return true;
@@ -624,28 +605,25 @@ class plgContentITPShare extends JPlugin
 
     private function prepareVirtuemartObject(&$article)
     {
-
-        $article->image_intro = "";
+        $article->image_intro = '';
 
         if (!empty($article->id)) {
-
             $db = JFactory::getDbo();
-            /** @var $db JDatabaseMySQLi * */
+            /** @var $db JDatabaseDriver */
 
             $query = $db->getQuery(true);
 
             $query
-                ->select("#__virtuemart_medias.file_url")
-                ->from("#__virtuemart_medias")
-                ->join("RIGHT", "#__virtuemart_product_medias ON #__virtuemart_product_medias.virtuemart_media_id = #__virtuemart_medias.virtuemart_media_id")
-                ->where("#__virtuemart_product_medias.virtuemart_product_id=" . (int)$article->id);
+                ->select('#__virtuemart_medias.file_url')
+                ->from('#__virtuemart_medias')
+                ->join('RIGHT', '#__virtuemart_product_medias ON #__virtuemart_product_medias.virtuemart_media_id = #__virtuemart_medias.virtuemart_media_id')
+                ->where('#__virtuemart_product_medias.virtuemart_product_id=' . (int)$article->id);
 
             $db->setQuery($query, 0, 1);
             $fileURL = $db->loadResult();
             if (!empty($fileURL)) {
                 $article->image_intro = $fileURL;
             }
-
         }
     }
 
@@ -658,17 +636,11 @@ class plgContentITPShare extends JPlugin
      */
     private function isVipPortfolioRestricted($context)
     {
-
-        // Check for correct context
-        if (false === strpos($context, "com_vipportfolio.details")) {
-            return true;
-        }
-
-        return false;
+        return (bool)(false === strpos($context, 'com_vipportfolio.details'));
     }
 
     /**
-     * It is a method that verify restriction for the component "com_zoo".
+     * It is a method that verify restriction for the component 'com_zoo'.
      *
      * @param string $context
      *
@@ -676,28 +648,27 @@ class plgContentITPShare extends JPlugin
      */
     private function isZooRestricted($context)
     {
-
         // Check for correct context
-        if (false === strpos($context, "com_zoo")) {
+        if (false === strpos($context, 'com_zoo')) {
             return true;
         }
 
-        // Verify the option for displaying in view "item"
+        // Verify the option for displaying in view 'item'
         $displayInItem = $this->params->get('zoo_display', 0);
         if (!$displayInItem) {
             return true;
         }
 
         // Check for valid view or task
-        // I have check for task because if the user comes from view category, the current view is "null" and the current task is "item"
-        if ((strcmp("item", $this->currentView) != 0) AND (strcmp("item", $this->currentTask) != 0)) {
+        // I have check for task because if the user comes from view category, the current view is 'null' and the current task is 'item'
+        if ((strcmp('item', $this->currentView) !== 0) and (strcmp('item', $this->currentTask) !== 0)) {
             return true;
         }
 
         // A little hack used to prevent multiple displaying of buttons, because
         // if there are more than one textareas the buttons will be displayed in everyone.
         static $numbers = 0;
-        if ($numbers == 1) {
+        if ((int)$numbers === 1) {
             return true;
         }
         $numbers = 1;
@@ -706,9 +677,9 @@ class plgContentITPShare extends JPlugin
     }
 
     /**
-     * It's a method that verify restriction for the component "com_joomshopping".
+     * It's a method that verify restriction for the component 'com_joomshopping'.
      *
-     * @param object $article
+     * @param stdClass $article
      * @param string $context
      *
      * @return bool
@@ -716,13 +687,13 @@ class plgContentITPShare extends JPlugin
     private function isJoomShoppingRestricted(&$article, $context)
     {
         // Check for correct context
-        if (false === strpos($context, "com_content.article")) {
+        if (false === strpos($context, 'com_content.article')) {
             return true;
         }
 
         // Check for enabled functionality for that extension
         $displayInDetails = $this->params->get('joomshopping_display', 0);
-        if (!$displayInDetails OR !isset($article->product_id)) {
+        if (!$displayInDetails or !isset($article->product_id)) {
             return true;
         }
 
@@ -733,50 +704,46 @@ class plgContentITPShare extends JPlugin
 
     private function prepareJoomShoppingObject(&$article)
     {
-
-        $article->image_intro = "";
+        $article->image_intro = '';
 
         if (!empty($article->product_id)) {
-
             $db = JFactory::getDbo();
-            /** @var $db JDatabaseMySQLi * */
+            /** @var $db JDatabaseDriver */
 
             $query = $db->getQuery(true);
 
             $query
-                ->select("image_name")
-                ->from("#__jshopping_products_images")
-                ->where("product_id=" . (int)$article->product_id)
-                ->order("ordering");
+                ->select('image_name')
+                ->from('#__jshopping_products_images')
+                ->where('product_id=' . (int)$article->product_id)
+                ->order('ordering');
 
             $db->setQuery($query, 0, 1);
             $imageName = $db->loadResult();
             if (!empty($imageName)) {
                 $config               = JSFactory::getConfig();
-                $article->image_intro = $config->image_product_live_path . "/" . $imageName;
+                $article->image_intro = (isset($config->image_product_live_path)) ? $config->image_product_live_path .'/'. $imageName : '';
             }
-
         }
     }
 
     /**
-     * It's a method that verify restriction for the component "com_hikashop"
+     * It's a method that verify restriction for the component 'com_hikashop'
      *
-     * @param object $article
+     * @param stdClass $article
      * @param string $context
      *
      * @return bool
      */
     private function isHikaShopRestricted(&$article, $context)
     {
-
         // Check for correct context
-        if (false === strpos($context, "text")) {
+        if (false === strpos($context, 'text')) {
             return true;
         }
 
-        // Display content only in the view "product"
-        if (strcmp("product", $this->currentView) != 0) {
+        // Display content only in the view 'product'
+        if (strcmp('product', $this->currentView) !== 0) {
             return true;
         }
 
@@ -793,8 +760,7 @@ class plgContentITPShare extends JPlugin
 
     private function prepareHikashopObject(&$article)
     {
-
-        $article->image_intro = "";
+        $article->image_intro = '';
         $article->id          = null;
 
         $url = clone JUri::getInstance();
@@ -802,7 +768,7 @@ class plgContentITPShare extends JPlugin
         // Get the URI
         $itemURI = $url->getPath();
         if ($url->getQuery()) {
-            $itemURI .= "?" . $url->getQuery();
+            $itemURI .= '?' . $url->getQuery();
         }
         $article->link = $itemURI;
 
@@ -810,40 +776,38 @@ class plgContentITPShare extends JPlugin
         $app        = JFactory::getApplication();
         $router     = $app->getRouter();
         $parsed     = $router->parse($url);
-        $menuItemId = JArrayHelper::getValue($parsed, "Itemid");
+        $menuItemId = ArrayHelper::getValue($parsed, 'Itemid');
 
-        $article->id = JArrayHelper::getValue($parsed, "cid");
+        $article->id = ArrayHelper::getValue($parsed, 'cid');
 
         // Get product id from menu item
-        if (!$article->id AND !empty($menuItemId)) {
+        if (!$article->id and ($menuItemId !== null and $menuItemId > 0)) {
             $menu     = $app->getMenu();
             $menuItem = $menu->getItem($menuItemId);
 //            $menuParams = $menuItem->params;
-            $productIds = $menuItem->params->get("product_id");
+            $productIds = $menuItem->params->get('product_id');
 
-            if (!empty($productIds)) {
+            if (is_array($productIds) and count($productIds) > 0) {
                 $article->id = array_shift($productIds);
             }
-
         }
 
         if (!empty($article->id)) {
             $db = JFactory::getDbo();
-            /** @var $db JDatabaseMySQLi * */
+            /** @var $db JDatabaseDriver */
 
             $qiery = $db->getQuery(true);
 
             $qiery
-                ->select("#__hikashop_product.product_name, #__hikashop_product.product_page_title, #__hikashop_file.file_path")
-                ->from("#__hikashop_product")
-                ->join("LEFT", "#__hikashop_file ON #__hikashop_product.product_id = #__hikashop_file.file_ref_id")
-                ->where("#__hikashop_product.product_id=" . (int)$article->id);
+                ->select('#__hikashop_product.product_name, #__hikashop_product.product_page_title, #__hikashop_file.file_path')
+                ->from('#__hikashop_product')
+                ->join('LEFT', '#__hikashop_file ON #__hikashop_product.product_id = #__hikashop_file.file_ref_id')
+                ->where('#__hikashop_product.product_id=' . (int)$article->id);
 
             $db->setQuery($qiery, 0, 1);
             $result = $db->loadObject();
 
-            if (!empty($result)) {
-
+            if ($result !== null and is_object($result)) {
                 // Get title
                 $article->title = $result->product_page_title;
                 if (!$article->title) {
@@ -852,7 +816,7 @@ class plgContentITPShare extends JPlugin
 
                 // Get image
                 $config               = hikashop_config();
-                $uploadFolder         = $config->get("uploadfolder");
+                $uploadFolder         = $config->get('uploadfolder');
                 $article->image_intro = $uploadFolder . $result->file_path;
             }
         }
@@ -862,20 +826,19 @@ class plgContentITPShare extends JPlugin
     /**
      * Generate content
      *
-     * @param   object $article
+     * @param   stdClass $article
      * @param   string $context
      *
      * @return  string      Returns html code or empty string.
      */
     private function getContent(&$article, $context)
     {
-
-        $url   = $this->getUrl($article, $context);
-        $title = $this->getTitle($article, $context);
-        $image = $this->getImage($article, $context);
+        $url   = $this->getUrl($article);
+        $title = $this->getTitle($article);
+        $image = $this->getImage($article);
 
         // Convert the url to short one
-        if ($this->params->get("shortener_service")) {
+        if ($this->params->get('shortener_service')) {
             $url = $this->getShortUrl($url);
         }
 
@@ -913,62 +876,60 @@ class plgContentITPShare extends JPlugin
      */
     private function getUrl(&$article)
     {
-
-        $uri    = "";
+        $uri    = '';
         $url    = JUri::getInstance();
-        $domain = $url->getScheme() . "://" . $url->getHost();
+        $domain = $url->getScheme() . '://' . $url->getHost();
 
         switch ($this->currentOption) {
-            case "com_content":
+            case 'com_content':
                 $uri = JRoute::_(ContentHelperRoute::getArticleRoute($article->slug, $article->catslug), false);
                 break;
 
-            case "com_k2":
+            case 'com_k2':
                 $uri = $article->link;
                 break;
 
-            case "com_virtuemart":
+            case 'com_virtuemart':
                 $uri = $article->link;
                 break;
 
-            case "com_jevents":
+            case 'com_jevents':
                 // Display buttons only in the description
-                if (is_a($article, "jIcalEventRepeat")) {
+                if (is_a($article, 'jIcalEventRepeat')) {
                     $uri = $this->getCurrentURI($url);
                 };
-
                 break;
 
-            case "com_easyblog":
+            case 'com_easyblog':
                 $uri = EasyBlogRouter::getRoutedURL('index.php?option=com_easyblog&view=entry&id=' . $article->id, false, false);
                 break;
 
-            case "com_vipportfolio":
+            case 'com_vipportfolio':
                 $uri = JRoute::_($article->link, false);
                 break;
 
-            case "com_zoo":
+            case 'com_zoo':
                 $uri = $this->getCurrentURI($url);
                 break;
 
-            case "com_jshopping":
+            case 'com_jshopping':
                 $uri = $this->getCurrentURI($url);
                 break;
 
-            case "com_hikashop":
+            case 'com_hikashop':
                 $uri = $article->link;
                 break;
 
-            case "com_vipquotes":
+            case 'com_vipquotes':
                 $uri = $article->link;
                 break;
 
-            case "com_userideas":
+            case 'com_userideas':
                 $uri = JRoute::_($article->link, false);;
                 break;
 
             default:
-                $uri = "";
+                $uri = '';
                 break;
         }
 
@@ -977,7 +938,6 @@ class plgContentITPShare extends JPlugin
         $url    = $filter->clean($domain . $uri);
 
         return $url;
-
     }
 
     /**
@@ -991,7 +951,7 @@ class plgContentITPShare extends JPlugin
     {
         $uri = $url->getPath();
         if ($url->getQuery()) {
-            $uri .= "?" . $url->getQuery();
+            $uri .= '?' . $url->getQuery();
         }
 
         return $uri;
@@ -999,67 +959,65 @@ class plgContentITPShare extends JPlugin
 
     private function getTitle(&$article)
     {
-        $title = "";
+        $title = '';
 
         switch ($this->currentOption) {
-            case "com_content":
+            case 'com_content':
                 $title = $article->title;
                 break;
 
-            case "com_k2":
+            case 'com_k2':
                 $title = $article->title;
                 break;
 
-            case "com_virtuemart":
+            case 'com_virtuemart':
                 $title = (!empty($article->custom_title)) ? $article->custom_title : $article->product_name;
                 break;
 
-            case "com_jevents":
+            case 'com_jevents':
                 // Display buttons only in the description
-                if (is_a($article, "jIcalEventRepeat")) {
-
-                    $title = JString::trim($article->title());
+                if (is_a($article, 'jIcalEventRepeat')) {
+                    $title = trim($article->title());
                     if (!$title) {
                         $doc = JFactory::getDocument();
-                        /**  @var $doc JDocumentHtml * */
+                        /**  @var $doc JDocumentHtml */
                         $title = $doc->getTitle();
                     }
                 };
-
                 break;
 
-            case "com_easyblog":
+            case 'com_easyblog':
                 $title = $article->title;
                 break;
 
-            case "com_vipportfolio":
+            case 'com_vipportfolio':
                 $title = $article->title;
                 break;
 
-            case "com_zoo":
+            case 'com_zoo':
                 $doc = JFactory::getDocument();
-                /**  @var $doc JDocumentHtml * */
+                /**  @var $doc JDocumentHtml */
                 $title = $doc->getTitle();
                 break;
 
-            case "com_jshopping":
+            case 'com_jshopping':
                 $title = $article->title;
                 break;
 
-            case "com_hikashop":
+            case 'com_hikashop':
                 $title = $article->title;
                 break;
 
-            case "com_vipquotes":
+            case 'com_vipquotes':
                 $title = $article->title;
                 break;
 
-            case "com_userideas":
+            case 'com_userideas':
                 $title = $article->title;
                 break;
 
             default:
-                $title = "";
+                $title = '';
                 break;
         }
 
@@ -1069,11 +1027,10 @@ class plgContentITPShare extends JPlugin
 
     private function getImage($article)
     {
-
-        $result = "";
+        $result = '';
 
         switch ($this->currentOption) {
-            case "com_content":
+            case 'com_content':
                 if (!empty($article->images)) {
                     $images = json_decode($article->images);
                     if (!empty($images->image_intro)) {
@@ -1082,61 +1039,56 @@ class plgContentITPShare extends JPlugin
                 }
                 break;
 
-            case "com_k2":
+            case 'com_k2':
                 if (!empty($article->imageSmall)) {
                     $result = JURI::root() . $article->imageSmall;
                 }
                 break;
 
-            case "com_easyblog":
+            case 'com_easyblog':
                 $result = JURI::root() . $article->image_intro;
                 break;
 
-            case "com_virtuemart":
+            case 'com_virtuemart':
                 if (!empty($article->image_intro)) {
                     $result = JURI::root() . $article->image_intro;
                 }
                 break;
 
-            case "com_vipportfolio":
+            case 'com_vipportfolio':
                 if (!empty($article->image_intro)) {
                     $result = $article->image_intro;
                 }
                 break;
 
-            case "com_jshopping":
+            case 'com_jshopping':
                 if (!empty($article->image_intro)) {
                     $result = $article->image_intro;
                 }
                 break;
 
-            case "com_zoo":
-                $result = "";
+            case 'com_zoo':
+                $result = '';
                 break;
 
-            case "com_hikashop":
-
+            case 'com_hikashop':
                 if (!empty($article->image_intro)) {
                     $result = JURI::root() . $article->image_intro;
                 }
-
                 break;
 
-            case "com_vipquotes":
-
+            case 'com_vipquotes':
                 if (!empty($article->image_intro)) {
                     $result = $article->image_intro;
                 }
-
                 break;
 
             default:
-                $result = "";
+                $result = '';
                 break;
         }
 
         return $result;
-
     }
 
     /**
@@ -1148,18 +1100,16 @@ class plgContentITPShare extends JPlugin
      */
     private function getShortUrl($link)
     {
-
-        JLoader::register("ItpSharePluginShortUrl", dirname(__FILE__) . DIRECTORY_SEPARATOR . "shorturl.php");
+        JLoader::register('ItpSharePluginShortUrl', dirname(__FILE__) . DIRECTORY_SEPARATOR . 'shorturl.php');
         $options = array(
-            "login"   => $this->params->get("shortener_login"),
-            "api_key" => $this->params->get("shortener_api_key"),
-            "service" => $this->params->get("shortener_service"),
+            'login'   => $this->params->get('shortener_login'),
+            'api_key' => $this->params->get('shortener_api_key'),
+            'service' => $this->params->get('shortener_service'),
         );
 
-        $shortLink = "";
+        $shortLink = '';
 
         try {
-
             $shortUrl  = new ItpSharePluginShortUrl($link, $options);
             $shortLink = $shortUrl->getUrl();
 
@@ -1167,20 +1117,16 @@ class plgContentITPShare extends JPlugin
             if (!$shortLink) {
                 $shortLink = $link;
             }
-
         } catch (Exception $e) {
-
             JLog::add($e->getMessage());
 
             // Get original link
             if (!$shortLink) {
                 $shortLink = $link;
             }
-
         }
 
         return $shortLink;
-
     }
 
     /**
@@ -1189,21 +1135,20 @@ class plgContentITPShare extends JPlugin
      *
      * @param string    $title  Article Title
      * @param string    $url    Article URL
-     * @param JRegistry $params Plugin parameters
+     * @param Registry $params Plugin parameters
      *
      * @return string
      */
     private function getExtraButtons($title, $url, &$params)
     {
-
-        $html = "";
+        $html = '';
         // Extra buttons
         for ($i = 1; $i < 6; $i++) {
-            $btnName     = "ebuttons" . $i;
-            $extraButton = $params->get($btnName, "");
-            if (!empty($extraButton)) {
-                $extraButton = str_replace("{URL}", $url, $extraButton);
-                $extraButton = str_replace("{TITLE}", $title, $extraButton);
+            $btnName     = 'ebuttons' . $i;
+            $extraButton = $params->get($btnName, '');
+            if ($extraButton !== '') {
+                $extraButton = str_replace('{URL}', $url, $extraButton);
+                $extraButton = str_replace('{TITLE}', $title, $extraButton);
                 $html .= $extraButton;
             }
         }
@@ -1212,7 +1157,7 @@ class plgContentITPShare extends JPlugin
     }
 
     /**
-     * @param JRegistry $params
+     * @param Registry $params
      * @param string    $url
      * @param string    $title
      *
@@ -1220,25 +1165,23 @@ class plgContentITPShare extends JPlugin
      */
     private function getTwitter($params, $url, $title)
     {
-
-        $html = "";
-        if ($params->get("twitterButton")) {
-
-            $title = htmlentities($title, ENT_QUOTES, "UTF-8");
+        $html = '';
+        if ($params->get('twitterButton')) {
+            $title = htmlentities($title, ENT_QUOTES, 'UTF-8');
 
             // Get locale code
-            if (!$params->get("dynamicLocale")) {
-                $this->twitterLocale = $params->get("twitterLanguage", "en");
+            if (!$params->get('dynamicLocale')) {
+                $twitterLocale = $params->get('twitterLanguage', 'en');
             } else {
                 $locales             = $this->getButtonsLocales($this->locale);
-                $this->twitterLocale = JArrayHelper::getValue($locales, "twitter", "en");
+                $twitterLocale = ArrayHelper::getValue($locales, 'twitter', 'en');
             }
 
             $html = '
              	<div class="itp-share-tw">
-                	<a href="https://twitter.com/share" class="twitter-share-button" data-url="' . rawurldecode(html_entity_decode($url, ENT_COMPAT, 'UTF-8')) . '" data-text="' . $title . '" data-via="' . $params->get("twitterName") . '" data-lang="' . $this->twitterLocale . '" data-size="' . $params->get("twitterSize") . '" data-related="' . $params->get("twitterRecommend") . '" data-hashtags="' . $params->get("twitterHashtag") . '" data-count="' . $params->get("twitterCounter") . '">Tweet</a>';
+                	<a href="https://twitter.com/share" class="twitter-share-button" data-url="' . rawurldecode(html_entity_decode($url, ENT_COMPAT, 'UTF-8')) . '" data-text="' . $title . '" data-via="' . $params->get('twitterName') . '" data-lang="' . $twitterLocale . '" data-size="' . $params->get('twitterSize') . '" data-related="' . $params->get('twitterRecommend') . '" data-hashtags="' . $params->get('twitterHashtag') . '" data-count="' . $params->get('twitterCounter') . '">Tweet</a>';
 
-            if ($params->get("load_twitter_library", 1)) {
+            if ($params->get('load_twitter_library', 1)) {
                 $html .= "<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>";
             }
 
@@ -1249,51 +1192,39 @@ class plgContentITPShare extends JPlugin
     }
 
     /**
-     * @param JRegistry $params
+     * @param Registry $params
      * @param string    $url
      *
      * @return string
      */
     private function getGooglePlusOne($params, $url)
     {
-
-        $html = "";
-        if ($params->get("plusButton")) {
-
+        $html = '';
+        if ($params->get('plusButton')) {
             // Get locale code
-            if (!$params->get("dynamicLocale")) {
-                $this->plusLocale = $params->get("plusLocale", "en");
+            if (!$params->get('dynamicLocale')) {
+                $plusLocale = $params->get('plusLocale', 'en');
             } else {
-                $locales          = $this->getButtonsLocales($this->locale);
-                $this->plusLocale = JArrayHelper::getValue($locales, "google", "en");
+                $locales    = $this->getButtonsLocales($this->locale);
+                $plusLocale = ArrayHelper::getValue($locales, 'google', 'en');
             }
 
             $html .= '<div class="itp-share-gone">';
 
-            switch ($params->get("plusRenderer")) {
-
-                case 1:
-                    $html .= $this->genGooglePlus($params, $url);
-                    break;
-
-                default:
-                    $html .= $this->genGooglePlusHTML5($params, $url);
-                    break;
+            $annotation = '';
+            if ($params->get('plusAnnotation')) {
+                $annotation = ' data-annotation="' . $params->get('plusAnnotation') . '"';
             }
 
-            // Load the JavaScript asynchroning
-            if ($params->get("loadGoogleJsLib")) {
+            $html .= '<div class="g-plusone" data-size="' . $params->get('plusType') . '" ' . $annotation . ' data-href="' . $url . '"></div>';
 
-                $html .= '<script>';
-                $html .= ' window.___gcfg = {lang: "' . $this->plusLocale . '"};';
-
+            // Load the JavaScript asynchronous
+            if ($params->get('loadGoogleJsLib') and !array_key_exists('google', self::$loaded)) {
                 $html .= '
-              (function() {
-                var po = document.createElement("script"); po.type = "text/javascript"; po.async = true;
-                po.src = "https://apis.google.com/js/plusone.js";
-                var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s);
-              })();
-            </script>';
+<script src="https://apis.google.com/js/platform.js" async defer>
+  {lang: "'.$plusLocale.'"}
+</script>';
+                self::$loaded['google'] = true;
             }
 
             $html .= '</div>';
@@ -1303,286 +1234,112 @@ class plgContentITPShare extends JPlugin
     }
 
     /**
-     * Render the Google plus one in standard syntax.
-     *
-     * @param JRegistry $params
-     * @param string    $url
-     *
-     * @return string
-     */
-    private function genGooglePlus($params, $url)
-    {
-
-        $annotation = "";
-        if ($params->get("plusAnnotation")) {
-            $annotation = ' annotation="' . $params->get("plusAnnotation") . '"';
-        }
-
-        $html = '<g:plusone size="' . $params->get("plusType") . '" ' . $annotation . ' href="' . $url . '"></g:plusone>';
-
-        return $html;
-    }
-
-    /**
-     * Render the Google plus one in HTML5 syntax
-     *
-     * @param JRegistry $params
-     * @param string    $url
-     *
-     * @return string
-     */
-    private function genGooglePlusHTML5($params, $url)
-    {
-
-        $annotation = "";
-        if ($params->get("plusAnnotation")) {
-            $annotation = ' data-annotation="' . $params->get("plusAnnotation") . '"';
-        }
-
-        $html = '<div class="g-plusone" data-size="' . $params->get("plusType") . '" ' . $annotation . ' data-href="' . $url . '"></div>';
-
-        return $html;
-    }
-
-    /**
-     * @param JRegistry $params
+     * @param Registry $params
      * @param string    $url
      *
      * @return string
      */
     private function getFacebookLike($params, $url)
     {
-
-        $html = "";
-        if ($params->get("facebookLikeButton")) {
-
+        $html = '';
+        if ($params->get('facebookLikeButton')) {
             // Get locale code
-            if (!$params->get("dynamicLocale")) {
-                $this->fbLocale = $params->get("fbLocale", "en_US");
+            if (!$params->get('dynamicLocale')) {
+                $this->fbLocale = $params->get('fbLocale', 'en_US');
             } else {
                 $locales        = $this->getButtonsLocales($this->locale);
-                $this->fbLocale = JArrayHelper::getValue($locales, "facebook", "en_US");
+                $this->fbLocale = ArrayHelper::getValue($locales, 'facebook', 'en_US');
             }
 
             // Faces
-            $faces = (!$params->get("facebookLikeFaces")) ? "false" : "true";
+            $faces = (!$params->get('facebookLikeFaces')) ? 'false' : 'true';
 
             // Layout Styles
-            $layout = $params->get("facebookLikeType", "button_count");
-            if (strcmp("box_count", $layout) == 0) {
-                $height = "80";
-            } else {
-                $height = "25";
-            }
+            $layout = $params->get('facebookLikeType', 'button_count');
 
             // Generate code
             $html = '<div class="itp-share-fbl">';
 
-            switch ($params->get("facebookLikeRenderer")) {
-
-                case 0: // iframe
-                    $html .= $this->genFacebookLikeIframe($params, $url, $layout, $faces, $height);
-                    break;
-
-                case 1: // XFBML
-                    $html .= $this->genFacebookLikeXfbml($params, $url, $layout, $faces);
-                    break;
-
-                default: // HTML5
-                    $html .= $this->genFacebookLikeHtml5($params, $url, $layout, $faces);
-                    break;
+            if ($params->get('facebookRootDiv', 1)) {
+                $html .= '<div id="fb-root"></div>';
             }
 
-            $html .= "</div>";
-        }
+            if ($params->get('facebookLoadJsLib', 1)) {
+                $appId = '';
+                if ($params->get('facebookLikeAppId')) {
+                    $appId = '&amp;appId=' . $params->get('facebookLikeAppId');
+                }
 
-        return $html;
-    }
-
-    /**
-     * @param JRegistry $params
-     * @param string    $url
-     * @param string    $layout
-     * @param string    $faces
-     * @param string    $height
-     *
-     * @return string
-     */
-    private function genFacebookLikeIframe($params, $url, $layout, $faces, $height)
-    {
-        $html = '
-            <iframe src="//www.facebook.com/plugins/like.php?';
-
-        $html .= 'href=' . rawurldecode(html_entity_decode($url, ENT_COMPAT, 'UTF-8')) . '&amp;send=' . $params->get("facebookLikeSend", 0) . '&amp;locale=' . $this->fbLocale . '&amp;layout=' . $layout . '&amp;show_faces=' . $faces . '&amp;width=' . $params->get("facebookLikeWidth", "450") . '&amp;action=' . $params->get("facebookLikeAction", 'like') . '&amp;colorscheme=' . $params->get("facebookLikeColor", 'light') . '&amp;height=' . $height . '';
-        if ($params->get("facebookLikeFont")) {
-            $html .= "&amp;font=" . $params->get("facebookLikeFont");
-        }
-        if ($params->get("facebookLikeAppId")) {
-            $html .= "&amp;appId=" . $params->get("facebookLikeAppId");
-        }
-
-        if ($params->get("facebookKidDirectedSite")) {
-            $html .= '&amp;kid_directed_site=true';
-        }
-
-        $html .= '" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:' . $params->get("facebookLikeWidth", "450") . 'px; height:' . $height . 'px;" allowTransparency="true"></iframe>
-        ';
-
-        return $html;
-    }
-
-    /**
-     * @param JRegistry $params
-     * @param string    $url
-     * @param string    $layout
-     * @param string    $faces
-     *
-     * @return string
-     */
-    private function genFacebookLikeXfbml($params, $url, $layout, $faces)
-    {
-
-        $html = "";
-
-        if ($params->get("facebookRootDiv", 1)) {
-            $html .= '<div id="fb-root"></div>';
-        }
-
-        if ($params->get("facebookLoadJsLib", 1)) {
-            $appId = "";
-            if ($params->get("facebookLikeAppId")) {
-                $appId = '&amp;appId=' . $params->get("facebookLikeAppId");
-            }
-
-            $html .= '
+                $html .= '
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/' . $this->fbLocale . '/sdk.js#xfbml=1&version=v2.0' . $appId . '";
+  js.src = "//connect.facebook.net/' . $this->fbLocale . '/sdk.js#xfbml=1&version=v2.6' . $appId . '";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, \'script\', \'facebook-jssdk\'));</script>';
-
-        }
-
-        $html .= '
-        <fb:like 
-        href="' . $url . '" 
-        layout="' . $layout . '" 
-        show_faces="' . $faces . '" 
-        width="' . $params->get("facebookLikeWidth", "450") . '" 
-        colorscheme="' . $params->get("facebookLikeColor", "light") . '"
-        share="' . $params->get("facebookLikeShare", 0) . '"
-        action="' . $params->get("facebookLikeAction", 'like') . '" ';
-
-        if ($params->get("facebookLikeFont")) {
-            $html .= ' font="' . $params->get("facebookLikeFont") . '"';
-        }
-
-        if ($params->get("facebookKidDirectedSite")) {
-            $html .= ' kid_directed_site="true"';
-        }
-
-        $html .= '></fb:like>
-        ';
-
-        return $html;
-    }
-
-    /**
-     * @param JRegistry $params
-     * @param string    $url
-     * @param string    $layout
-     * @param string    $faces
-     *
-     * @return string
-     */
-    private function genFacebookLikeHtml5($params, $url, $layout, $faces)
-    {
-        $html = '';
-
-        if ($params->get("facebookRootDiv", 1)) {
-            $html .= '<div id="fb-root"></div>';
-        }
-
-        if ($params->get("facebookLoadJsLib", 1)) {
-            $appId = "";
-            if ($params->get("facebookLikeAppId")) {
-                $appId = '&amp;appId=' . $params->get("facebookLikeAppId");
             }
 
             $html .= '
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/' . $this->fbLocale . '/sdk.js#xfbml=1&version=v2.0' . $appId . '";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, \'script\', \'facebook-jssdk\'));</script>';
-
-        }
-
-        $html .= '
-            <div 
-            class="fb-like" 
-            data-href="' . $url . '" 
-            data-share="' . $params->get("facebookLikeShare", 0) . '"
+            <div
+            class="fb-like"
+            data-href="' . rawurldecode(html_entity_decode($url, ENT_COMPAT, 'UTF-8')) . '"
+            data-share="' . $params->get('facebookLikeShare', 0) . '"
             data-layout="' . $layout . '"
-            data-width="' . $params->get("facebookLikeWidth", "450") . '"
-            data-show-faces="' . $faces . '" 
-            data-colorscheme="' . $params->get("facebookLikeColor", "light") . '"
-            data-action="' . $params->get("facebookLikeAction", 'like') . '"';
+            data-width="' . $params->get('facebookLikeWidth', '450') . '"
+            data-show-faces="' . $faces . '"
+            data-colorscheme="' . $params->get('facebookLikeColor', 'light') . '"
+            data-action="' . $params->get('facebookLikeAction', 'like') . '"';
 
-        if ($params->get("facebookLikeFont")) {
-            $html .= ' data-font="' . $params->get("facebookLikeFont") . '" ';
+            if ($params->get('facebookLikeFont')) {
+                $html .= ' data-font="' . $params->get('facebookLikeFont') . '" ';
+            }
+
+            if ($params->get('facebookKidDirectedSite')) {
+                $html .= ' data-kid-directed-site="true"';
+            }
+
+            $html .= '></div>';
+
+            $html .= '</div>';
         }
-
-        if ($params->get("facebookKidDirectedSite")) {
-            $html .= ' data-kid-directed-site="true"';
-        }
-
-        $html .= '></div>';
 
         return $html;
-
     }
 
     /**
-     * @param JRegistry $params
+     * @param Registry $params
      * @param string    $url
      *
      * @return string
      */
     private function getLinkedIn($params, $url)
     {
-        $html = "";
-        if ($params->get("linkedInButton")) {
-
+        $html = '';
+        if ($params->get('linkedInButton')) {
             // Get locale code
-            if (!$params->get("dynamicLocale")) {
-                $locale  = $params->get("linkedInLocale", "en_US");
+            if (!$params->get('dynamicLocale')) {
+                $locale  = $params->get('linkedInLocale', 'en_US');
             } else {
                 $locale  = $this->locale;
             }
 
-            $html = '
-            <div class="itp-share-lin">';
+            $html = '<div class="itp-share-lin">';
 
-            if ($params->get("load_linkedin_library", 1)) {
+            if ($params->get('load_linkedin_library', 1)) {
                 $html .= '<script src="//platform.linkedin.com/in.js">lang: '.$locale.'</script>';
             }
 
-            $html .= '<script type="IN/Share" data-url="' . rawurldecode(html_entity_decode($url, ENT_COMPAT, 'UTF-8')) . '" data-counter="' . $params->get("linkedInType", 'right') . '"></script>
+            $html .= '<script type="IN/Share" data-url="' . rawurldecode(html_entity_decode($url, ENT_COMPAT, 'UTF-8')) . '" data-counter="' . $params->get('linkedInType', 'right') . '"></script>
             </div>
             ';
-
         }
 
         return $html;
     }
 
     /**
-     * @param JRegistry $params
+     * @param Registry $params
      * @param string    $url
      * @param string    $title
      *
@@ -1590,31 +1347,28 @@ class plgContentITPShare extends JPlugin
      */
     private function getReddit($params, $url, $title)
     {
-
-        $html = "";
-        if ($params->get("redditButton")) {
-
+        $html = '';
+        if ($params->get('redditButton')) {
             $url   = rawurldecode(html_entity_decode($url, ENT_COMPAT, 'UTF-8'));
-            $title = htmlentities($title, ENT_QUOTES, "UTF-8");
+            $title = htmlentities($title, ENT_QUOTES, 'UTF-8');
 
-            $alt   = JText::_("PLG_CONTENT_ITPSHARE_SUBMIT_REDDIT");
+            $alt   = JText::_('PLG_CONTENT_ITPSHARE_SUBMIT_REDDIT');
             
             $html .= '<div class="itp-share-reddit">';
-            $redditType = $params->get("redditType");
+            $redditType = (int)$params->get('redditType');
 
-            $jsButtons = range(1, 9);
+            $jsButtons  = range(1, 9);
 
-            if (in_array($redditType, $jsButtons)) {
+            if (in_array($redditType, $jsButtons, true)) {
                 $html .= '<script>
   reddit_url = "' . $url . '";
   reddit_title = "' . $title . '";
-  reddit_bgcolor = "' . $params->get("redditBgColor") . '";
-  reddit_bordercolor = "' . $params->get("redditBorderColor") . '";
-  reddit_newwindow = "' . $params->get("redditNewTab") . '";
+  reddit_bgcolor = "' . $params->get('redditBgColor') . '";
+  reddit_bordercolor = "' . $params->get('redditBorderColor') . '";
+  reddit_newwindow = "' . $params->get('redditNewTab') . '";
 </script>';
             }
             switch ($redditType) {
-
                 case 1:
                     $html .= '<script src="//www.reddit.com/static/button/button1.js"></script>';
                     break;
@@ -1686,34 +1440,28 @@ class plgContentITPShare extends JPlugin
                     $html .= '<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url=' . $url . '\'; return false"> <img src="//www.reddit.com/static/spreddit7.gif" alt="' . $alt . '" border="0" /> </a>';
                     break;
             }
-
             $html .= '</div>';
-
         }
-
         return $html;
     }
 
     /**
-     * @param JRegistry $params
+     * @param Registry $params
      *
      * @return string
      */
     private function getTumblr($params)
     {
-
-        $html = "";
-        if ($params->get("tumblrButton")) {
-
+        $html = '';
+        if ($params->get('tumblrButton')) {
             $html .= '<div class="itp-share-tbr">';
 
-            if ($params->get("loadTumblrJsLib")) {
+            if ($params->get('loadTumblrJsLib')) {
                 $html .= '<script src="//platform.tumblr.com/v1/share.js"></script>';
             }
 
-            $thumlrTitle = JText::_("PLG_CONTENT_ITPSHARE_SHARE_THUMBLR");
-            switch ($params->get("tumblrType")) {
-
+            $thumlrTitle = JText::_('PLG_CONTENT_ITPSHARE_SHARE_THUMBLR');
+            switch ($params->get('tumblrType')) {
                 case 1:
                     $html .= '<a href="http://www.tumblr.com/share" title="' . $thumlrTitle . '" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:61px; height:20px; background:url(\'//platform.tumblr.com/v1/share_2.png\') top left no-repeat transparent;">' . $thumlrTitle . '</a>';
                     break;
@@ -1749,7 +1497,7 @@ class plgContentITPShare extends JPlugin
     }
 
     /**
-     * @param JRegistry $params
+     * @param Registry $params
      * @param string    $url
      * @param string    $title
      * @param string    $image
@@ -1758,53 +1506,78 @@ class plgContentITPShare extends JPlugin
      */
     private function getPinterest($params, $url, $title, $image)
     {
-        $html = "";
-        if ($params->get("pinterestButton")) {
+        $html = '';
+        if ($params->get('pinterestButton')) {
+            $bubblePosition = $params->get('pinterestType', 'beside');
 
-            $bubblePosition = $params->get("pinterestType", "beside");
-
-            $divClass = (strcmp("above", $bubblePosition) == 0) ? "itp-share-pinterest-above" : "itp-share-pinterest";
+            $divClass = (strcmp('above', $bubblePosition) === 0) ? 'itp-share-pinterest-above' : 'itp-share-pinterest';
 
             $html .= '<div class="' . $divClass . '">';
 
-            if (strcmp("one", $this->params->get('pinterestImages', "one")) == 0) {
-
-                $media = "";
-                if (!empty($image)) {
-                    $media = "&amp;media=" . rawurlencode($image);
-                }
-
-                $html .= '<a href="//pinterest.com/pin/create/button/?url=' . rawurldecode(html_entity_decode($url, ENT_COMPAT, 'UTF-8')) . $media . '&amp;description=' . rawurlencode($title) . '" data-pin-do="buttonPin" data-pin-config="' . $params->get("pinterestType", "beside") . '"><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a>';
+            if (strcmp('one', $this->params->get('pinterestImages', 'one')) === 0) {
+                $button = 'buttonPin';
             } else {
-                $html .= '<a href="//pinterest.com/pin/create/button/" data-pin-do="buttonBookmark" ><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a>';
+                $button = 'buttonBookmark';
+            }
+
+            $media = '';
+            if (!empty($image)) {
+                $media = '&amp;media=' . rawurlencode($image);
+            }
+
+            $large = '';
+            $largeSize = 20;
+            if ((bool)$this->params->get('linterestLarge')) {
+                $large = ' data-pin-tall="true" ';
+                $largeSize = 28;
+            }
+
+            $url = '?url=' . rawurldecode(html_entity_decode($url, ENT_COMPAT, 'UTF-8'));
+            $description = '&amp;description=' . rawurlencode($title);
+            $pin = ' data-pin-count="' . $params->get('pinterestType', 'beside') . '" ';
+
+            switch ($this->params->get('pinterestColor', 'gray')) {
+                case 'red':
+                    $dataColor = ' data-pin-color="red" ';
+                    $color = '//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_red_'.$largeSize.'.png';
+                    break;
+                case 'white':
+                    $dataColor = ' data-pin-color="white" ';
+                    $color = '//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_white_'.$largeSize.'.png';
+                    break;
+                default: //gray
+                    $dataColor = '';
+                    $color = '//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_'.$largeSize.'.png';
+                    break;
+            }
+
+            $html .= '<a href="//pinterest.com/pin/create/button/' .$url . $media . $description .'" data-pin-do="'.$button.'" '.$pin. $dataColor .$large.'><img src="'.$color.'" /></a>';
+
+            // Load the JS library
+            if ($params->get('loadPinterestJsLib') and !array_key_exists('pinterest', self::$loaded)) {
+                $html .= '<script async defer src="//assets.pinterest.com/js/pinit.js"></script>';
+                self::$loaded['pinterest'] = true;
             }
 
             $html .= '</div>';
-
-            // Load the JS library
-            if ($params->get("loadPinterestJsLib")) {
-                $html .= '<script type="text/javascript" async src="//assets.pinterest.com/js/pinit.js"></script>';
-            }
         }
 
         return $html;
     }
 
     /**
-     * @param JRegistry $params
+     * @param Registry $params
      * @param string    $url
      *
      * @return string
      */
     private function getStumbpleUpon($params, $url)
     {
-
-        $html = "";
-        if ($params->get("stumbleButton")) {
-
+        $html = '';
+        if ($params->get('stumbleButton')) {
             $html = "
             <div class=\"itp-share-su\">
-            <su:badge layout='" . $params->get("stumbleType", 1) . "' location='" . rawurldecode(html_entity_decode($url, ENT_COMPAT, 'UTF-8')) . "'></su:badge>
+            <su:badge layout='" . $params->get('stumbleType', 1) . "' location='" . rawurldecode(html_entity_decode($url, ENT_COMPAT, 'UTF-8')) . "'></su:badge>
             </div>
             
             <script>
@@ -1821,22 +1594,20 @@ class plgContentITPShare extends JPlugin
     }
 
     /**
-     * @param JRegistry $params
+     * @param Registry $params
      * @param string    $url
      * @param string    $title
      * @param string    $image
      *
      * @return string
      */
-    private function getBuffer($params, $url, $title, $image = "")
+    private function getBuffer($params, $url, $title, $image = '')
     {
+        $html = '';
+        if ($params->get('bufferButton')) {
+            $title = htmlentities($title, ENT_QUOTES, 'UTF-8');
 
-        $html = "";
-        if ($params->get("bufferButton")) {
-
-            $title = htmlentities($title, ENT_QUOTES, "UTF-8");
-
-            $picture = "";
+            $picture = '';
             if (!empty($image)) {
                 $picture = 'data-picture="' . $image . '"';
             }
@@ -1855,152 +1626,152 @@ class plgContentITPShare extends JPlugin
     {
         // Default locales
         $result = array(
-            "twitter"  => "en",
-            "facebook" => "en_US",
-            "google"   => "en"
+            'twitter'  => 'en',
+            'facebook' => 'en_US',
+            'google'   => 'en'
         );
 
         // The locales map
         $locales = array(
-            "en_US" => array(
-                "twitter"  => "en",
-                "facebook" => "en_US",
-                "google"   => "en"
+            'en_US' => array(
+                'twitter'  => 'en',
+                'facebook' => 'en_US',
+                'google'   => 'en'
             ),
-            "en_GB" => array(
-                "twitter"  => "en",
-                "facebook" => "en_GB",
-                "google"   => "en_GB"
+            'en_GB' => array(
+                'twitter'  => 'en',
+                'facebook' => 'en_GB',
+                'google'   => 'en_GB'
             ),
-            "th_TH" => array(
-                "twitter"  => "th",
-                "facebook" => "th_TH",
-                "google"   => "th"
+            'th_TH' => array(
+                'twitter'  => 'th',
+                'facebook' => 'th_TH',
+                'google'   => 'th'
             ),
-            "ms_MY" => array(
-                "twitter"  => "msa",
-                "facebook" => "ms_MY",
-                "google"   => "ms"
+            'ms_MY' => array(
+                'twitter'  => 'msa',
+                'facebook' => 'ms_MY',
+                'google'   => 'ms'
             ),
-            "tr_TR" => array(
-                "twitter"  => "tr",
-                "facebook" => "tr_TR",
-                "google"   => "tr"
+            'tr_TR' => array(
+                'twitter'  => 'tr',
+                'facebook' => 'tr_TR',
+                'google'   => 'tr'
             ),
-            "hi_IN" => array(
-                "twitter"  => "hi",
-                "facebook" => "hi_IN",
-                "google"   => "hi"
+            'hi_IN' => array(
+                'twitter'  => 'hi',
+                'facebook' => 'hi_IN',
+                'google'   => 'hi'
             ),
-            "tl_PH" => array(
-                "twitter"  => "fil",
-                "facebook" => "tl_PH",
-                "google"   => "fil"
+            'tl_PH' => array(
+                'twitter'  => 'fil',
+                'facebook' => 'tl_PH',
+                'google'   => 'fil'
             ),
-            "zh_CN" => array(
-                "twitter"  => "zh-cn",
-                "facebook" => "zh_CN",
-                "google"   => "zh"
+            'zh_CN' => array(
+                'twitter'  => 'zh-cn',
+                'facebook' => 'zh_CN',
+                'google'   => 'zh'
             ),
-            "ko_KR" => array(
-                "twitter"  => "ko",
-                "facebook" => "ko_KR",
-                "google"   => "ko"
+            'ko_KR' => array(
+                'twitter'  => 'ko',
+                'facebook' => 'ko_KR',
+                'google'   => 'ko'
             ),
-            "it_IT" => array(
-                "twitter"  => "it",
-                "facebook" => "it_IT",
-                "google"   => "it"
+            'it_IT' => array(
+                'twitter'  => 'it',
+                'facebook' => 'it_IT',
+                'google'   => 'it'
             ),
-            "da_DK" => array(
-                "twitter"  => "da",
-                "facebook" => "da_DK",
-                "google"   => "da"
+            'da_DK' => array(
+                'twitter'  => 'da',
+                'facebook' => 'da_DK',
+                'google'   => 'da'
             ),
-            "fr_FR" => array(
-                "twitter"  => "fr",
-                "facebook" => "fr_FR",
-                "google"   => "fr"
+            'fr_FR' => array(
+                'twitter'  => 'fr',
+                'facebook' => 'fr_FR',
+                'google'   => 'fr'
             ),
-            "pl_PL" => array(
-                "twitter"  => "pl",
-                "facebook" => "pl_PL",
-                "google"   => "pl"
+            'pl_PL' => array(
+                'twitter'  => 'pl',
+                'facebook' => 'pl_PL',
+                'google'   => 'pl'
             ),
-            "nl_NL" => array(
-                "twitter"  => "nl",
-                "facebook" => "nl_NL",
-                "google"   => "nl"
+            'nl_NL' => array(
+                'twitter'  => 'nl',
+                'facebook' => 'nl_NL',
+                'google'   => 'nl'
             ),
-            "id_ID" => array(
-                "twitter"  => "in",
-                "facebook" => "nl_NL",
-                "google"   => "in"
+            'id_ID' => array(
+                'twitter'  => 'in',
+                'facebook' => 'nl_NL',
+                'google'   => 'in'
             ),
-            "hu_HU" => array(
-                "twitter"  => "hu",
-                "facebook" => "hu_HU",
-                "google"   => "hu"
+            'hu_HU' => array(
+                'twitter'  => 'hu',
+                'facebook' => 'hu_HU',
+                'google'   => 'hu'
             ),
-            "fi_FI" => array(
-                "twitter"  => "fi",
-                "facebook" => "fi_FI",
-                "google"   => "fi"
+            'fi_FI' => array(
+                'twitter'  => 'fi',
+                'facebook' => 'fi_FI',
+                'google'   => 'fi'
             ),
-            "es_ES" => array(
-                "twitter"  => "es",
-                "facebook" => "es_ES",
-                "google"   => "es"
+            'es_ES' => array(
+                'twitter'  => 'es',
+                'facebook' => 'es_ES',
+                'google'   => 'es'
             ),
-            "ja_JP" => array(
-                "twitter"  => "ja",
-                "facebook" => "ja_JP",
-                "google"   => "ja"
+            'ja_JP' => array(
+                'twitter'  => 'ja',
+                'facebook' => 'ja_JP',
+                'google'   => 'ja'
             ),
-            "nn_NO" => array(
-                "twitter"  => "no",
-                "facebook" => "nn_NO",
-                "google"   => "no"
+            'nn_NO' => array(
+                'twitter'  => 'no',
+                'facebook' => 'nn_NO',
+                'google'   => 'no'
             ),
-            "ru_RU" => array(
-                "twitter"  => "ru",
-                "facebook" => "ru_RU",
-                "google"   => "ru"
+            'ru_RU' => array(
+                'twitter'  => 'ru',
+                'facebook' => 'ru_RU',
+                'google'   => 'ru'
             ),
-            "pt_PT" => array(
-                "twitter"  => "pt",
-                "facebook" => "pt_PT",
-                "google"   => "pt"
+            'pt_PT' => array(
+                'twitter'  => 'pt',
+                'facebook' => 'pt_PT',
+                'google'   => 'pt'
             ),
-            "pt_BR" => array(
-                "twitter"  => "pt",
-                "facebook" => "pt_BR",
-                "google"   => "pt"
+            'pt_BR' => array(
+                'twitter'  => 'pt',
+                'facebook' => 'pt_BR',
+                'google'   => 'pt'
             ),
-            "sv_SE" => array(
-                "twitter"  => "sv",
-                "facebook" => "sv_SE",
-                "google"   => "sv"
+            'sv_SE' => array(
+                'twitter'  => 'sv',
+                'facebook' => 'sv_SE',
+                'google'   => 'sv'
             ),
-            "zh_HK" => array(
-                "twitter"  => "zh-tw",
-                "facebook" => "zh_HK",
-                "google"   => "zh_HK"
+            'zh_HK' => array(
+                'twitter'  => 'zh-tw',
+                'facebook' => 'zh_HK',
+                'google'   => 'zh_HK'
             ),
-            "zh_TW" => array(
-                "twitter"  => "zh-tw",
-                "facebook" => "zh_TW",
-                "google"   => "zh_TW"
+            'zh_TW' => array(
+                'twitter'  => 'zh-tw',
+                'facebook' => 'zh_TW',
+                'google'   => 'zh_TW'
             ),
-            "de_DE" => array(
-                "twitter"  => "de",
-                "facebook" => "de_DE",
-                "google"   => "de"
+            'de_DE' => array(
+                'twitter'  => 'de',
+                'facebook' => 'de_DE',
+                'google'   => 'de'
             ),
-            "bg_BG" => array(
-                "twitter"  => "en",
-                "facebook" => "bg_BG",
-                "google"   => "bg"
+            'bg_BG' => array(
+                'twitter'  => 'en',
+                'facebook' => 'bg_BG',
+                'google'   => 'bg'
             ),
 
         );
@@ -2010,114 +1781,57 @@ class plgContentITPShare extends JPlugin
         }
 
         return $result;
-
     }
 
     /**
-     * @param JRegistry $params
+     * @param Registry $params
      * @param string    $url
      *
      * @return string
      */
     private function getGoogleShare($params, $url)
     {
-
-        $html = "";
-        if ($params->get("gsButton")) {
-
+        $html = '';
+        if ($params->get('gsButton')) {
             // Get locale code
-            if (!$params->get("dynamicLocale")) {
-                $this->gshareLocale = $params->get("gsLocale", "en");
+            if (!$params->get('dynamicLocale')) {
+                $gshareLocale = $params->get('gsLocale', 'en');
             } else {
-                $locales            = $this->getButtonsLocales($this->locale);
-                $this->gshareLocale = JArrayHelper::getValue($locales, "google", "en");
+                $locales      = $this->getButtonsLocales($this->locale);
+                $gshareLocale = ArrayHelper::getValue($locales, 'google', 'en');
             }
 
             $html .= '<div class="itp-share-gshare">';
 
-            switch ($params->get("gsRenderer")) {
-
-                case 1:
-                    $html .= $this->genGoogleShare($params, $url);
-                    break;
-
-                default:
-                    $html .= $this->genGoogleShareHTML5($params, $url);
-                    break;
+            $annotation = '';
+            if ($params->get('gsAnnotation')) {
+                $annotation = ' data-annotation="' . $params->get('gsAnnotation') . '"';
             }
+            
+            $size = '';
+            if ($params->get('gsType') !== 'vertical-bubble') {
+                $size = ' data-height="' .$params->get('gsType') . '"';
+            }
+            
+            $html .= '<div class="g-plus" data-action="share" ' . $annotation . $size . ' data-href="' . $url . '"></div>';
 
             // Load the JavaScript asynchroning
-            if ($params->get("loadGoogleJsLib")) {
-
-                $html .= '<script>';
+            if ($params->get('loadGoogleJsLib')) {
+                $html .= '<script type="text/javascript">';
                 if ($this->gshareLocale) {
-                    $html .= ' window.___gcfg = {lang: "' . $this->gshareLocale . '"}; ';
+                    $html .= ' window.___gcfg = {lang: "' . $gshareLocale . '"}; ';
                 }
-
                 $html .= '
-                  (function() {
-                    var po = document.createElement("script"); po.type = "text/javascript"; po.async = true;
-                    po.src = "https://apis.google.com/js/plusone.js";
-                    var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s);
-                  })();
+  (function() {
+    var po = document.createElement(\'script\'); po.type = \'text/javascript\'; po.async = true;
+    po.src = \'https://apis.google.com/js/platform.js\';
+    var s = document.getElementsByTagName(\'script\')[0]; s.parentNode.insertBefore(po, s);
+  })();
                 </script>';
             }
 
             $html .= '</div>';
         }
-
-        return $html;
-    }
-
-    /**
-     * Render the Google Share in standard syntax.
-     *
-     * @param JRegistry $params
-     * @param string    $url
-     *
-     * @return string
-     */
-    private function genGoogleShare($params, $url)
-    {
-
-        $annotation = "";
-        if ($params->get("gsAnnotation")) {
-            $annotation = ' annotation="' . $params->get("gsAnnotation") . '"';
-        }
-
-        $size = "";
-        if ($params->get("gsAnnotation") != "vertical-bubble") {
-            $size = ' height="' . $params->get("gsType") . '" ';
-        }
-
-        $html = '<g:plus action="share" ' . $annotation . $size . ' href="' . $url . '"></g:plus>';
-
-        return $html;
-    }
-
-    /**
-     *
-     * Render the Google Share in HTML5 syntax
-     *
-     * @param JRegistry $params
-     * @param string    $url
-     *
-     * @return string
-     */
-    private function genGoogleShareHTML5($params, $url)
-    {
-
-        $annotation = "";
-        if ($params->get("gsAnnotation")) {
-            $annotation = ' data-annotation="' . $params->get("gsAnnotation") . '"';
-        }
-
-        $size = "";
-        if ($params->get("gsAnnotation") != "vertical-bubble") {
-            $size = ' data-height="' . $params->get("gsType") . '" ';
-        }
-
-        $html = '<div class="g-plus" data-action="share" ' . $annotation . $size . ' data-href="' . $url . '"></div>';
 
         return $html;
     }

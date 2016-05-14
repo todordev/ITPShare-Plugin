@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="3.2" type="plugin" group="content" method="upgrade">
+<extension version="3.5" type="plugin" group="content" method="upgrade">
     <name>PLG_CONTENT_ITPSHARE</name>
     <author>Todor Iliev</author>
-    <copyright>Copyright (C) 2014 Todor Iliev ( ITPrism.com ). All rights reserved.</copyright>
-    <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+    <copyright>Copyright (C) 2016 Todor Iliev ( ITPrism.com ). All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-3.0.en.html GNU/GPLv3</license>
     <authorEmail>todor@itprism.com</authorEmail>
     <authorUrl>http://itprism.com</authorUrl>
-    <version>2.9</version>
-    <creationDate>05 May, 2014</creationDate>
+    <version>2.10</version>
+    <creationDate>13 May, 2016</creationDate>
     <description><![CDATA[
     <p><a href="http://itprism.com/free-joomla-extensions/social-marketing-seo/socialmedia-multi-share" target="_blank">ITPShare</a> is an extension that adds republish buttons, widgets or goodies on your site. There are social plugins of Twitter, Facebook, LinkedIn, Stumbleupon, Google Plus, Google Share, Thumblr, Pinterest, BufferApp,... It will help you to find more readers for your publications.</p>
     <p><a href='http://itprism.com/help/30-itpshare-documentation-faq' target='_blank'>Read documentation</a> that will help you to setup the extensions.</p>
@@ -18,10 +18,8 @@
     
     <files>
         <filename plugin="itpshare">itpshare.php</filename>
-        <filename>index.html</filename>
         <filename>shorturl.php</filename>
 		<filename>style.css</filename>
-		<filename>README.md</filename>
 
         <folder>language</folder>
     </files>
@@ -138,11 +136,6 @@
                 <field name="facebookLikeButton" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_DISPLAY_BUTTON" description="PLG_CONTENT_ITPSHARE_DISPLAY_BUTTON_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
-                </field>
-                <field name="facebookLikeRenderer" type="list" default="2" label="PLG_CONTENT_ITPSHARE_FACEBOOK_RENDERER" description="PLG_CONTENT_ITPSHARE_FACEBOOK_RENDERER_DESC" >
-                   <option value="0">iframe</option>
-                   <option value="1">XFBML</option>
-                   <option value="2">HTML5</option>
                 </field>
                 <field name="facebookLikeAction" type="list" default="like" label="PLG_CONTENT_ITPSHARE_FACEBOOK_TEXT" description="PLG_CONTENT_ITPSHARE_FACEBOOK_TEXT_DESC" >
                    <option value="like">PLG_CONTENT_ITPSHARE_LIKE</option>
@@ -397,10 +390,6 @@
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
                 </field>
-                <field name="plusRenderer" type="list" default="0" label="PLG_CONTENT_ITPSHARE_GOOGLE_ONE_RENDERER" description="PLG_CONTENT_ITPSHARE_GOOGLE_ONE_RENDERER_DESC" >
-                   <option value="0">HTML5</option>
-                   <option value="1">PLG_CONTENT_ITPSHARE_STANDARD</option>
-                </field>
                 <field name="plusType" type="list" default="medium" label="PLG_CONTENT_ITPSHARE_GOOGLE_ONE_STYLE" description="PLG_CONTENT_ITPSHARE_GOOGLE_ONE_STYLE_DESC" >
                    <option value="small">PLG_CONTENT_ITPSHARE_SMALL_15</option>
                    <option value="standart">PLG_CONTENT_ITPSHARE_STANDARD_24</option>
@@ -497,6 +486,15 @@
                    <option value="above">PLG_CONTENT_ITPSHARE_ABOVE_BUTTON</option>
                    <option value="beside">PLG_CONTENT_ITPSHARE_BESIDE_BUTTON</option>
                 </field>
+                <field name="pinterestColor" type="list" default="gray" label="PLG_CONTENT_ITPSHARE_PINTEREST_COLOR" description="PLG_CONTENT_ITPSHARE_PINTEREST_COLOR_DESC" >
+                    <option value="gray">PLG_CONTENT_ITPSHARE_GRAY</option>
+                    <option value="red">PLG_CONTENT_ITPSHARE_RED</option>
+                    <option value="white">PLG_CONTENT_ITPSHARE_WHITE</option>
+                </field>
+                <field name="linterestLarge" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_LARGE" description="PLG_CONTENT_ITPSHARE_PINTEREST_LARGE_DESC" class="btn-group">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
                 <field name="loadPinterestJsLib" type="radio" default="1" label="PLG_CONTENT_ITPSHARE_PINTEREST_JS" description="PLG_CONTENT_ITPSHARE_PINTEREST_LOAD_JS_DESC" class="btn-group">
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
@@ -520,10 +518,6 @@
                 <field name="gsButton" type="radio" default="0" label="PLG_CONTENT_ITPSHARE_DISPLAY_BUTTON" description="PLG_CONTENT_ITPSHARE_DISPLAY_BUTTON_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
-                </field>
-                <field name="gsRenderer" type="list" default="0" label="PLG_CONTENT_ITPSHARE_GOOGLE_SHARE_RENDERER" description="PLG_CONTENT_ITPSHARE_GOOGLE_SHARE_RENDERER_DESC" >
-                   <option value="0">HTML5</option>
-                   <option value="1">PLG_CONTENT_ITPSHARE_STANDARD</option>
                 </field>
                 <field name="gsType" type="list" default="0" label="PLG_CONTENT_ITPSHARE_GOOGLE_SHARE_STYLE" description="PLG_CONTENT_ITPSHARE_GOOGLE_SHARE_STYLE_DESC" >
                    <option value="15">PLG_CONTENT_ITPSHARE_SMALL_15</option>

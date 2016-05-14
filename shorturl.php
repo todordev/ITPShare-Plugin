@@ -1,9 +1,10 @@
 <?php
 /**
- * @package      ITPShare
- * @subpackage   Plugins
- * @copyright    Copyright (C) 2014 Todor Iliev <todor@itprism.com>. All rights reserved.
- * @license      http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @package         ITPrism Plugins
+ * @subpackage      ITPShare
+ * @author          Todor Iliev
+ * @copyright       Copyright (C) 2016 Todor Iliev <todor@itprism.com>. All rights reserved.
+ * @license         http://www.gnu.org/licenses/gpl-3.0.en.html GNU/GPLv3
  */
 
 // no direct access
@@ -50,7 +51,6 @@ class ItpSharePluginShortUrl
         }
 
         switch ($this->service) {
-
             case "jmp":
                 $this->getBitlyURL("j.mp");
                 break;
@@ -70,7 +70,6 @@ class ItpSharePluginShortUrl
             default: // bit.ly
                 $this->getBitlyURL("bit.ly");
                 break;
-
         }
 
         return $this->shortUrl;
@@ -85,7 +84,6 @@ class ItpSharePluginShortUrl
      */
     protected function getBitlyURL($domain = "bit.ly")
     {
-
         $url = "http://api.bitly.com/v3/shorten?login=" . $this->login . "&apiKey=" . $this->apiKey . "&longUrl=" . rawurldecode(html_entity_decode($this->url, ENT_COMPAT, 'UTF-8')) . "&format=json&domain=" . $domain;
 
         $curlObj = curl_init();
