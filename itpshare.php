@@ -1527,7 +1527,7 @@ class plgContentITPShare extends JPlugin
 
             $large = '';
             $largeSize = 20;
-            if ((bool)$this->params->get('linterestLarge')) {
+            if ((bool)$this->params->get('pinterestLarge')) {
                 $large = ' data-pin-tall="true" ';
                 $largeSize = 28;
             }
@@ -1816,7 +1816,7 @@ class plgContentITPShare extends JPlugin
             $html .= '<div class="g-plus" data-action="share" ' . $annotation . $size . ' data-href="' . $url . '"></div>';
 
             // Load the JavaScript asynchroning
-            if ($params->get('loadGoogleJsLib')) {
+            if ($params->get('loadGoogleJsLib') and !array_key_exists('google', self::$loaded)) {
                 $html .= '<script type="text/javascript">';
                 if ($this->gshareLocale) {
                     $html .= ' window.___gcfg = {lang: "' . $gshareLocale . '"}; ';

@@ -21,7 +21,7 @@ Changelog
 
 ###v2.10
 * Removed Facebook renderer. Now it generates HTML5 code.
-* Removed Google One and Share renderer. Now it generates HTML5 code.
+* Removed Google One and Google Share renderer. Now it generates HTML5 code.
 * Improved Pinterest. Added options Large and Colour.
 
 ###v2.9
