@@ -45,7 +45,7 @@ class plgContentITPShare extends JPlugin
      */
     public function onContentPrepare($context, &$article, &$params, $page = 0)
     {
-        if (!$article or !isset($this->params) or empty($article->text)) {
+        if (!$article or ($this->params === null) or empty($article->text)) {
             return;
         }
 
@@ -83,9 +83,7 @@ class plgContentITPShare extends JPlugin
                     $article->text = $content . $article->text . $content;
                     break;
             }
-
         }
-
     }
 
     /**
@@ -198,7 +196,6 @@ class plgContentITPShare extends JPlugin
 
         // Generate and return content
         return $this->getContent($article, $context);
-
     }
 
     private function isRestricted($article, $context, $params)
@@ -254,7 +251,6 @@ class plgContentITPShare extends JPlugin
         }
 
         return $result;
-
     }
 
     /**
@@ -294,26 +290,29 @@ class plgContentITPShare extends JPlugin
         // Exclude articles
         $excludeArticles = $this->params->get('excludeArticles');
         if ($excludeArticles !== null and $excludeArticles !== '') {
-            $excludeArticles = explode(',', $excludeArticles);
+            $excludeArticles = (array)explode(',', $excludeArticles);
+            $excludeArticles = ArrayHelper::toInteger($excludeArticles);
+        } else {
+            $excludeArticles = array();
         }
-        settype($excludeArticles, 'array');
-        ArrayHelper::toInteger($excludeArticles);
 
         // Excluded categories
         $excludedCats = $this->params->get('excludeCats');
         if ($excludedCats !== null and $excludedCats !== '') {
             $excludedCats = explode(',', $excludedCats);
+            $excludedCats = ArrayHelper::toInteger($excludedCats);
+        } else {
+            $excludedCats = array();
         }
-        settype($excludedCats, 'array');
-        ArrayHelper::toInteger($excludedCats);
 
         // Included Articles
         $includedArticles = $this->params->get('includeArticles');
         if ($includedArticles !== null and $includedArticles !== '') {
             $includedArticles = explode(',', $includedArticles);
+            $includedArticles = ArrayHelper::toInteger($includedArticles);
+        } else {
+            $includedArticles = array();
         }
-        settype($includedArticles, 'array');
-        ArrayHelper::toInteger($includedArticles);
 
         if (!in_array((int)$article->id, $includedArticles, true)) {
             // Check excluded articles
@@ -368,25 +367,28 @@ class plgContentITPShare extends JPlugin
         $excludeArticles = $this->params->get('k2_exclude_articles');
         if ($excludeArticles !== null and $excludeArticles !== '') {
             $excludeArticles = explode(',', $excludeArticles);
+            $excludeArticles = ArrayHelper::toInteger($excludeArticles);
+        } else {
+            $excludeArticles = array();
         }
-        settype($excludeArticles, 'array');
-        ArrayHelper::toInteger($excludeArticles);
 
         // Exluded categories
         $excludedCats = $this->params->get('k2_exclude_cats');
         if ($excludedCats !== null and $excludedCats !== '') {
             $excludedCats = explode(',', $excludedCats);
+            $excludedCats = ArrayHelper::toInteger($excludedCats);
+        } else {
+            $excludedCats = array();
         }
-        settype($excludedCats, 'array');
-        ArrayHelper::toInteger($excludedCats);
 
         // Included Articles
         $includedArticles = $this->params->get('k2_include_articles');
         if ($includedArticles !== null and $includedArticles !== '') {
             $includedArticles = explode(',', $includedArticles);
+            $includedArticles = ArrayHelper::toInteger($includedArticles);
+        } else {
+            $includedArticles = array();
         }
-        settype($includedArticles, 'array');
-        ArrayHelper::toInteger($includedArticles);
 
         if (!in_array((int)$article->id, $includedArticles, true)) {
             // Check excluded articles
@@ -722,7 +724,7 @@ class plgContentITPShare extends JPlugin
             $imageName = $db->loadResult();
             if (!empty($imageName)) {
                 $config               = JSFactory::getConfig();
-                $article->image_intro = (isset($config->image_product_live_path)) ? $config->image_product_live_path .'/'. $imageName : '';
+                $article->image_intro = isset($config->image_product_live_path) ? $config->image_product_live_path .'/'. $imageName : '';
             }
         }
     }
@@ -820,7 +822,6 @@ class plgContentITPShare extends JPlugin
                 $article->image_intro = $uploadFolder . $result->file_path;
             }
         }
-
     }
 
     /**
@@ -925,7 +926,7 @@ class plgContentITPShare extends JPlugin
                 break;
 
             case 'com_userideas':
-                $uri = JRoute::_($article->link, false);;
+                $uri = JRoute::_($article->link, false);
                 break;
 
             default:
@@ -971,7 +972,7 @@ class plgContentITPShare extends JPlugin
                 break;
 
             case 'com_virtuemart':
-                $title = (!empty($article->custom_title)) ? $article->custom_title : $article->product_name;
+                $title = !empty($article->custom_title) ? $article->custom_title : $article->product_name;
                 break;
 
             case 'com_jevents':
@@ -1022,7 +1023,6 @@ class plgContentITPShare extends JPlugin
         }
 
         return $title;
-
     }
 
     private function getImage($article)
@@ -1034,24 +1034,24 @@ class plgContentITPShare extends JPlugin
                 if (!empty($article->images)) {
                     $images = json_decode($article->images);
                     if (!empty($images->image_intro)) {
-                        $result = JURI::root() . $images->image_intro;
+                        $result = JUri::root() . $images->image_intro;
                     }
                 }
                 break;
 
             case 'com_k2':
                 if (!empty($article->imageSmall)) {
-                    $result = JURI::root() . $article->imageSmall;
+                    $result = JUri::root() . $article->imageSmall;
                 }
                 break;
 
             case 'com_easyblog':
-                $result = JURI::root() . $article->image_intro;
+                $result = JUri::root() . $article->image_intro;
                 break;
 
             case 'com_virtuemart':
                 if (!empty($article->image_intro)) {
-                    $result = JURI::root() . $article->image_intro;
+                    $result = JUri::root() . $article->image_intro;
                 }
                 break;
 
@@ -1073,7 +1073,7 @@ class plgContentITPShare extends JPlugin
 
             case 'com_hikashop':
                 if (!empty($article->image_intro)) {
-                    $result = JURI::root() . $article->image_intro;
+                    $result = JUri::root() . $article->image_intro;
                 }
                 break;
 
@@ -1096,11 +1096,12 @@ class plgContentITPShare extends JPlugin
      *
      * @param string $link
      *
+     * @throws \UnexpectedValueException
      * @return string
      */
     private function getShortUrl($link)
     {
-        JLoader::register('ItpSharePluginShortUrl', dirname(__FILE__) . DIRECTORY_SEPARATOR . 'shorturl.php');
+        JLoader::register('ItpSharePluginShortUrl', JPath::clean(__DIR__ .DIRECTORY_SEPARATOR . 'shorturl.php'));
         $options = array(
             'login'   => $this->params->get('shortener_login'),
             'api_key' => $this->params->get('shortener_api_key'),
@@ -1173,7 +1174,7 @@ class plgContentITPShare extends JPlugin
             if (!$params->get('dynamicLocale')) {
                 $twitterLocale = $params->get('twitterLanguage', 'en');
             } else {
-                $locales             = $this->getButtonsLocales($this->locale);
+                $locales       = $this->getButtonsLocales($this->locale);
                 $twitterLocale = ArrayHelper::getValue($locales, 'twitter', 'en');
             }
 
@@ -1195,6 +1196,7 @@ class plgContentITPShare extends JPlugin
      * @param Registry $params
      * @param string    $url
      *
+     * @throws \InvalidArgumentException
      * @return string
      */
     private function getGooglePlusOne($params, $url)
@@ -1237,6 +1239,7 @@ class plgContentITPShare extends JPlugin
      * @param Registry $params
      * @param string    $url
      *
+     * @throws \InvalidArgumentException
      * @return string
      */
     private function getFacebookLike($params, $url)
@@ -1275,7 +1278,7 @@ class plgContentITPShare extends JPlugin
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/' . $this->fbLocale . '/sdk.js#xfbml=1&version=v2.6' . $appId . '";
+  js.src = "//connect.facebook.net/' . $this->fbLocale . '/sdk.js#xfbml=1&version=v2.7' . $appId . '";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, \'script\', \'facebook-jssdk\'));</script>';
             }
@@ -1787,6 +1790,7 @@ class plgContentITPShare extends JPlugin
      * @param Registry $params
      * @param string    $url
      *
+     * @throws \InvalidArgumentException
      * @return string
      */
     private function getGoogleShare($params, $url)
@@ -1815,7 +1819,7 @@ class plgContentITPShare extends JPlugin
             
             $html .= '<div class="g-plus" data-action="share" ' . $annotation . $size . ' data-href="' . $url . '"></div>';
 
-            // Load the JavaScript asynchroning
+            // Load the JavaScript asynchronous
             if ($params->get('loadGoogleJsLib') and !array_key_exists('google', self::$loaded)) {
                 $html .= '<script type="text/javascript">';
                 if ($this->gshareLocale) {

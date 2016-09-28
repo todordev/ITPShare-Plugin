@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="3.5" type="plugin" group="content" method="upgrade">
+<extension version="3.6" type="plugin" group="content" method="upgrade">
     <name>PLG_CONTENT_ITPSHARE</name>
     <author>Todor Iliev</author>
     <copyright>Copyright (C) 2016 Todor Iliev ( ITPrism.com ). All rights reserved.</copyright>
     <license>http://www.gnu.org/licenses/gpl-3.0.en.html GNU/GPLv3</license>
     <authorEmail>todor@itprism.com</authorEmail>
     <authorUrl>http://itprism.com</authorUrl>
-    <version>2.10</version>
-    <creationDate>13 May, 2016</creationDate>
+    <version>2.11</version>
+    <creationDate>28 September, 2016</creationDate>
     <description><![CDATA[
     <p><a href="http://itprism.com/free-joomla-extensions/social-marketing-seo/socialmedia-multi-share" target="_blank">ITPShare</a> is an extension that adds republish buttons, widgets or goodies on your site. There are social plugins of Twitter, Facebook, LinkedIn, Stumbleupon, Google Plus, Google Share, Thumblr, Pinterest, BufferApp,... It will help you to find more readers for your publications.</p>
     <p><a href='http://itprism.com/help/30-itpshare-documentation-faq' target='_blank'>Read documentation</a> that will help you to setup the extensions.</p>
